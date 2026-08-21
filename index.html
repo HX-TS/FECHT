@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <title>FEC Hydrotest Instrument Update</title>
+
+  <style>
+
+    /* =====================================================
+       RESET
+    ===================================================== */
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+
+      background: #eef2f6;
+      color: #172033;
+
+      display: flex;
+      flex-direction: column;
+
+      overflow: hidden;
+    }
+
+
+    /* =====================================================
+       GLOBAL COLUMN SIZE
+    ===================================================== */
+
+    :root {
+      --datetime-column-width: 150px;
+    }
+
+
+    /* =====================================================
+       MAIN HEADER
+    ===================================================== */
+
+    .main-header {
+      flex-shrink: 0;
+
+      background: #ffffff;
+
+      padding:
+        max(14px, env(safe-area-inset-top))
+        15px
+        14px;
+
+      text-align: center;
+
+      border-bottom: 1px solid #dce2e8;
+    }
+
+    .main-title {
+      font-size: clamp(20px, 2.2vw, 30px);
+      font-weight: 700;
+
+      color: #15233b;
+
+      line-height: 1.2;
+    }
+
+
+    /* =====================================================
+       DASHBOARD
+    ===================================================== */
+
+    .dashboard {
+      flex: 1;
+      min-height: 0;
+
+      display: grid;
+
+      grid-template-rows:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+      gap: 10px;
+
+      padding: 10px;
+    }
+
+
+    /* =====================================================
+       READING CARD
+    ===================================================== */
+
+    .reading-card {
+      min-height: 0;
+
+      display: flex;
+      flex-direction: column;
+
+      background: #ffffff;
+
+      border: 1px solid #d8dee6;
+      border-radius: 10px;
+
+      overflow: hidden;
+
+      box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+
+    /* =====================================================
+       CARD HEADER
+    ===================================================== */
+
+    .card-header {
+      position: relative;
+
+      flex-shrink: 0;
+
+      min-height: 42px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 8px 16px;
+
+      background: #1d2939;
+
+      color: #ffffff;
+    }
+
+    .card-title {
+      text-align: center;
+
+      font-size: 16px;
+      font-weight: 700;
+
+      letter-spacing: 0.5px;
+    }
+
+
+    /* =====================================================
+       TABLE CONTAINER
+    ===================================================== */
+
+    .table-container {
+      flex: 1;
+      min-height: 0;
+
+      overflow: auto;
+
+      background: #ffffff;
+
+      scrollbar-width: thin;
+    }
+
+
+    /* =====================================================
+       TABLE
+    ===================================================== */
+
+    table {
+      width: 100%;
+
+      border-collapse: collapse;
+
+      table-layout: auto;
+
+      background: #ffffff;
+
+      font-size: 13px;
+    }
+
+
+    /* =====================================================
+       TABLE HEADER
+    ===================================================== */
+
+    thead {
+      position: sticky;
+      top: 0;
+
+      z-index: 10;
+    }
+
+    th {
+      min-width: 125px;
+
+      padding: 10px 12px;
+
+      background: #5c3b8e;
+      color: #ffffff;
+
+      text-align: center;
+
+      vertical-align: middle;
+
+      font-size: 12px;
+      font-weight: 700;
+
+      line-height: 1.25;
+
+      white-space: normal;
+
+      border-right:
+        1px solid rgba(255, 255, 255, 0.18);
+
+      border-bottom:
+        1px solid rgba(255, 255, 255, 0.20);
+    }
+
+    th:last-child {
+      border-right: none;
+    }
+
+
+    /* =====================================================
+       TABLE BODY
+    ===================================================== */
+
+    td {
+      min-width: 125px;
+
+      padding: 8px 12px;
+
+      text-align: center;
+      vertical-align: middle;
+
+      white-space: nowrap;
+
+      color: #253142;
+
+      border-right: 1px solid #e3e6ea;
+      border-bottom: 1px solid #e3e6ea;
+    }
+
+    td:last-child {
+      border-right: none;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #fafbfc;
+    }
+
+    tbody tr:hover {
+      background: #f1f5f9;
+    }
+
+
+    /* =====================================================
+       TIMESTAMP / DATE / TIME
+
+       SAME WIDTH FOR GPS AND GPP4
+    ===================================================== */
+
+    th:nth-child(1),
+    td:nth-child(1),
+
+    th:nth-child(2),
+    td:nth-child(2),
+
+    th:nth-child(3),
+    td:nth-child(3) {
+
+      width: var(--datetime-column-width);
+      min-width: var(--datetime-column-width);
+      max-width: var(--datetime-column-width);
+
+    }
+
+
+    /* =====================================================
+       LOADING / ERROR / NO DATA
+    ===================================================== */
+
+    .message {
+      width: 100%;
+      height: 100%;
+
+      min-height: 100px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+
+      color: #7b8491;
+
+      font-size: 13px;
+      text-align: center;
+    }
+
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    .footer {
+      flex-shrink: 0;
+
+      min-height: 30px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding:
+        6px
+        10px
+        max(6px, env(safe-area-inset-bottom));
+
+      background: #ffffff;
+
+      border-top: 1px solid #dce2e8;
+
+      color: #667085;
+
+      font-size: 11px;
+      font-weight: 600;
+
+      letter-spacing: 0.5px;
+    }
+
+
+    /* =====================================================
+       TABLET / MOBILE
+    ===================================================== */
+
+    @media (max-width: 700px) {
+
+      :root {
+        --datetime-column-width: 120px;
+      }
+
+      .main-header {
+        padding-top:
+          max(10px, env(safe-area-inset-top));
+
+        padding-bottom: 10px;
+      }
+
+      .main-title {
+        font-size: 18px;
+      }
+
+      .dashboard {
+        padding: 5px;
+        gap: 5px;
+      }
+
+      .reading-card {
+        border-radius: 6px;
+      }
+
+      .card-header {
+        min-height: 34px;
+        padding: 6px 10px;
+      }
+
+      .card-title {
+        font-size: 13px;
+      }
+
+      th {
+        min-width: 105px;
+
+        padding: 8px 8px;
+
+        font-size: 10px;
+      }
+
+      td {
+        min-width: 105px;
+
+        padding: 7px 8px;
+
+        font-size: 11px;
+      }
+
+      .footer {
+        min-height: 24px;
+
+        padding-top: 4px;
+        padding-bottom:
+          max(4px, env(safe-area-inset-bottom));
+
+        font-size: 10px;
+      }
+    }
+
+
+    /* =====================================================
+       PHONE LANDSCAPE
+    ===================================================== */
+
+    @media (max-height: 550px) {
+
+      .main-header {
+        padding: 5px 10px;
+      }
+
+      .main-title {
+        font-size: 15px;
+      }
+
+      .dashboard {
+        padding: 3px;
+        gap: 3px;
+      }
+
+      .card-header {
+        min-height: 27px;
+        padding: 4px 8px;
+      }
+
+      .card-title {
+        font-size: 11px;
+      }
+
+      th {
+        padding: 5px 7px;
+      }
+
+      td {
+        padding: 5px 7px;
+      }
+
+      .footer {
+        min-height: 20px;
+
+        padding: 3px;
+
+        font-size: 9px;
+      }
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- =====================================================
+       MAIN TITLE
+  ====================================================== -->
+
+  <header class="main-header">
+
+    <div class="main-title">
+      FEC Hydrotest Instrument Update
+    </div>
+
+  </header>
+
+
+
+  <!-- =====================================================
+       DASHBOARD
+  ====================================================== -->
+
+  <main class="dashboard">
+
+
+    <!-- ===================================================
+         GPS
+    ==================================================== -->
+
+    <section class="reading-card">
+
+      <div class="card-header">
+
+        <div class="card-title">
+          GPS READING
+        </div>
+
+      </div>
+
+
+      <div
+        class="table-container"
+        id="gpsContainer"
+      >
+
+        <div class="message">
+          Loading GPS data...
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ===================================================
+         GPP4
+    ==================================================== -->
+
+    <section class="reading-card">
+
+      <div class="card-header">
+
+        <div class="card-title">
+          GPP4 READING
+        </div>
+
+      </div>
+
+
+      <div
+        class="table-container"
+        id="gpp4Container"
+      >
+
+        <div class="message">
+          Loading GPP4 data...
+        </div>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
+  <footer class="footer">
+    Fly TechSmith
+  </footer>
+
+
+
+  <script>
+
+    /* =====================================================
+       SETTINGS
+    ===================================================== */
+
+    const REFRESH_TIME = 60000;
+
+
+    /* =====================================================
+       GPS CONFIGURATION
+    ===================================================== */
+
+    const GPS = {
+
+      spreadsheetId:
+        "1OucgLhFiTqkeWiXJ0aI7j_tMsu9lVnqTxSK8y2AMCn4",
+
+      gid:
+        "1148130591",
+
+      range:
+        "A:Z",
+
+      container:
+        "gpsContainer",
+
+      callback:
+        "gpsResponse",
+
+      /*
+        GPS columns to hide from webpage
+      */
+
+      hiddenColumns: [
+        "INPUT"
+      ]
+
+    };
+
+
+    /* =====================================================
+       GPP4 CONFIGURATION
+    ===================================================== */
+
+    const GPP4 = {
+
+      spreadsheetId:
+        "1MKLNtFUQT8GiiVmyoXSkQjw7oPF2z44MO8gdCIUo5t0",
+
+      /*
+        Change this if GPP4 Form Response tab
+        uses another GID.
+      */
+
+      gid:
+        "0",
+
+      range:
+        "A:Z",
+
+      container:
+        "gpp4Container",
+
+      callback:
+        "gpp4Response",
+
+      hiddenColumns: []
+
+    };
+
+
+
+    /* =====================================================
+       LOAD GOOGLE SHEET
+    ===================================================== */
+
+    function loadSheet(config) {
+
+      /*
+        Only load rows where Timestamp / Column A
+        contains data.
+
+        This removes blank rows.
+      */
+
+      const query =
+        "select * where A is not null";
+
+
+      const tqx =
+        `out:json;responseHandler:${config.callback}`;
+
+
+      const url =
+        "https://docs.google.com/spreadsheets/d/" +
+        config.spreadsheetId +
+        "/gviz/tq" +
+
+        "?gid=" +
+        config.gid +
+
+        "&range=" +
+        encodeURIComponent(config.range) +
+
+        "&headers=1" +
+
+        "&tqx=" +
+        encodeURIComponent(tqx) +
+
+        "&tq=" +
+        encodeURIComponent(query) +
+
+        "&_=" +
+        Date.now();
+
+
+      /*
+        JSONP script method.
+
+        No external JavaScript library required.
+      */
+
+      const script =
+        document.createElement("script");
+
+
+      script.src = url;
+
+      script.async = true;
+
+
+      script.onerror = function () {
+
+        const container =
+          document.getElementById(
+            config.container
+          );
+
+
+        container.innerHTML =
+          '<div class="message">' +
+          'Unable to load Google Sheet data.' +
+          '</div>';
+
+      };
+
+
+      script.onload = function () {
+
+        setTimeout(function () {
+
+          if (script.parentNode) {
+            script.remove();
+          }
+
+        }, 1000);
+
+      };
+
+
+      document.head.appendChild(script);
+
+    }
+
+
+
+    /* =====================================================
+       CHECK IF CELL CONTAINS DATA
+    ===================================================== */
+
+    function cellHasValue(cell) {
+
+      if (!cell) {
+        return false;
+      }
+
+
+      if (
+        cell.v === null ||
+        cell.v === undefined ||
+        cell.v === ""
+      ) {
+        return false;
+      }
+
+
+      return true;
+
+    }
+
+
+
+    /* =====================================================
+       GET CELL DISPLAY VALUE
+    ===================================================== */
+
+    function getCellDisplayValue(cell) {
+
+      if (!cell) {
+        return "";
+      }
+
+
+      /*
+        Google formatted value.
+
+        Keeps date, time, decimal etc.
+        exactly as formatted in Google Sheet.
+      */
+
+      if (
+        cell.f !== undefined &&
+        cell.f !== null
+      ) {
+
+        return cell.f;
+
+      }
+
+
+      if (
+        cell.v !== undefined &&
+        cell.v !== null
+      ) {
+
+        return cell.v;
+
+      }
+
+
+      return "";
+
+    }
+
+
+
+    /* =====================================================
+       RENDER TABLE
+    ===================================================== */
+
+    function renderTable(response, config) {
+
+      const container =
+        document.getElementById(
+          config.container
+        );
+
+
+      if (
+        !response ||
+        !response.table
+      ) {
+
+        container.innerHTML =
+          '<div class="message">' +
+          'No data available.' +
+          '</div>';
+
+        return;
+
+      }
+
+
+      const columns =
+        response.table.cols || [];
+
+
+      const rows =
+        response.table.rows || [];
+
+
+      /* ===================================================
+         PREPARE HIDDEN COLUMN NAMES
+      =================================================== */
+
+      const hiddenColumns =
+        (config.hiddenColumns || [])
+          .map(function (name) {
+
+            return String(name)
+              .trim()
+              .toUpperCase();
+
+          });
+
+
+
+      /* ===================================================
+         DETERMINE VISIBLE COLUMNS
+      =================================================== */
+
+      const visibleColumns = [];
+
+
+      columns.forEach(
+        function (column, index) {
+
+          const columnName =
+            String(column.label || "")
+              .trim()
+              .toUpperCase();
+
+
+          /* -----------------------------------------------
+             CHECK IF COLUMN IS HIDDEN
+          ----------------------------------------------- */
+
+          const shouldHide =
+            hiddenColumns.includes(
+              columnName
+            );
+
+
+          if (shouldHide) {
+            return;
+          }
+
+
+          /* -----------------------------------------------
+             CHECK IF COLUMN CONTAINS DATA
+          ----------------------------------------------- */
+
+          const hasData =
+            rows.some(
+              function (row) {
+
+                if (!row.c) {
+                  return false;
+                }
+
+
+                return cellHasValue(
+                  row.c[index]
+                );
+
+              }
+            );
+
+
+          /*
+            Keep column when:
+
+            1. Header has a name
+            OR
+            2. Column contains actual data
+
+            Completely blank Google Sheet columns
+            are therefore removed.
+          */
+
+          if (
+            columnName !== "" ||
+            hasData
+          ) {
+
+            visibleColumns.push({
+
+              column: column,
+
+              index: index
+
+            });
+
+          }
+
+        }
+      );
+
+
+
+      /* ===================================================
+         NO COLUMNS
+      =================================================== */
+
+      if (
+        visibleColumns.length === 0
+      ) {
+
+        container.innerHTML =
+          '<div class="message">' +
+          'No data available.' +
+          '</div>';
+
+        return;
+
+      }
+
+
+
+      /* ===================================================
+         CREATE TABLE
+      =================================================== */
+
+      const table =
+        document.createElement(
+          "table"
+        );
+
+
+
+      /* ===================================================
+         CREATE HEADER
+      =================================================== */
+
+      const thead =
+        document.createElement(
+          "thead"
+        );
+
+
+      const headerRow =
+        document.createElement(
+          "tr"
+        );
+
+
+      visibleColumns.forEach(
+        function (item) {
+
+          const th =
+            document.createElement(
+              "th"
+            );
+
+
+          th.textContent =
+            item.column.label || "";
+
+
+          headerRow.appendChild(
+            th
+          );
+
+        }
+      );
+
+
+      thead.appendChild(
+        headerRow
+      );
+
+
+      table.appendChild(
+        thead
+      );
+
+
+
+      /* ===================================================
+         CREATE BODY
+      =================================================== */
+
+      const tbody =
+        document.createElement(
+          "tbody"
+        );
+
+
+      let actualRowCount = 0;
+
+
+      rows.forEach(
+        function (row) {
+
+          /*
+            Check visible columns only.
+
+            Completely empty rows are ignored.
+          */
+
+          const hasData =
+            visibleColumns.some(
+              function (item) {
+
+                if (!row.c) {
+                  return false;
+                }
+
+
+                return cellHasValue(
+                  row.c[item.index]
+                );
+
+              }
+            );
+
+
+          if (!hasData) {
+            return;
+          }
+
+
+          actualRowCount++;
+
+
+          const tr =
+            document.createElement(
+              "tr"
+            );
+
+
+          visibleColumns.forEach(
+            function (item) {
+
+              const td =
+                document.createElement(
+                  "td"
+                );
+
+
+              const cell =
+                row.c
+                  ? row.c[item.index]
+                  : null;
+
+
+              td.textContent =
+                getCellDisplayValue(
+                  cell
+                );
+
+
+              tr.appendChild(
+                td
+              );
+
+            }
+          );
+
+
+          tbody.appendChild(
+            tr
+          );
+
+        }
+      );
+
+
+
+      /* ===================================================
+         IF NO ACTUAL DATA ROWS
+      =================================================== */
+
+      if (actualRowCount === 0) {
+
+        container.innerHTML =
+          '<div class="message">' +
+          'No readings available yet.' +
+          '</div>';
+
+        return;
+
+      }
+
+
+
+      table.appendChild(
+        tbody
+      );
+
+
+      /* ===================================================
+         DISPLAY TABLE
+      =================================================== */
+
+      container.innerHTML = "";
+
+
+      container.appendChild(
+        table
+      );
+
+    }
+
+
+
+    /* =====================================================
+       GOOGLE CALLBACK - GPS
+    ===================================================== */
+
+    window.gpsResponse =
+      function (response) {
+
+        renderTable(
+          response,
+          GPS
+        );
+
+      };
+
+
+
+    /* =====================================================
+       GOOGLE CALLBACK - GPP4
+    ===================================================== */
+
+    window.gpp4Response =
+      function (response) {
+
+        renderTable(
+          response,
+          GPP4
+        );
+
+      };
+
+
+
+    /* =====================================================
+       REFRESH ALL DATA
+    ===================================================== */
+
+    function refreshAll() {
+
+      loadSheet(
+        GPS
+      );
+
+
+      loadSheet(
+        GPP4
+      );
+
+    }
+
+
+
+    /* =====================================================
+       INITIAL LOAD
+    ===================================================== */
+
+    refreshAll();
+
+
+
+    /* =====================================================
+       AUTO REFRESH EVERY 60 SECONDS
+    ===================================================== */
+
+    setInterval(
+      refreshAll,
+      REFRESH_TIME
+    );
+
+  </script>
+
+
+</body>
+
+</html>

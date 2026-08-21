@@ -13,14 +13,23 @@
 
   <style>
 
-    /* =====================================================
-       RESET
-    ===================================================== */
+    /* =========================================================
+       GLOBAL
+    ========================================================= */
+
+    :root {
+      --black: #050505;
+      --cream: #f2efe9;
+      --cream-2: #ebe8e2;
+      --line: #cbc7bf;
+
+      --datetime-width: 150px;
+    }
 
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     html,
@@ -30,59 +39,97 @@
     }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
-      background: #eef2f6;
-      color: #172033;
+      background: var(--black);
 
-      display: flex;
-      flex-direction: column;
+      color: var(--black);
 
       overflow: hidden;
     }
 
 
-    /* =====================================================
-       GLOBAL COLUMN SIZE
-    ===================================================== */
+    /* =========================================================
+       PAGE
+    ========================================================= */
 
-    :root {
-      --datetime-column-width: 150px;
+    .page {
+      width: 100%;
+      height: 100dvh;
+
+      display: flex;
+      flex-direction: column;
+
+      background: var(--black);
+
+      padding: 7px;
+
+      gap: 7px;
     }
 
 
-    /* =====================================================
-       MAIN HEADER
-    ===================================================== */
+    /* =========================================================
+       HERO / MAIN TITLE
+       SAME STYLE AS KREJUV FEC BOOKMARK
+    ========================================================= */
 
-    .main-header {
+    .hero {
       flex-shrink: 0;
 
-      background: #ffffff;
+      height: clamp(125px, 22vh, 245px);
 
-      padding:
-        max(14px, env(safe-area-inset-top))
-        15px
-        14px;
+      background: var(--cream);
+
+      border: 1px solid var(--black);
+
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+      justify-content: center;
 
       text-align: center;
 
-      border-bottom: 1px solid #dce2e8;
+      overflow: hidden;
+
+      padding: 10px 20px;
     }
 
-    .main-title {
-      font-size: clamp(20px, 2.2vw, 30px);
+    .hero-title {
+      font-size: clamp(36px, 6vw, 98px);
+
+      font-weight: 900;
+
+      line-height: 0.82;
+
+      letter-spacing: -0.05em;
+
+      text-transform: uppercase;
+
+      color: var(--black);
+    }
+
+    .hero-title span {
+      display: block;
+    }
+
+    .hero-subtitle {
+      margin-top: clamp(10px, 2vh, 22px);
+
+      font-size: clamp(9px, 1vw, 15px);
+
       font-weight: 700;
 
-      color: #15233b;
-
-      line-height: 1.2;
+      letter-spacing: 0.32em;
     }
 
 
-    /* =====================================================
+    /* =========================================================
        DASHBOARD
-    ===================================================== */
+    ========================================================= */
 
     .dashboard {
       flex: 1;
@@ -94,85 +141,93 @@
         minmax(0, 1fr)
         minmax(0, 1fr);
 
-      gap: 10px;
-
-      padding: 10px;
+      gap: 7px;
     }
 
 
-    /* =====================================================
-       READING CARD
-    ===================================================== */
+    /* =========================================================
+       READING PANEL
+    ========================================================= */
 
-    .reading-card {
+    .reading-panel {
       min-height: 0;
 
       display: flex;
       flex-direction: column;
 
-      background: #ffffff;
+      background: var(--cream);
 
-      border: 1px solid #d8dee6;
-      border-radius: 10px;
+      border: 1px solid var(--black);
 
       overflow: hidden;
-
-      box-shadow:
-        0 2px 8px rgba(0, 0, 0, 0.06);
     }
 
 
-    /* =====================================================
-       CARD HEADER
-    ===================================================== */
+    /* =========================================================
+       PANEL TITLE
+    ========================================================= */
 
-    .card-header {
-      position: relative;
-
+    .panel-title {
       flex-shrink: 0;
 
-      min-height: 42px;
+      min-height: 43px;
 
       display: flex;
+
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
 
-      padding: 8px 16px;
+      padding: 0 16px;
 
-      background: #1d2939;
+      border-bottom: 1px solid var(--line);
 
-      color: #ffffff;
+      background: var(--cream);
+
+      color: var(--black);
+
+      font-size: 13px;
+
+      font-weight: 900;
+
+      text-transform: uppercase;
+
+      letter-spacing: 0.03em;
     }
 
-    .card-title {
-      text-align: center;
 
-      font-size: 16px;
-      font-weight: 700;
+    /* =========================================================
+       TABLE WRAPPER
+    ========================================================= */
 
-      letter-spacing: 0.5px;
-    }
-
-
-    /* =====================================================
-       TABLE CONTAINER
-    ===================================================== */
-
-    .table-container {
+    .table-wrapper {
       flex: 1;
       min-height: 0;
 
       overflow: auto;
 
-      background: #ffffff;
+      background: var(--cream);
 
       scrollbar-width: thin;
+      scrollbar-color: #888 var(--cream-2);
+    }
+
+    .table-wrapper::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    .table-wrapper::-webkit-scrollbar-track {
+      background: var(--cream-2);
+    }
+
+    .table-wrapper::-webkit-scrollbar-thumb {
+      background: #888;
     }
 
 
-    /* =====================================================
+    /* =========================================================
        TABLE
-    ===================================================== */
+    ========================================================= */
 
     table {
       width: 100%;
@@ -181,18 +236,21 @@
 
       table-layout: auto;
 
-      background: #ffffff;
+      background: var(--cream);
+
+      color: var(--black);
 
       font-size: 13px;
     }
 
 
-    /* =====================================================
-       TABLE HEADER
-    ===================================================== */
+    /* =========================================================
+       HEADER
+    ========================================================= */
 
     thead {
       position: sticky;
+
       top: 0;
 
       z-index: 10;
@@ -201,27 +259,28 @@
     th {
       min-width: 125px;
 
-      padding: 10px 12px;
+      height: 52px;
 
-      background: #5c3b8e;
-      color: #ffffff;
+      padding: 8px 12px;
 
-      text-align: center;
+      background: var(--cream);
+
+      color: var(--black);
+
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--black);
+
+      text-align: left;
 
       vertical-align: middle;
 
-      font-size: 12px;
-      font-weight: 700;
+      font-size: 11px;
 
-      line-height: 1.25;
+      font-weight: 900;
 
-      white-space: normal;
+      text-transform: uppercase;
 
-      border-right:
-        1px solid rgba(255, 255, 255, 0.18);
-
-      border-bottom:
-        1px solid rgba(255, 255, 255, 0.20);
+      line-height: 1.2;
     }
 
     th:last-child {
@@ -229,44 +288,49 @@
     }
 
 
-    /* =====================================================
-       TABLE BODY
-    ===================================================== */
+    /* =========================================================
+       DATA CELLS
+    ========================================================= */
 
     td {
       min-width: 125px;
 
-      padding: 8px 12px;
+      height: 39px;
 
-      text-align: center;
+      padding: 7px 12px;
+
+      background: var(--cream);
+
+      color: var(--black);
+
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+
+      text-align: left;
+
       vertical-align: middle;
 
       white-space: nowrap;
 
-      color: #253142;
+      font-size: 12px;
 
-      border-right: 1px solid #e3e6ea;
-      border-bottom: 1px solid #e3e6ea;
+      font-weight: 600;
     }
 
     td:last-child {
       border-right: none;
     }
 
-    tbody tr:nth-child(even) {
-      background: #fafbfc;
-    }
-
-    tbody tr:hover {
-      background: #f1f5f9;
+    tbody tr:hover td {
+      background: #e9e5de;
     }
 
 
-    /* =====================================================
+    /* =========================================================
        TIMESTAMP / DATE / TIME
 
-       SAME WIDTH FOR GPS AND GPP4
-    ===================================================== */
+       SAME SIZE FOR GPS & GPP4
+    ========================================================= */
 
     th:nth-child(1),
     td:nth-child(1),
@@ -277,177 +341,261 @@
     th:nth-child(3),
     td:nth-child(3) {
 
-      width: var(--datetime-column-width);
-      min-width: var(--datetime-column-width);
-      max-width: var(--datetime-column-width);
+      width: var(--datetime-width);
 
+      min-width: var(--datetime-width);
+
+      max-width: var(--datetime-width);
     }
 
 
-    /* =====================================================
-       LOADING / ERROR / NO DATA
-    ===================================================== */
+    /* =========================================================
+       LOADING / ERROR
+    ========================================================= */
 
     .message {
       width: 100%;
       height: 100%;
 
-      min-height: 100px;
+      min-height: 80px;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
       padding: 20px;
 
-      color: #7b8491;
+      background: var(--cream);
 
-      font-size: 13px;
-      text-align: center;
+      color: var(--black);
+
+      font-size: 11px;
+
+      font-weight: 700;
+
+      letter-spacing: 0.03em;
+
+      text-transform: uppercase;
     }
 
 
-    /* =====================================================
+    /* =========================================================
        FOOTER
-    ===================================================== */
+    ========================================================= */
 
     .footer {
       flex-shrink: 0;
 
-      min-height: 30px;
+      height: 42px;
 
       display: flex;
+
       align-items: center;
       justify-content: center;
 
-      padding:
-        6px
-        10px
-        max(6px, env(safe-area-inset-bottom));
+      background: var(--cream);
 
-      background: #ffffff;
+      border: 1px solid var(--black);
 
-      border-top: 1px solid #dce2e8;
+      color: var(--black);
 
-      color: #667085;
+      font-size: 10px;
 
-      font-size: 11px;
-      font-weight: 600;
+      font-weight: 900;
 
-      letter-spacing: 0.5px;
+      text-transform: uppercase;
+
+      letter-spacing: 0.08em;
     }
 
 
-    /* =====================================================
-       TABLET / MOBILE
-    ===================================================== */
+    /* =========================================================
+       TABLET
+    ========================================================= */
 
-    @media (max-width: 700px) {
+    @media (max-width: 900px) {
 
       :root {
-        --datetime-column-width: 120px;
+        --datetime-width: 135px;
       }
 
-      .main-header {
-        padding-top:
-          max(10px, env(safe-area-inset-top));
-
-        padding-bottom: 10px;
-      }
-
-      .main-title {
-        font-size: 18px;
-      }
-
-      .dashboard {
+      .page {
         padding: 5px;
         gap: 5px;
       }
 
-      .reading-card {
-        border-radius: 6px;
+      .dashboard {
+        gap: 5px;
       }
 
-      .card-header {
-        min-height: 34px;
-        padding: 6px 10px;
+      .hero {
+        height: clamp(115px, 19vh, 190px);
       }
 
-      .card-title {
-        font-size: 13px;
+      .hero-title {
+        font-size: clamp(32px, 7vw, 68px);
+      }
+
+      .panel-title {
+        min-height: 36px;
+
+        padding: 0 12px;
+
+        font-size: 11px;
       }
 
       th {
-        min-width: 105px;
+        min-width: 115px;
 
-        padding: 8px 8px;
+        height: 45px;
+
+        padding: 7px 9px;
 
         font-size: 10px;
       }
 
       td {
-        min-width: 105px;
+        min-width: 115px;
 
-        padding: 7px 8px;
+        height: 34px;
+
+        padding: 6px 9px;
 
         font-size: 11px;
       }
 
-      .footer {
-        min-height: 24px;
-
-        padding-top: 4px;
-        padding-bottom:
-          max(4px, env(safe-area-inset-bottom));
-
-        font-size: 10px;
-      }
     }
 
 
-    /* =====================================================
-       PHONE LANDSCAPE
-    ===================================================== */
+    /* =========================================================
+       PHONE
+    ========================================================= */
 
-    @media (max-height: 550px) {
+    @media (max-width: 600px) {
 
-      .main-header {
-        padding: 5px 10px;
+      :root {
+        --datetime-width: 115px;
       }
 
-      .main-title {
-        font-size: 15px;
-      }
+      .page {
+        padding:
+          max(3px, env(safe-area-inset-top))
+          3px
+          max(3px, env(safe-area-inset-bottom));
 
-      .dashboard {
-        padding: 3px;
         gap: 3px;
       }
 
-      .card-header {
-        min-height: 27px;
-        padding: 4px 8px;
+      .hero {
+        height: 105px;
+
+        padding: 8px 10px;
       }
 
-      .card-title {
-        font-size: 11px;
+      .hero-title {
+        font-size: clamp(27px, 9vw, 43px);
+
+        line-height: 0.88;
+      }
+
+      .hero-subtitle {
+        margin-top: 8px;
+
+        font-size: 8px;
+
+        letter-spacing: 0.28em;
+      }
+
+      .dashboard {
+        gap: 3px;
+      }
+
+      .panel-title {
+        min-height: 31px;
+
+        padding: 0 9px;
+
+        font-size: 10px;
       }
 
       th {
-        padding: 5px 7px;
-      }
+        min-width: 100px;
 
-      td {
-        padding: 5px 7px;
-      }
+        height: 41px;
 
-      .footer {
-        min-height: 20px;
-
-        padding: 3px;
+        padding: 6px 7px;
 
         font-size: 9px;
       }
+
+      td {
+        min-width: 100px;
+
+        height: 31px;
+
+        padding: 5px 7px;
+
+        font-size: 10px;
+      }
+
+      .footer {
+        height: 28px;
+
+        font-size: 8px;
+      }
+
+    }
+
+
+    /* =========================================================
+       PHONE LANDSCAPE
+    ========================================================= */
+
+    @media (max-height: 600px) {
+
+      .hero {
+        height: 78px;
+      }
+
+      .hero-title {
+        font-size: clamp(24px, 5vw, 43px);
+      }
+
+      .hero-title span {
+        display: inline;
+      }
+
+      .hero-title span + span::before {
+        content: " ";
+      }
+
+      .hero-subtitle {
+        margin-top: 5px;
+      }
+
+      .panel-title {
+        min-height: 25px;
+
+        font-size: 9px;
+      }
+
+      th {
+        height: 32px;
+
+        padding: 4px 7px;
+      }
+
+      td {
+        height: 26px;
+
+        padding: 3px 7px;
+      }
+
+      .footer {
+        height: 22px;
+      }
+
     }
 
   </style>
@@ -456,113 +604,119 @@
 
 <body>
 
-
-  <!-- =====================================================
-       MAIN TITLE
-  ====================================================== -->
-
-  <header class="main-header">
-
-    <div class="main-title">
-      FEC Hydrotest Instrument Update
-    </div>
-
-  </header>
+  <div class="page">
 
 
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
 
-  <!-- =====================================================
-       DASHBOARD
-  ====================================================== -->
+    <header class="hero">
 
-  <main class="dashboard">
+      <div class="hero-title">
+
+        <span>FEC HYDROTEST</span>
+
+        <span>INSTRUMENT UPDATE</span>
+
+      </div>
+
+      <div class="hero-subtitle">
+        TechSmith
+      </div>
+
+    </header>
 
 
-    <!-- ===================================================
-         GPS
-    ==================================================== -->
 
-    <section class="reading-card">
+    <!-- =====================================================
+         DASHBOARD
+    ====================================================== -->
 
-      <div class="card-header">
+    <main class="dashboard">
 
-        <div class="card-title">
+
+      <!-- ===================================================
+           GPS
+      ==================================================== -->
+
+      <section class="reading-panel">
+
+        <div class="panel-title">
           GPS READING
         </div>
 
-      </div>
 
+        <div
+          class="table-wrapper"
+          id="gpsContainer"
+        >
 
-      <div
-        class="table-container"
-        id="gpsContainer"
-      >
+          <div class="message">
+            Loading GPS data...
+          </div>
 
-        <div class="message">
-          Loading GPS data...
         </div>
 
-      </div>
-
-    </section>
+      </section>
 
 
 
-    <!-- ===================================================
-         GPP4
-    ==================================================== -->
+      <!-- ===================================================
+           GPP4
+      ==================================================== -->
 
-    <section class="reading-card">
+      <section class="reading-panel">
 
-      <div class="card-header">
-
-        <div class="card-title">
+        <div class="panel-title">
           GPP4 READING
         </div>
 
-      </div>
 
+        <div
+          class="table-wrapper"
+          id="gpp4Container"
+        >
 
-      <div
-        class="table-container"
-        id="gpp4Container"
-      >
+          <div class="message">
+            Loading GPP4 data...
+          </div>
 
-        <div class="message">
-          Loading GPP4 data...
         </div>
 
-      </div>
-
-    </section>
+      </section>
 
 
-  </main>
+    </main>
 
 
 
-  <!-- =====================================================
-       FOOTER
-  ====================================================== -->
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
 
-  <footer class="footer">
-    Fly TechSmith
-  </footer>
+    <footer class="footer">
+      Fly TechSmith
+    </footer>
+
+
+  </div>
 
 
 
   <script>
 
-    /* =====================================================
-       SETTINGS
-    ===================================================== */
+    /* =========================================================
+       AUTO REFRESH
+    ========================================================= */
 
     const REFRESH_TIME = 60000;
 
 
-    /* =====================================================
-       GPS CONFIGURATION
-    ===================================================== */
+
+    /* =========================================================
+       GPS
+    ========================================================= */
 
     const GPS = {
 
@@ -582,7 +736,7 @@
         "gpsResponse",
 
       /*
-        GPS columns to hide from webpage
+         Do not show INPUT column on GPS dashboard
       */
 
       hiddenColumns: [
@@ -592,9 +746,10 @@
     };
 
 
-    /* =====================================================
-       GPP4 CONFIGURATION
-    ===================================================== */
+
+    /* =========================================================
+       GPP4
+    ========================================================= */
 
     const GPP4 = {
 
@@ -602,8 +757,8 @@
         "1MKLNtFUQT8GiiVmyoXSkQjw7oPF2z44MO8gdCIUo5t0",
 
       /*
-        Change this if GPP4 Form Response tab
-        uses another GID.
+         Change this if the GPP4 response tab
+         has a different GID.
       */
 
       gid:
@@ -624,17 +779,15 @@
 
 
 
-    /* =====================================================
+    /* =========================================================
        LOAD GOOGLE SHEET
-    ===================================================== */
+    ========================================================= */
 
     function loadSheet(config) {
 
       /*
-        Only load rows where Timestamp / Column A
-        contains data.
-
-        This removes blank rows.
+         Only rows with Timestamp / Column A populated.
+         Blank rows will not be returned.
       */
 
       const query =
@@ -668,12 +821,6 @@
         Date.now();
 
 
-      /*
-        JSONP script method.
-
-        No external JavaScript library required.
-      */
-
       const script =
         document.createElement("script");
 
@@ -685,15 +832,12 @@
 
       script.onerror = function () {
 
-        const container =
-          document.getElementById(
-            config.container
-          );
+        document.getElementById(
+          config.container
+        ).innerHTML =
 
-
-        container.innerHTML =
           '<div class="message">' +
-          'Unable to load Google Sheet data.' +
+          'Unable to load Google Sheet data' +
           '</div>';
 
       };
@@ -718,9 +862,9 @@
 
 
 
-    /* =====================================================
-       CHECK IF CELL CONTAINS DATA
-    ===================================================== */
+    /* =========================================================
+       CHECK CELL
+    ========================================================= */
 
     function cellHasValue(cell) {
 
@@ -728,25 +872,19 @@
         return false;
       }
 
-
-      if (
+      return !(
         cell.v === null ||
         cell.v === undefined ||
         cell.v === ""
-      ) {
-        return false;
-      }
-
-
-      return true;
+      );
 
     }
 
 
 
-    /* =====================================================
-       GET CELL DISPLAY VALUE
-    ===================================================== */
+    /* =========================================================
+       FORMAT CELL
+    ========================================================= */
 
     function getCellDisplayValue(cell) {
 
@@ -756,10 +894,7 @@
 
 
       /*
-        Google formatted value.
-
-        Keeps date, time, decimal etc.
-        exactly as formatted in Google Sheet.
+         Use formatted Google Sheets value first.
       */
 
       if (
@@ -788,9 +923,9 @@
 
 
 
-    /* =====================================================
+    /* =========================================================
        RENDER TABLE
-    ===================================================== */
+    ========================================================= */
 
     function renderTable(response, config) {
 
@@ -807,7 +942,7 @@
 
         container.innerHTML =
           '<div class="message">' +
-          'No data available.' +
+          'No data available' +
           '</div>';
 
         return;
@@ -823,9 +958,10 @@
         response.table.rows || [];
 
 
-      /* ===================================================
-         PREPARE HIDDEN COLUMN NAMES
-      =================================================== */
+
+      /* =======================================================
+         HIDDEN COLUMNS
+      ======================================================= */
 
       const hiddenColumns =
         (config.hiddenColumns || [])
@@ -839,9 +975,9 @@
 
 
 
-      /* ===================================================
+      /* =======================================================
          DETERMINE VISIBLE COLUMNS
-      =================================================== */
+      ======================================================= */
 
       const visibleColumns = [];
 
@@ -855,24 +991,24 @@
               .toUpperCase();
 
 
-          /* -----------------------------------------------
-             CHECK IF COLUMN IS HIDDEN
-          ----------------------------------------------- */
+          /*
+             Hide GPS INPUT
+          */
 
-          const shouldHide =
+          if (
             hiddenColumns.includes(
               columnName
-            );
+            )
+          ) {
 
-
-          if (shouldHide) {
             return;
+
           }
 
 
-          /* -----------------------------------------------
-             CHECK IF COLUMN CONTAINS DATA
-          ----------------------------------------------- */
+          /*
+             Check whether column contains any data.
+          */
 
           const hasData =
             rows.some(
@@ -892,14 +1028,7 @@
 
 
           /*
-            Keep column when:
-
-            1. Header has a name
-            OR
-            2. Column contains actual data
-
-            Completely blank Google Sheet columns
-            are therefore removed.
+             Ignore completely empty columns.
           */
 
           if (
@@ -922,9 +1051,9 @@
 
 
 
-      /* ===================================================
-         NO COLUMNS
-      =================================================== */
+      /* =======================================================
+         NOTHING TO SHOW
+      ======================================================= */
 
       if (
         visibleColumns.length === 0
@@ -932,7 +1061,7 @@
 
         container.innerHTML =
           '<div class="message">' +
-          'No data available.' +
+          'No data available' +
           '</div>';
 
         return;
@@ -941,49 +1070,39 @@
 
 
 
-      /* ===================================================
-         CREATE TABLE
-      =================================================== */
+      /* =======================================================
+         TABLE
+      ======================================================= */
 
       const table =
-        document.createElement(
-          "table"
-        );
+        document.createElement("table");
 
 
 
-      /* ===================================================
-         CREATE HEADER
-      =================================================== */
+      /* =======================================================
+         HEADER
+      ======================================================= */
 
       const thead =
-        document.createElement(
-          "thead"
-        );
+        document.createElement("thead");
 
 
       const headerRow =
-        document.createElement(
-          "tr"
-        );
+        document.createElement("tr");
 
 
       visibleColumns.forEach(
         function (item) {
 
           const th =
-            document.createElement(
-              "th"
-            );
+            document.createElement("th");
 
 
           th.textContent =
             item.column.label || "";
 
 
-          headerRow.appendChild(
-            th
-          );
+          headerRow.appendChild(th);
 
         }
       );
@@ -1000,26 +1119,22 @@
 
 
 
-      /* ===================================================
-         CREATE BODY
-      =================================================== */
+      /* =======================================================
+         BODY
+      ======================================================= */
 
       const tbody =
-        document.createElement(
-          "tbody"
-        );
+        document.createElement("tbody");
 
 
-      let actualRowCount = 0;
+      let rowCount = 0;
 
 
       rows.forEach(
         function (row) {
 
           /*
-            Check visible columns only.
-
-            Completely empty rows are ignored.
+             Ignore completely blank rows.
           */
 
           const hasData =
@@ -1044,22 +1159,18 @@
           }
 
 
-          actualRowCount++;
+          rowCount++;
 
 
           const tr =
-            document.createElement(
-              "tr"
-            );
+            document.createElement("tr");
 
 
           visibleColumns.forEach(
             function (item) {
 
               const td =
-                document.createElement(
-                  "td"
-                );
+                document.createElement("td");
 
 
               const cell =
@@ -1074,32 +1185,28 @@
                 );
 
 
-              tr.appendChild(
-                td
-              );
+              tr.appendChild(td);
 
             }
           );
 
 
-          tbody.appendChild(
-            tr
-          );
+          tbody.appendChild(tr);
 
         }
       );
 
 
 
-      /* ===================================================
-         IF NO ACTUAL DATA ROWS
-      =================================================== */
+      /* =======================================================
+         NO READINGS YET
+      ======================================================= */
 
-      if (actualRowCount === 0) {
+      if (rowCount === 0) {
 
         container.innerHTML =
           '<div class="message">' +
-          'No readings available yet.' +
+          'No readings available yet' +
           '</div>';
 
         return;
@@ -1107,15 +1214,10 @@
       }
 
 
-
       table.appendChild(
         tbody
       );
 
-
-      /* ===================================================
-         DISPLAY TABLE
-      =================================================== */
 
       container.innerHTML = "";
 
@@ -1128,9 +1230,9 @@
 
 
 
-    /* =====================================================
-       GOOGLE CALLBACK - GPS
-    ===================================================== */
+    /* =========================================================
+       GPS CALLBACK
+    ========================================================= */
 
     window.gpsResponse =
       function (response) {
@@ -1144,9 +1246,9 @@
 
 
 
-    /* =====================================================
-       GOOGLE CALLBACK - GPP4
-    ===================================================== */
+    /* =========================================================
+       GPP4 CALLBACK
+    ========================================================= */
 
     window.gpp4Response =
       function (response) {
@@ -1160,36 +1262,21 @@
 
 
 
-    /* =====================================================
-       REFRESH ALL DATA
-    ===================================================== */
+    /* =========================================================
+       REFRESH
+    ========================================================= */
 
     function refreshAll() {
 
-      loadSheet(
-        GPS
-      );
+      loadSheet(GPS);
 
-
-      loadSheet(
-        GPP4
-      );
+      loadSheet(GPP4);
 
     }
 
 
-
-    /* =====================================================
-       INITIAL LOAD
-    ===================================================== */
-
     refreshAll();
 
-
-
-    /* =====================================================
-       AUTO REFRESH EVERY 60 SECONDS
-    ===================================================== */
 
     setInterval(
       refreshAll,
@@ -1197,7 +1284,6 @@
     );
 
   </script>
-
 
 </body>
 

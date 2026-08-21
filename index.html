@@ -72,13 +72,14 @@
 
 
     /* =========================================================
-       HERO
+       HERO / MAIN TITLE
+       SAME STYLE AS KREJUV FEC BOOKMARK
     ========================================================= */
 
     .hero {
       flex-shrink: 0;
 
-      height: clamp(120px, 20vh, 220px);
+      height: clamp(125px, 22vh, 245px);
 
       background: var(--cream);
 
@@ -97,13 +98,12 @@
       padding: 10px 20px;
     }
 
-
     .hero-title {
-      font-size: clamp(34px, 6vw, 90px);
+      font-size: clamp(36px, 6vw, 98px);
 
       font-weight: 900;
 
-      line-height: 0.84;
+      line-height: 0.82;
 
       letter-spacing: -0.05em;
 
@@ -112,16 +112,14 @@
       color: var(--black);
     }
 
-
     .hero-title span {
       display: block;
     }
 
-
     .hero-subtitle {
-      margin-top: clamp(9px, 1.5vh, 18px);
+      margin-top: clamp(10px, 2vh, 22px);
 
-      font-size: clamp(8px, 1vw, 14px);
+      font-size: clamp(9px, 1vw, 15px);
 
       font-weight: 700;
 
@@ -135,7 +133,6 @@
 
     .dashboard {
       flex: 1;
-
       min-height: 0;
 
       display: grid;
@@ -173,7 +170,7 @@
     .panel-title {
       flex-shrink: 0;
 
-      min-height: 42px;
+      min-height: 43px;
 
       display: flex;
 
@@ -204,7 +201,6 @@
 
     .table-wrapper {
       flex: 1;
-
       min-height: 0;
 
       overflow: auto;
@@ -212,23 +208,17 @@
       background: var(--cream);
 
       scrollbar-width: thin;
-
-      scrollbar-color:
-        #888
-        var(--cream-2);
+      scrollbar-color: #888 var(--cream-2);
     }
-
 
     .table-wrapper::-webkit-scrollbar {
       width: 8px;
       height: 8px;
     }
 
-
     .table-wrapper::-webkit-scrollbar-track {
       background: var(--cream-2);
     }
-
 
     .table-wrapper::-webkit-scrollbar-thumb {
       background: #888;
@@ -255,7 +245,7 @@
 
 
     /* =========================================================
-       TABLE HEADER
+       HEADER
     ========================================================= */
 
     thead {
@@ -266,11 +256,10 @@
       z-index: 10;
     }
 
-
     th {
       min-width: 125px;
 
-      height: 50px;
+      height: 52px;
 
       padding: 8px 12px;
 
@@ -279,7 +268,6 @@
       color: var(--black);
 
       border-right: 1px solid var(--line);
-
       border-bottom: 1px solid var(--black);
 
       text-align: left;
@@ -295,20 +283,19 @@
       line-height: 1.2;
     }
 
-
     th:last-child {
       border-right: none;
     }
 
 
     /* =========================================================
-       TABLE DATA
+       DATA CELLS
     ========================================================= */
 
     td {
       min-width: 125px;
 
-      height: 38px;
+      height: 39px;
 
       padding: 7px 12px;
 
@@ -317,7 +304,6 @@
       color: var(--black);
 
       border-right: 1px solid var(--line);
-
       border-bottom: 1px solid var(--line);
 
       text-align: left;
@@ -331,11 +317,9 @@
       font-weight: 600;
     }
 
-
     td:last-child {
       border-right: none;
     }
-
 
     tbody tr:hover td {
       background: #e9e5de;
@@ -345,7 +329,7 @@
     /* =========================================================
        TIMESTAMP / DATE / TIME
 
-       SAME WIDTH FOR GPS AND GPP4
+       SAME SIZE FOR GPS & GPP4
     ========================================================= */
 
     th:nth-child(1),
@@ -366,12 +350,11 @@
 
 
     /* =========================================================
-       MESSAGE
+       LOADING / ERROR
     ========================================================= */
 
     .message {
       width: 100%;
-
       height: 100%;
 
       min-height: 80px;
@@ -404,9 +387,9 @@
     .footer {
       flex-shrink: 0;
 
-      display: flex;
+      height: 42px;
 
-      flex-direction: column;
+      display: flex;
 
       align-items: center;
       justify-content: center;
@@ -414,26 +397,6 @@
       background: var(--cream);
 
       border: 1px solid var(--black);
-
-      overflow: hidden;
-    }
-
-
-    /* =========================================================
-       FLY TECHSMITH
-    ========================================================= */
-
-    .footer-text {
-      width: 100%;
-
-      min-height: 32px;
-
-      display: flex;
-
-      align-items: center;
-      justify-content: center;
-
-      padding: 6px 10px;
 
       color: var(--black);
 
@@ -444,40 +407,6 @@
       text-transform: uppercase;
 
       letter-spacing: 0.08em;
-
-      border-bottom: 1px solid var(--line);
-    }
-
-
-    /* =========================================================
-       FOOTER IMAGE
-    ========================================================= */
-
-    .footer-image-link {
-      display: block;
-
-      width: 100%;
-
-      line-height: 0;
-
-      text-decoration: none;
-
-      background: var(--cream);
-    }
-
-
-    .footer-image {
-      display: block;
-
-      width: 100%;
-
-      height: 90px;
-
-      object-fit: cover;
-
-      object-position: center;
-
-      border: 0;
     }
 
 
@@ -491,28 +420,22 @@
         --datetime-width: 135px;
       }
 
-
       .page {
         padding: 5px;
-
         gap: 5px;
       }
-
 
       .dashboard {
         gap: 5px;
       }
 
-
       .hero {
-        height: clamp(110px, 18vh, 175px);
+        height: clamp(115px, 19vh, 190px);
       }
-
 
       .hero-title {
-        font-size: clamp(31px, 7vw, 65px);
+        font-size: clamp(32px, 7vw, 68px);
       }
-
 
       .panel-title {
         min-height: 36px;
@@ -522,45 +445,31 @@
         font-size: 11px;
       }
 
-
       th {
         min-width: 115px;
 
-        height: 43px;
+        height: 45px;
 
         padding: 7px 9px;
 
         font-size: 10px;
       }
 
-
       td {
         min-width: 115px;
 
-        height: 33px;
+        height: 34px;
 
         padding: 6px 9px;
 
         font-size: 11px;
       }
 
-
-      .footer-text {
-        min-height: 28px;
-
-        font-size: 9px;
-      }
-
-
-      .footer-image {
-        height: 75px;
-      }
-
     }
 
 
     /* =========================================================
-       MOBILE
+       PHONE
     ========================================================= */
 
     @media (max-width: 600px) {
@@ -568,7 +477,6 @@
       :root {
         --datetime-width: 115px;
       }
-
 
       .page {
         padding:
@@ -579,145 +487,113 @@
         gap: 3px;
       }
 
-
       .hero {
-        height: 95px;
+        height: 105px;
 
-        padding: 7px 10px;
+        padding: 8px 10px;
       }
 
-
       .hero-title {
-        font-size: clamp(26px, 9vw, 41px);
+        font-size: clamp(27px, 9vw, 43px);
 
         line-height: 0.88;
       }
 
-
       .hero-subtitle {
-        margin-top: 7px;
+        margin-top: 8px;
 
-        font-size: 7px;
+        font-size: 8px;
 
         letter-spacing: 0.28em;
       }
-
 
       .dashboard {
         gap: 3px;
       }
 
-
       .panel-title {
-        min-height: 30px;
+        min-height: 31px;
 
         padding: 0 9px;
 
         font-size: 10px;
       }
 
-
       th {
         min-width: 100px;
 
-        height: 39px;
+        height: 41px;
 
         padding: 6px 7px;
 
         font-size: 9px;
       }
 
-
       td {
         min-width: 100px;
 
-        height: 29px;
+        height: 31px;
 
         padding: 5px 7px;
 
         font-size: 10px;
       }
 
-
-      .footer-text {
-        min-height: 24px;
-
-        padding: 4px 8px;
+      .footer {
+        height: 28px;
 
         font-size: 8px;
-      }
-
-
-      .footer-image {
-        height: 55px;
       }
 
     }
 
 
     /* =========================================================
-       LANDSCAPE PHONE / SHORT SCREEN
+       PHONE LANDSCAPE
     ========================================================= */
 
     @media (max-height: 600px) {
 
       .hero {
-        height: 70px;
+        height: 78px;
       }
-
 
       .hero-title {
-        font-size: clamp(22px, 5vw, 40px);
+        font-size: clamp(24px, 5vw, 43px);
       }
-
 
       .hero-title span {
         display: inline;
       }
 
-
       .hero-title span + span::before {
         content: " ";
       }
 
-
       .hero-subtitle {
-        margin-top: 4px;
+        margin-top: 5px;
       }
 
-
       .panel-title {
-        min-height: 24px;
+        min-height: 25px;
 
         font-size: 9px;
       }
 
-
       th {
-        height: 30px;
+        height: 32px;
 
         padding: 4px 7px;
       }
 
-
       td {
-        height: 24px;
+        height: 26px;
 
         padding: 3px 7px;
       }
 
-
-      .footer-text {
-        min-height: 19px;
-
-        padding: 3px;
-
-        font-size: 7px;
-      }
-
-
-      .footer-image {
-        height: 38px;
+      .footer {
+        height: 22px;
       }
 
     }
@@ -728,12 +604,11 @@
 
 <body>
 
-
   <div class="page">
 
 
     <!-- =====================================================
-         MAIN HEADER
+         HERO
     ====================================================== -->
 
     <header class="hero">
@@ -745,7 +620,6 @@
         <span>INSTRUMENT UPDATE</span>
 
       </div>
-
 
       <div class="hero-subtitle">
         TechSmith
@@ -763,11 +637,10 @@
 
 
       <!-- ===================================================
-           GPS READING
+           GPS
       ==================================================== -->
 
       <section class="reading-panel">
-
 
         <div class="panel-title">
           GPS READING
@@ -780,22 +653,20 @@
         >
 
           <div class="message">
-            Loading GPS Data...
+            Loading GPS data...
           </div>
 
         </div>
-
 
       </section>
 
 
 
       <!-- ===================================================
-           GPP4 READING
+           GPP4
       ==================================================== -->
 
       <section class="reading-panel">
-
 
         <div class="panel-title">
           GPP4 READING
@@ -808,11 +679,10 @@
         >
 
           <div class="message">
-            Loading GPP4 Data...
+            Loading GPP4 data...
           </div>
 
         </div>
-
 
       </section>
 
@@ -826,29 +696,7 @@
     ====================================================== -->
 
     <footer class="footer">
-
-
-      <div class="footer-text">
-        Fly TechSmith
-      </div>
-
-
-      <a
-        class="footer-image-link"
-        href="https://ibb.co/mCTT4v14"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-
-        <img
-          class="footer-image"
-          src="https://i.ibb.co/zhxxZ8jZ/DESIGN-1.jpg"
-          alt="TechSmith Design"
-        >
-
-      </a>
-
-
+      Fly TechSmith
     </footer>
 
 
@@ -859,7 +707,7 @@
   <script>
 
     /* =========================================================
-       SETTINGS
+       AUTO REFRESH
     ========================================================= */
 
     const REFRESH_TIME = 60000;
@@ -867,7 +715,7 @@
 
 
     /* =========================================================
-       GPS CONFIGURATION
+       GPS
     ========================================================= */
 
     const GPS = {
@@ -888,8 +736,7 @@
         "gpsResponse",
 
       /*
-        These columns will NOT be displayed
-        on the GPS dashboard.
+         Do not show INPUT column on GPS dashboard
       */
 
       hiddenColumns: [
@@ -901,7 +748,7 @@
 
 
     /* =========================================================
-       GPP4 CONFIGURATION
+       GPP4
     ========================================================= */
 
     const GPP4 = {
@@ -910,8 +757,8 @@
         "1MKLNtFUQT8GiiVmyoXSkQjw7oPF2z44MO8gdCIUo5t0",
 
       /*
-        If your actual GPP4 response sheet
-        has another GID, change this value.
+         Change this if the GPP4 response tab
+         has a different GID.
       */
 
       gid:
@@ -939,10 +786,8 @@
     function loadSheet(config) {
 
       /*
-        Only rows where Column A / Timestamp
-        contains data are returned.
-
-        This removes blank rows.
+         Only rows with Timestamp / Column A populated.
+         Blank rows will not be returned.
       */
 
       const query =
@@ -954,11 +799,8 @@
 
 
       const url =
-
         "https://docs.google.com/spreadsheets/d/" +
-
         config.spreadsheetId +
-
         "/gviz/tq" +
 
         "?gid=" +
@@ -979,88 +821,49 @@
         Date.now();
 
 
-
-      /*
-        Create JSONP script.
-
-        No external JS library required.
-      */
-
       const script =
         document.createElement("script");
 
 
-      script.src =
-        url;
+      script.src = url;
+
+      script.async = true;
 
 
-      script.async =
-        true;
+      script.onerror = function () {
+
+        document.getElementById(
+          config.container
+        ).innerHTML =
+
+          '<div class="message">' +
+          'Unable to load Google Sheet data' +
+          '</div>';
+
+      };
 
 
+      script.onload = function () {
 
-      /* =======================================================
-         ERROR
-      ======================================================= */
+        setTimeout(function () {
 
-      script.onerror =
-        function () {
+          if (script.parentNode) {
+            script.remove();
+          }
 
-          const container =
-            document.getElementById(
-              config.container
-            );
+        }, 1000);
 
-
-          container.innerHTML =
-
-            '<div class="message">' +
-
-            'Unable to load Google Sheet data' +
-
-            '</div>';
-
-        };
+      };
 
 
-
-      /* =======================================================
-         REMOVE SCRIPT AFTER LOAD
-      ======================================================= */
-
-      script.onload =
-        function () {
-
-          setTimeout(
-            function () {
-
-              if (
-                script.parentNode
-              ) {
-
-                script.remove();
-
-              }
-
-            },
-
-            1000
-
-          );
-
-        };
-
-
-      document.head.appendChild(
-        script
-      );
+      document.head.appendChild(script);
 
     }
 
 
 
     /* =========================================================
-       CHECK IF CELL HAS VALUE
+       CHECK CELL
     ========================================================= */
 
     function cellHasValue(cell) {
@@ -1068,7 +871,6 @@
       if (!cell) {
         return false;
       }
-
 
       return !(
         cell.v === null ||
@@ -1081,7 +883,7 @@
 
 
     /* =========================================================
-       GET GOOGLE SHEET DISPLAY VALUE
+       FORMAT CELL
     ========================================================= */
 
     function getCellDisplayValue(cell) {
@@ -1092,12 +894,7 @@
 
 
       /*
-        Use Google's formatted value first.
-
-        This keeps:
-        - date formatting
-        - time formatting
-        - decimal formatting
+         Use formatted Google Sheets value first.
       */
 
       if (
@@ -1130,11 +927,7 @@
        RENDER TABLE
     ========================================================= */
 
-    function renderTable(
-      response,
-      config
-    ) {
-
+    function renderTable(response, config) {
 
       const container =
         document.getElementById(
@@ -1148,18 +941,13 @@
       ) {
 
         container.innerHTML =
-
           '<div class="message">' +
-
           'No data available' +
-
           '</div>';
-
 
         return;
 
       }
-
 
 
       const columns =
@@ -1172,56 +960,40 @@
 
 
       /* =======================================================
-         PREPARE HIDDEN COLUMNS
+         HIDDEN COLUMNS
       ======================================================= */
 
       const hiddenColumns =
-
         (config.hiddenColumns || [])
+          .map(function (name) {
 
-          .map(
-            function (name) {
+            return String(name)
+              .trim()
+              .toUpperCase();
 
-              return String(name)
-                .trim()
-                .toUpperCase();
-
-            }
-          );
+          });
 
 
 
       /* =======================================================
-         FIND VISIBLE COLUMNS
+         DETERMINE VISIBLE COLUMNS
       ======================================================= */
 
-      const visibleColumns =
-        [];
+      const visibleColumns = [];
 
 
       columns.forEach(
-
-        function (
-          column,
-          index
-        ) {
-
+        function (column, index) {
 
           const columnName =
-
-            String(
-              column.label || ""
-            )
-
+            String(column.label || "")
               .trim()
-
               .toUpperCase();
 
 
-
-          /* ---------------------------------------------------
-             HIDE COLUMNS SUCH AS GPS INPUT
-          --------------------------------------------------- */
+          /*
+             Hide GPS INPUT
+          */
 
           if (
             hiddenColumns.includes(
@@ -1234,17 +1006,13 @@
           }
 
 
-
-          /* ---------------------------------------------------
-             CHECK COLUMN DATA
-          --------------------------------------------------- */
+          /*
+             Check whether column contains any data.
+          */
 
           const hasData =
-
             rows.some(
-
               function (row) {
-
 
                 if (!row.c) {
                   return false;
@@ -1256,14 +1024,12 @@
                 );
 
               }
-
             );
 
 
-
-          /* ---------------------------------------------------
-             REMOVE COMPLETELY EMPTY COLUMNS
-          --------------------------------------------------- */
+          /*
+             Ignore completely empty columns.
+          */
 
           if (
             columnName !== "" ||
@@ -1272,24 +1038,21 @@
 
             visibleColumns.push({
 
-              column:
-                column,
+              column: column,
 
-              index:
-                index
+              index: index
 
             });
 
           }
 
         }
-
       );
 
 
 
       /* =======================================================
-         NO COLUMNS
+         NOTHING TO SHOW
       ======================================================= */
 
       if (
@@ -1297,13 +1060,9 @@
       ) {
 
         container.innerHTML =
-
           '<div class="message">' +
-
           'No data available' +
-
           '</div>';
-
 
         return;
 
@@ -1312,13 +1071,11 @@
 
 
       /* =======================================================
-         CREATE TABLE
+         TABLE
       ======================================================= */
 
       const table =
-        document.createElement(
-          "table"
-        );
+        document.createElement("table");
 
 
 
@@ -1327,38 +1084,27 @@
       ======================================================= */
 
       const thead =
-        document.createElement(
-          "thead"
-        );
+        document.createElement("thead");
 
 
       const headerRow =
-        document.createElement(
-          "tr"
-        );
+        document.createElement("tr");
 
 
       visibleColumns.forEach(
-
         function (item) {
 
-
           const th =
-            document.createElement(
-              "th"
-            );
+            document.createElement("th");
 
 
           th.textContent =
             item.column.label || "";
 
 
-          headerRow.appendChild(
-            th
-          );
+          headerRow.appendChild(th);
 
         }
-
       );
 
 
@@ -1374,35 +1120,26 @@
 
 
       /* =======================================================
-         TABLE BODY
+         BODY
       ======================================================= */
 
       const tbody =
-        document.createElement(
-          "tbody"
-        );
+        document.createElement("tbody");
 
 
-      let rowCount =
-        0;
-
+      let rowCount = 0;
 
 
       rows.forEach(
-
         function (row) {
 
-
-          /* ---------------------------------------------------
-             IGNORE EMPTY ROWS
-          --------------------------------------------------- */
+          /*
+             Ignore completely blank rows.
+          */
 
           const hasData =
-
             visibleColumns.some(
-
               function (item) {
-
 
                 if (!row.c) {
                   return false;
@@ -1414,7 +1151,6 @@
                 );
 
               }
-
             );
 
 
@@ -1423,114 +1159,67 @@
           }
 
 
-
           rowCount++;
 
 
-
-          /* ---------------------------------------------------
-             CREATE ROW
-          --------------------------------------------------- */
-
           const tr =
-            document.createElement(
-              "tr"
-            );
+            document.createElement("tr");
 
-
-
-          /* ---------------------------------------------------
-             CREATE CELLS
-          --------------------------------------------------- */
 
           visibleColumns.forEach(
-
             function (item) {
 
-
               const td =
-                document.createElement(
-                  "td"
-                );
+                document.createElement("td");
 
 
               const cell =
-
                 row.c
-
-                  ? row.c[
-                      item.index
-                    ]
-
+                  ? row.c[item.index]
                   : null;
 
 
-
               td.textContent =
-
                 getCellDisplayValue(
                   cell
                 );
 
 
-              tr.appendChild(
-                td
-              );
+              tr.appendChild(td);
 
             }
-
           );
 
 
-          tbody.appendChild(
-            tr
-          );
+          tbody.appendChild(tr);
 
         }
-
       );
 
 
 
       /* =======================================================
-         NO READINGS
+         NO READINGS YET
       ======================================================= */
 
-      if (
-        rowCount === 0
-      ) {
+      if (rowCount === 0) {
 
         container.innerHTML =
-
           '<div class="message">' +
-
           'No readings available yet' +
-
           '</div>';
-
 
         return;
 
       }
 
 
-
-      /* =======================================================
-         ADD BODY TO TABLE
-      ======================================================= */
-
       table.appendChild(
         tbody
       );
 
 
-
-      /* =======================================================
-         DISPLAY TABLE
-      ======================================================= */
-
-      container.innerHTML =
-        "";
+      container.innerHTML = "";
 
 
       container.appendChild(
@@ -1574,46 +1263,27 @@
 
 
     /* =========================================================
-       REFRESH BOTH SHEETS
+       REFRESH
     ========================================================= */
 
     function refreshAll() {
 
-      loadSheet(
-        GPS
-      );
+      loadSheet(GPS);
 
-
-      loadSheet(
-        GPP4
-      );
+      loadSheet(GPP4);
 
     }
 
 
-
-    /* =========================================================
-       INITIAL LOAD
-    ========================================================= */
-
     refreshAll();
 
 
-
-    /* =========================================================
-       AUTO REFRESH EVERY 60 SECONDS
-    ========================================================= */
-
     setInterval(
-
       refreshAll,
-
       REFRESH_TIME
-
     );
 
   </script>
-
 
 </body>
 

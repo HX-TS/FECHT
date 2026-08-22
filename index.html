@@ -110,7 +110,7 @@
 
     /* =========================================================
        OPENING SPLASH IMAGE
-       SHOW FOR 2 SECONDS
+       SHOW FOR 0.5 SECOND
     ========================================================= */
 
     .opening-splash {
@@ -137,8 +137,8 @@
       visibility: visible;
 
       transition:
-        opacity 0.30s ease,
-        visibility 0.30s ease;
+        opacity 0.25s ease,
+        visibility 0.25s ease;
 
     }
 
@@ -872,7 +872,6 @@
 
     /* =========================================================
        PRESSURE TRENDING COMPLETED
-       AFTER 21:30 HRS 22/8/2026
     ========================================================= */
 
     .trend-link.completed
@@ -2332,7 +2331,7 @@
 
 
     /* =========================================================
-       SHORT SCREEN
+       SHORT SCREEN / LANDSCAPE LAPTOP
     ========================================================= */
 
     @media
@@ -2568,7 +2567,7 @@
 
   <!-- =====================================================
        OPENING IMAGE
-       SHOW FOR 2 SECONDS ONLY
+       SHOW FOR 0.5 SECOND ONLY
   ====================================================== -->
 
   <div
@@ -2896,7 +2895,7 @@
 
 
       <!-- ===================================================
-           GPS
+           GPS READING
       ==================================================== -->
 
       <section class="reading-panel">
@@ -2930,7 +2929,7 @@
 
 
       <!-- ===================================================
-           GPP4
+           GPP4 READING
       ==================================================== -->
 
       <section class="reading-panel">
@@ -2986,7 +2985,7 @@
 
     /* =========================================================
        OPENING SPLASH
-       SHOW FOR 2 SECONDS
+       SHOW FOR 0.5 SECOND
     ========================================================= */
 
     window.addEventListener(
@@ -3010,7 +3009,8 @@
 
 
         /*
-           KEEP IMAGE FOR 2 SECONDS
+           DISPLAY FOR 500 ms
+           = 0.5 SECOND
         */
 
         setTimeout(
@@ -3047,14 +3047,14 @@
 
               },
 
-              350
+              300
 
             );
 
 
           },
 
-          2000
+          500
 
         );
 
@@ -3071,7 +3071,7 @@
 
     /*
        GPS + GPP4 REFRESH
-       EVERY 60 SEC
+       EVERY 60 SECONDS
     */
 
     const TABLE_REFRESH_TIME =
@@ -3081,7 +3081,7 @@
 
     /*
        DEPRESSURIZATION DATA
-       REFRESH EVERY 15 SEC
+       REFRESH EVERY 15 SECONDS
     */
 
     const DEPRESS_REFRESH_TIME =
@@ -3248,11 +3248,6 @@
       if (completed) {
 
 
-        /*
-           HOLDING COMPLETED
-           STOP ALL TRENDING PULSING
-        */
-
         trendLink.classList.add(
           "completed"
         );
@@ -3272,10 +3267,6 @@
 
       else {
 
-
-        /*
-           HOLD STILL ACTIVE
-        */
 
         trendLink.classList.remove(
           "completed"
@@ -3385,8 +3376,7 @@
       /* =======================================================
          HOLDING COMPLETE
 
-         AFTER:
-         21:30 HRS
+         >= 21:30 HRS
          22/8/2026
       ======================================================= */
 
@@ -3420,7 +3410,7 @@
 
         /*
            PRESSURE TRENDING
-           ALSO STOP PULSING
+           PULSING ALSO STOPS
         */
 
         setPressureTrendingCompleted(
@@ -3665,7 +3655,7 @@
 
 
     /* =========================================================
-       GET DISPLAY VALUE
+       DISPLAY VALUE
     ========================================================= */
 
     function getCellDisplayValue(cell) {
@@ -4593,7 +4583,7 @@
 
 
       /* =======================================================
-         SHOW CURRENT PRESSURE
+         DISPLAY CURRENT PRESSURE
       ======================================================= */
 
       pressureDisplay.textContent =
@@ -4613,7 +4603,7 @@
 
 
       /* =======================================================
-         DEPRESSURIZATION COMPLETE
+         COMPLETE
          PRESSURE <= 6 BARG
       ======================================================= */
 
@@ -4653,7 +4643,7 @@
 
 
       /* =======================================================
-         DEPRESSURIZATION ONGOING
+         ONGOING
          PRESSURE > 6 BARG
       ======================================================= */
 
@@ -4887,7 +4877,7 @@
 
 
     /* =========================================================
-       INITIAL TABLE LOAD
+       INITIAL GPS + GPP4 LOAD
     ========================================================= */
 
     refreshTables();
@@ -4910,7 +4900,7 @@
 
 
     /* =========================================================
-       INITIAL DEPRESS DATA
+       INITIAL DEPRESSURIZATION LOAD
     ========================================================= */
 
     loadSheet(
@@ -4920,7 +4910,7 @@
 
 
     /* =========================================================
-       DEPRESS DATA
+       DEPRESSURIZATION
        REFRESH EVERY 15 SEC
     ========================================================= */
 

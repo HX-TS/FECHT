@@ -544,6 +544,37 @@
 
 
     /* =========================================================
+       AUDIO STATUS
+    ========================================================= */
+
+    .audio-status {
+
+      margin-top: 7px;
+
+      font-size: 7px;
+
+      font-weight: 800;
+
+      letter-spacing: 0.08em;
+
+      text-transform: uppercase;
+
+      color:
+        var(--grey);
+
+    }
+
+
+    .audio-status.enabled {
+
+      color:
+        var(--green);
+
+    }
+
+
+
+    /* =========================================================
        MAIN DATA PANEL
     ========================================================= */
 
@@ -633,7 +664,6 @@
 
     /* =========================================================
        LIVE UPDATE LABEL
-       RIGHT SIDE
     ========================================================= */
 
     .refresh-label {
@@ -882,7 +912,7 @@
     /* =========================================================
        LATEST ROW - ONGOING
 
-       STRONG RED PULSING EFFECT
+       STRONG RED PULSING
     ========================================================= */
 
     tbody tr.latest-row.ongoing-latest td {
@@ -984,10 +1014,7 @@
 
 
     /* =========================================================
-       LATEST ROW - COMPLETE
-
-       GREEN
-       NO PULSE
+       COMPLETE LATEST ROW
     ========================================================= */
 
     tbody tr.latest-row.complete-latest td {
@@ -1029,7 +1056,59 @@
 
 
     /* =========================================================
-       LOADING / ERROR MESSAGE
+       NEW DATA FLASH
+
+       ADDED WHEN NEW DATA IS DETECTED
+    ========================================================= */
+
+    .data-panel.new-data-alert {
+
+      animation:
+        newDataPanelFlash
+        0.32s
+        ease-in-out
+        4;
+
+    }
+
+
+    @keyframes newDataPanelFlash {
+
+      0% {
+
+        border-color:
+          var(--black);
+
+      }
+
+
+      50% {
+
+        border-color:
+          var(--red);
+
+        box-shadow:
+          inset 0 0 0 4px
+          var(--red);
+
+      }
+
+
+      100% {
+
+        border-color:
+          var(--black);
+
+        box-shadow: none;
+
+      }
+
+    }
+
+
+
+    /* =========================================================
+       MESSAGE
     ========================================================= */
 
     .message {
@@ -1118,7 +1197,6 @@
 
     @media (max-width: 900px) {
 
-
       .page {
 
         padding: 5px;
@@ -1130,7 +1208,7 @@
 
       .header {
 
-        min-height: 180px;
+        min-height: 185px;
 
         padding:
           16px
@@ -1218,7 +1296,6 @@
 
     @media (max-width: 600px) {
 
-
       .page {
 
         padding:
@@ -1243,12 +1320,12 @@
 
       .header {
 
-        min-height: 155px;
+        min-height: 162px;
 
         padding:
           12px
           8px
-          10px;
+          9px;
 
       }
 
@@ -1340,10 +1417,14 @@
       }
 
 
+      .audio-status {
 
-      /* ---------------------------------------------------------
-         CENTER PANEL TITLE
-      --------------------------------------------------------- */
+        margin-top: 5px;
+
+        font-size: 5px;
+
+      }
+
 
       .panel-header {
 
@@ -1433,10 +1514,9 @@
 
     @media (max-height: 600px) {
 
-
       .header {
 
-        min-height: 110px;
+        min-height: 115px;
 
         padding:
           7px
@@ -1480,6 +1560,13 @@
       .pressure-summary {
 
         margin-top: 5px;
+
+      }
+
+
+      .audio-status {
+
+        margin-top: 3px;
 
       }
 
@@ -1550,10 +1637,6 @@
     <header class="header">
 
 
-      <!-- ===================================================
-           TITLE
-      ==================================================== -->
-
       <div class="main-title">
 
         FEC DEPRESSURIZE
@@ -1570,7 +1653,7 @@
 
 
       <!-- ===================================================
-           DEPRESSURIZATION STATUS
+           STATUS
       ==================================================== -->
 
       <div
@@ -1579,9 +1662,7 @@
       >
 
 
-        <div
-          class="status-dot"
-        ></div>
+        <div class="status-dot"></div>
 
 
         <div
@@ -1632,6 +1713,21 @@
       </div>
 
 
+
+      <!-- ===================================================
+           SOUND STATUS
+      ==================================================== -->
+
+      <div
+        class="audio-status"
+        id="audioStatus"
+      >
+
+        Tap / Click Page Once to Enable New Data Beep
+
+      </div>
+
+
     </header>
 
 
@@ -1640,12 +1736,11 @@
          DATA PANEL
     ====================================================== -->
 
-    <main class="data-panel">
+    <main
+      class="data-panel"
+      id="dataPanel"
+    >
 
-
-      <!-- ===================================================
-           DATA HEADER
-      ==================================================== -->
 
       <div class="panel-header">
 
@@ -1716,7 +1811,7 @@
 
 
     /*
-      Refresh Google Sheet every 60 seconds.
+       CHECK GOOGLE SHEET EVERY 60 SECONDS
     */
 
     const REFRESH_TIME =
@@ -1725,9 +1820,8 @@
 
 
     /*
-      Depressurization completes at:
-
-      PRESSURE <= 5 BARG
+       DEPRESSURIZATION COMPLETE WHEN
+       LATEST PRESSURE <= 5 BARG
     */
 
     const COMPLETE_PRESSURE =
@@ -1748,23 +1842,16 @@
 
 
       /*
-        First sheet tab.
+         FIRST SHEET TAB.
 
-        If your data is on another sheet tab,
-        change this GID.
+         CHANGE THIS IF YOUR DATA TAB
+         USES ANOTHER GID.
       */
 
       gid:
 
         "0",
 
-
-      /*
-        Read A to Z.
-
-        Empty / unused columns are hidden
-        automatically.
-      */
 
       range:
 
@@ -1782,6 +1869,404 @@
 
 
     };
+
+
+
+    /* =========================================================
+       AUDIO SYSTEM
+    ========================================================= */
+
+
+    let audioContext =
+      null;
+
+
+    let audioUnlocked =
+      false;
+
+
+
+    /*
+       USED TO DETECT NEW DATA.
+
+       FIRST PAGE LOAD:
+       previousLatestSignature = null
+
+       THEREFORE INITIAL LOAD DOES NOT BEEP.
+    */
+
+    let previousLatestSignature =
+      null;
+
+
+
+    /* =========================================================
+       UNLOCK AUDIO
+    ========================================================= */
+
+    function unlockAudio() {
+
+
+      try {
+
+
+        const AudioContextClass =
+
+          window.AudioContext
+
+          ||
+
+          window.webkitAudioContext;
+
+
+
+        if (!AudioContextClass) {
+
+
+          return;
+
+
+        }
+
+
+
+        if (!audioContext) {
+
+
+          audioContext =
+
+            new AudioContextClass();
+
+
+        }
+
+
+
+        if (
+          audioContext.state === "suspended"
+        ) {
+
+
+          audioContext.resume();
+
+
+        }
+
+
+
+        audioUnlocked =
+          true;
+
+
+
+        const audioStatus =
+
+          document.getElementById(
+            "audioStatus"
+          );
+
+
+        audioStatus.textContent =
+          "New Data Beep Enabled";
+
+
+        audioStatus.classList.add(
+          "enabled"
+        );
+
+
+      }
+
+
+      catch (error) {
+
+
+        console.log(
+          "Audio unavailable:",
+          error
+        );
+
+
+      }
+
+
+    }
+
+
+
+    /*
+       ONE USER INTERACTION IS REQUIRED
+       BY MODERN BROWSERS.
+    */
+
+    document.addEventListener(
+
+      "pointerdown",
+
+      unlockAudio,
+
+      {
+        once: true
+      }
+
+    );
+
+
+    document.addEventListener(
+
+      "keydown",
+
+      unlockAudio,
+
+      {
+        once: true
+      }
+
+    );
+
+
+
+    /* =========================================================
+       CREATE ONE BEEP
+    ========================================================= */
+
+    function createBeep(
+      frequency,
+      startOffset,
+      duration
+    ) {
+
+
+      if (
+
+        !audioUnlocked
+
+        ||
+
+        !audioContext
+
+      ) {
+
+
+        return;
+
+
+      }
+
+
+
+      const startTime =
+
+        audioContext.currentTime
+
+        +
+
+        startOffset;
+
+
+
+      const oscillator =
+
+        audioContext.createOscillator();
+
+
+      const gain =
+
+        audioContext.createGain();
+
+
+
+      oscillator.type =
+        "sine";
+
+
+      oscillator.frequency.setValueAtTime(
+
+        frequency,
+
+        startTime
+
+      );
+
+
+
+      gain.gain.setValueAtTime(
+
+        0.0001,
+
+        startTime
+
+      );
+
+
+      gain.gain.exponentialRampToValueAtTime(
+
+        0.30,
+
+        startTime + 0.015
+
+      );
+
+
+      gain.gain.exponentialRampToValueAtTime(
+
+        0.0001,
+
+        startTime + duration
+
+      );
+
+
+
+      oscillator.connect(
+        gain
+      );
+
+
+      gain.connect(
+        audioContext.destination
+      );
+
+
+
+      oscillator.start(
+        startTime
+      );
+
+
+      oscillator.stop(
+        startTime + duration + 0.02
+      );
+
+
+    }
+
+
+
+    /* =========================================================
+       NEW DATA DOUBLE BEEP
+    ========================================================= */
+
+    function playNewDataBeep() {
+
+
+      if (
+
+        !audioUnlocked
+
+        ||
+
+        !audioContext
+
+      ) {
+
+
+        return;
+
+
+      }
+
+
+
+      if (
+        audioContext.state === "suspended"
+      ) {
+
+
+        audioContext.resume();
+
+
+      }
+
+
+
+      /*
+         FIRST BEEP
+      */
+
+      createBeep(
+
+        950,
+
+        0,
+
+        0.18
+
+      );
+
+
+
+      /*
+         SECOND BEEP
+      */
+
+      createBeep(
+
+        1150,
+
+        0.26,
+
+        0.20
+
+      );
+
+
+    }
+
+
+
+    /* =========================================================
+       VISUAL NEW DATA ALERT
+    ========================================================= */
+
+    function showNewDataVisualAlert() {
+
+
+      const panel =
+
+        document.getElementById(
+          "dataPanel"
+        );
+
+
+      panel.classList.remove(
+        "new-data-alert"
+      );
+
+
+
+      /*
+         FORCE BROWSER TO RESET ANIMATION
+      */
+
+      void panel.offsetWidth;
+
+
+
+      panel.classList.add(
+        "new-data-alert"
+      );
+
+
+
+      setTimeout(
+
+        function () {
+
+
+          panel.classList.remove(
+            "new-data-alert"
+          );
+
+
+        },
+
+        1700
+
+      );
+
+
+    }
 
 
 
@@ -1852,15 +2337,8 @@
       }
 
 
-
       /*
-        Prefer formatted value from Google.
-
-        Example:
-
-        Date
-        Time
-        Decimal formatting
+         PREFER GOOGLE FORMATTED VALUE
       */
 
       if (
@@ -2001,7 +2479,7 @@
 
 
     /* =========================================================
-       FIND PRESSURE COLUMN AUTOMATICALLY
+       FIND PRESSURE COLUMN
     ========================================================= */
 
     function findPressureColumn(
@@ -2010,8 +2488,8 @@
 
 
       /* =======================================================
-         PRIORITY 1
-         HEADER CONTAINING "PRESSURE"
+         PRIORITY 1:
+         HEADER CONTAINING PRESSURE
       ======================================================= */
 
       for (
@@ -2052,7 +2530,7 @@
 
 
       /* =======================================================
-         PRIORITY 2
+         PRIORITY 2:
          HEADER CONTAINING BARG
       ======================================================= */
 
@@ -2094,7 +2572,7 @@
 
 
       /* =======================================================
-         PRIORITY 3
+         PRIORITY 3:
          COMMON PRESSURE GAUGE NAMES
       ======================================================= */
 
@@ -2180,7 +2658,7 @@
 
 
       /* =======================================================
-         NO PRESSURE AVAILABLE
+         NO PRESSURE VALUE
       ======================================================= */
 
       if (
@@ -2234,9 +2712,7 @@
 
 
       /* =======================================================
-         COMPLETE
-
-         PRESSURE <= 5 BARG
+         COMPLETE AT <= 5 BARG
       ======================================================= */
 
       if (
@@ -2269,7 +2745,7 @@
 
 
       /* =======================================================
-         ONGOING
+         STILL DEPRESSURIZING
       ======================================================= */
 
       statusBox.classList.remove(
@@ -2299,10 +2775,6 @@
 
     function loadSheet() {
 
-
-      /*
-        Only rows containing data in column A.
-      */
 
       const query =
 
@@ -2424,7 +2896,7 @@
 
 
       /* =======================================================
-         CLEAN JSONP SCRIPT
+         REMOVE JSONP SCRIPT
       ======================================================= */
 
       script.onload =
@@ -2457,7 +2929,6 @@
         };
 
 
-
       document.head.appendChild(
         script
       );
@@ -2468,7 +2939,7 @@
 
 
     /* =========================================================
-       AUTOMATICALLY SCROLL TO LATEST DATA
+       SCROLL TO LATEST DATA
     ========================================================= */
 
     function scrollToLatest(
@@ -2503,6 +2974,65 @@
         }
 
       );
+
+
+    }
+
+
+
+    /* =========================================================
+       CREATE LATEST ROW SIGNATURE
+
+       THIS IS USED TO DETECT WHETHER THE
+       LATEST DATA HAS CHANGED.
+    ========================================================= */
+
+    function createRowSignature(
+      row,
+      visibleColumns
+    ) {
+
+
+      if (
+        !row
+        ||
+        !row.c
+      ) {
+
+
+        return "";
+
+
+      }
+
+
+      return visibleColumns
+
+        .map(
+
+          function (item) {
+
+
+            return String(
+
+              getCellDisplayValue(
+
+                row.c[
+                  item.index
+                ]
+
+              )
+
+            );
+
+
+          }
+
+        )
+
+        .join(
+          "|"
+        );
 
 
     }
@@ -2582,7 +3112,6 @@
 
       /* =======================================================
          DETERMINE VISIBLE COLUMNS
-
          HIDE UNUSED COLUMNS
       ======================================================= */
 
@@ -2638,10 +3167,10 @@
 
 
           /*
-            Show column only if:
+             ONLY DISPLAY COLUMNS THAT HAVE:
 
-            1. header is not blank
-            2. column contains actual data
+             1. A HEADER
+             2. ACTUAL DATA
           */
 
           if (
@@ -2679,7 +3208,7 @@
 
 
       /* =======================================================
-         NO VALID COLUMNS
+         NO COLUMNS
       ======================================================= */
 
       if (
@@ -2761,7 +3290,6 @@
       );
 
 
-
       thead.appendChild(
         headerRow
       );
@@ -2792,6 +3320,10 @@
         null;
 
 
+      let lastValidSourceRow =
+        null;
+
+
       let latestPressure =
         null;
 
@@ -2802,9 +3334,8 @@
         function (row) {
 
 
-
           /* ===================================================
-             CHECK FOR VALID ROW
+             CHECK VALID ROW
           =================================================== */
 
           const rowHasData =
@@ -2864,10 +3395,6 @@
 
 
 
-          /* ===================================================
-             CREATE DATA CELLS
-          =================================================== */
-
           visibleColumns.forEach(
 
             function (item) {
@@ -2908,26 +3435,28 @@
           );
 
 
-
           tbody.appendChild(
             tr
           );
 
 
-          /*
-            Every valid row becomes
-            the candidate latest row.
 
-            Final one = latest data.
+          /*
+             CURRENT ROW BECOMES THE LATEST
+             VALID ROW.
           */
 
           lastRowElement =
             tr;
 
 
+          lastValidSourceRow =
+            row;
+
+
 
           /* ===================================================
-             GET LATEST PRESSURE
+             LATEST PRESSURE
           =================================================== */
 
           if (
@@ -2977,9 +3506,7 @@
 
 
               if (
-
                 parsedPressure !== null
-
               ) {
 
 
@@ -3003,7 +3530,7 @@
 
 
       /* =======================================================
-         NO ROWS
+         NO DATA ROWS
       ======================================================= */
 
       if (
@@ -3028,7 +3555,78 @@
 
 
       /* =======================================================
-         UPDATE STATUS
+         CREATE SIGNATURE FOR LATEST DATA
+      ======================================================= */
+
+      const currentLatestSignature =
+
+        createRowSignature(
+
+          lastValidSourceRow,
+
+          visibleColumns
+
+        );
+
+
+
+      /* =======================================================
+         DETECT NEW DATA
+      ======================================================= */
+
+      if (
+        previousLatestSignature === null
+      ) {
+
+
+        /*
+           INITIAL PAGE LOAD.
+
+           SAVE CURRENT DATA BUT DO NOT BEEP.
+        */
+
+        previousLatestSignature =
+
+          currentLatestSignature;
+
+
+      }
+
+
+      else if (
+
+        currentLatestSignature
+
+        !==
+
+        previousLatestSignature
+
+      ) {
+
+
+        /*
+           LATEST DATA CHANGED.
+
+           THIS IS A NEW READING.
+        */
+
+        playNewDataBeep();
+
+
+        showNewDataVisualAlert();
+
+
+        previousLatestSignature =
+
+          currentLatestSignature;
+
+
+      }
+
+
+
+      /* =======================================================
+         UPDATE PRESSURE STATUS
       ======================================================= */
 
       const depressurizationComplete =
@@ -3040,7 +3638,7 @@
 
 
       /* =======================================================
-         LATEST DATA ROW
+         STYLE LATEST ROW
       ======================================================= */
 
       if (
@@ -3055,9 +3653,7 @@
 
 
         /* =====================================================
-           IF <= 5 BARG
-           STOP RED PULSE
-           GREEN COMPLETE
+           COMPLETE <= 5 BARG
         ===================================================== */
 
         if (
@@ -3075,8 +3671,7 @@
 
 
         /* =====================================================
-           IF > 5 BARG
-           STRONG RED PULSE
+           ONGOING > 5 BARG
         ===================================================== */
 
         else {
@@ -3092,7 +3687,7 @@
 
 
         /* =====================================================
-           MAKE PRESSURE CELL EXTRA BOLD / LARGE
+           EMPHASIZE PRESSURE CELL
         ===================================================== */
 
         if (
@@ -3177,7 +3772,7 @@
 
 
       /* =======================================================
-         IMMEDIATELY SHOW LATEST DATA
+         SHOW LATEST DATA IMMEDIATELY
       ======================================================= */
 
       scrollToLatest(
@@ -3208,7 +3803,7 @@
 
 
     /* =========================================================
-       INITIAL DATA LOAD
+       INITIAL LOAD
     ========================================================= */
 
     loadSheet();

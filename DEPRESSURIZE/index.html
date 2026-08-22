@@ -1,1 +1,2797 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <title>FEC Depressurize</title>
+
+
+  <!-- =========================================================
+       FAVICON
+  ========================================================= -->
+
+  <link
+    rel="icon"
+    type="image/png"
+    href="https://i.ibb.co/gbgLwSqg/Chat-GPT-Image-Jul-26-2026-04-53-23-AM-2.png"
+  >
+
+  <link
+    rel="shortcut icon"
+    type="image/png"
+    href="https://i.ibb.co/gbgLwSqg/Chat-GPT-Image-Jul-26-2026-04-53-23-AM-2.png"
+  >
+
+  <link
+    rel="apple-touch-icon"
+    href="https://i.ibb.co/gbgLwSqg/Chat-GPT-Image-Jul-26-2026-04-53-23-AM-2.png"
+  >
+
+
+  <style>
+
+    /* =========================================================
+       COLOR SCHEME
+       INDUSTRIAL / CONTROL ROOM
+    ========================================================= */
+
+    :root {
+
+      --black: #050505;
+
+      --charcoal: #181818;
+
+      --cream: #f2efe9;
+
+      --cream-dark: #e5e0d8;
+
+      --line: #c9c4bc;
+
+      --red: #d71920;
+
+      --red-soft: #f7dddd;
+
+      --orange: #ff8500;
+
+      --green: #16853e;
+
+      --green-soft: #dcefe2;
+
+      --grey: #5a5752;
+
+    }
+
+
+
+    /* =========================================================
+       RESET
+    ========================================================= */
+
+    * {
+
+      margin: 0;
+
+      padding: 0;
+
+      box-sizing: border-box;
+
+    }
+
+
+    html,
+    body {
+
+      width: 100%;
+
+      height: 100%;
+
+    }
+
+
+    body {
+
+      font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+      background: var(--black);
+
+      color: var(--black);
+
+      overflow: hidden;
+
+    }
+
+
+
+    /* =========================================================
+       PAGE
+    ========================================================= */
+
+    .page {
+
+      width: 100%;
+
+      height: 100dvh;
+
+      display: flex;
+
+      flex-direction: column;
+
+      padding: 7px;
+
+      gap: 7px;
+
+      background: var(--black);
+
+    }
+
+
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
+    .header {
+
+      flex-shrink: 0;
+
+      background: var(--cream);
+
+      border:
+        1px solid
+        var(--black);
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      text-align: center;
+
+      padding:
+        20px
+        20px
+        18px;
+
+    }
+
+
+
+    /* =========================================================
+       MAIN TITLE
+    ========================================================= */
+
+    .main-title {
+
+      font-size:
+        clamp(
+          42px,
+          6.5vw,
+          90px
+        );
+
+      line-height: 0.9;
+
+      font-weight: 900;
+
+      letter-spacing: -0.055em;
+
+      text-transform: uppercase;
+
+      color: var(--black);
+
+    }
+
+
+    .subtitle {
+
+      margin-top: 10px;
+
+      font-size:
+        clamp(
+          8px,
+          0.9vw,
+          13px
+        );
+
+      font-weight: 700;
+
+      letter-spacing: 0.30em;
+
+      text-transform: uppercase;
+
+    }
+
+
+
+    /* =========================================================
+       STATUS
+    ========================================================= */
+
+    .status-box {
+
+      margin-top: 18px;
+
+      min-width:
+        min(
+          520px,
+          90%
+        );
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 11px;
+
+      padding:
+        11px
+        20px;
+
+      border:
+        1px solid
+        var(--black);
+
+      background: var(--cream-dark);
+
+    }
+
+
+
+    /* =========================================================
+       STATUS DOT
+    ========================================================= */
+
+    .status-dot {
+
+      width: 11px;
+
+      height: 11px;
+
+      flex-shrink: 0;
+
+      border-radius: 50%;
+
+      background: var(--red);
+
+    }
+
+
+
+    /* =========================================================
+       ONGOING
+    ========================================================= */
+
+    .status-box.ongoing
+    .status-dot {
+
+      animation:
+        statusPulseDot
+        1s
+        infinite;
+
+    }
+
+
+    .status-box.ongoing
+    .status-text {
+
+      color: var(--red);
+
+      animation:
+        statusPulseText
+        1.1s
+        ease-in-out
+        infinite;
+
+    }
+
+
+    @keyframes statusPulseDot {
+
+      0% {
+
+        background: var(--red);
+
+        box-shadow:
+          0 0 0 0
+          rgba(215, 25, 32, 0.85);
+
+      }
+
+      50% {
+
+        background: var(--orange);
+
+        box-shadow:
+          0 0 0 9px
+          rgba(215, 25, 32, 0);
+
+      }
+
+      100% {
+
+        background: var(--red);
+
+        box-shadow:
+          0 0 0 0
+          rgba(215, 25, 32, 0);
+
+      }
+
+    }
+
+
+    @keyframes statusPulseText {
+
+      0% {
+
+        opacity: 1;
+
+      }
+
+      50% {
+
+        opacity: 0.35;
+
+      }
+
+      100% {
+
+        opacity: 1;
+
+      }
+
+    }
+
+
+
+    /* =========================================================
+       COMPLETE
+    ========================================================= */
+
+    .status-box.complete {
+
+      background:
+        var(--green-soft);
+
+      border-color:
+        var(--green);
+
+    }
+
+
+    .status-box.complete
+    .status-dot {
+
+      background:
+        var(--green);
+
+      box-shadow: none;
+
+      animation: none;
+
+    }
+
+
+    .status-box.complete
+    .status-text {
+
+      color:
+        var(--green);
+
+      animation: none;
+
+    }
+
+
+
+    .status-text {
+
+      font-size:
+        clamp(
+          13px,
+          1.2vw,
+          18px
+        );
+
+      font-weight: 900;
+
+      letter-spacing: 0.06em;
+
+      text-transform: uppercase;
+
+    }
+
+
+
+    /* =========================================================
+       LIVE PRESSURE DISPLAY
+    ========================================================= */
+
+    .pressure-summary {
+
+      margin-top: 12px;
+
+      display: flex;
+
+      align-items: baseline;
+
+      justify-content: center;
+
+      gap: 10px;
+
+    }
+
+
+    .pressure-summary-label {
+
+      font-size: 9px;
+
+      font-weight: 800;
+
+      color: var(--grey);
+
+      letter-spacing: 0.08em;
+
+      text-transform: uppercase;
+
+    }
+
+
+    .pressure-summary-value {
+
+      font-size:
+        clamp(
+          22px,
+          2vw,
+          31px
+        );
+
+      line-height: 1;
+
+      font-weight: 900;
+
+      font-variant-numeric:
+        tabular-nums;
+
+    }
+
+
+    .pressure-summary-unit {
+
+      font-size: 10px;
+
+      font-weight: 900;
+
+      text-transform: uppercase;
+
+    }
+
+
+
+    /* =========================================================
+       MAIN DATA PANEL
+    ========================================================= */
+
+    .data-panel {
+
+      flex: 1;
+
+      min-height: 0;
+
+      display: flex;
+
+      flex-direction: column;
+
+      background:
+        var(--cream);
+
+      border:
+        1px solid
+        var(--black);
+
+      overflow: hidden;
+
+    }
+
+
+
+    /* =========================================================
+       PANEL HEADER
+    ========================================================= */
+
+    .panel-header {
+
+      flex-shrink: 0;
+
+      min-height: 42px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: space-between;
+
+      padding:
+        0
+        16px;
+
+      border-bottom:
+        1px solid
+        var(--black);
+
+      background:
+        var(--cream);
+
+    }
+
+
+    .panel-title {
+
+      font-size: 12px;
+
+      font-weight: 900;
+
+      letter-spacing: 0.05em;
+
+      text-transform: uppercase;
+
+    }
+
+
+    .refresh-label {
+
+      font-size: 8px;
+
+      font-weight: 700;
+
+      color: var(--grey);
+
+      letter-spacing: 0.06em;
+
+      text-transform: uppercase;
+
+    }
+
+
+
+    /* =========================================================
+       TABLE WINDOW
+    ========================================================= */
+
+    .table-wrapper {
+
+      flex: 1;
+
+      min-height: 0;
+
+      overflow-x: auto;
+
+      overflow-y: auto;
+
+      background:
+        var(--cream);
+
+      scrollbar-width: thin;
+
+      scrollbar-color:
+        #888
+        var(--cream-dark);
+
+    }
+
+
+    .table-wrapper::-webkit-scrollbar {
+
+      width: 8px;
+
+      height: 8px;
+
+    }
+
+
+    .table-wrapper::-webkit-scrollbar-track {
+
+      background:
+        var(--cream-dark);
+
+    }
+
+
+    .table-wrapper::-webkit-scrollbar-thumb {
+
+      background:
+        #777;
+
+    }
+
+
+
+    /* =========================================================
+       TABLE
+    ========================================================= */
+
+    table {
+
+      width: 100%;
+
+      border-collapse: collapse;
+
+      table-layout: auto;
+
+      background:
+        var(--cream);
+
+      color:
+        var(--black);
+
+    }
+
+
+
+    /* =========================================================
+       TABLE HEADER
+    ========================================================= */
+
+    thead {
+
+      position: sticky;
+
+      top: 0;
+
+      z-index: 10;
+
+    }
+
+
+    th {
+
+      min-width: 130px;
+
+      height: 50px;
+
+      padding:
+        8px
+        12px;
+
+      background:
+        var(--cream-dark);
+
+      color:
+        var(--black);
+
+      border-right:
+        1px solid
+        var(--line);
+
+      border-bottom:
+        1px solid
+        var(--black);
+
+      text-align: center;
+
+      vertical-align: middle;
+
+      font-size: 11px;
+
+      line-height: 1.2;
+
+      font-weight: 900;
+
+      text-transform: uppercase;
+
+    }
+
+
+    th:last-child {
+
+      border-right: none;
+
+    }
+
+
+
+    /* =========================================================
+       TABLE DATA
+    ========================================================= */
+
+    td {
+
+      min-width: 130px;
+
+      height: 38px;
+
+      padding:
+        7px
+        12px;
+
+      background:
+        var(--cream);
+
+      border-right:
+        1px solid
+        var(--line);
+
+      border-bottom:
+        1px solid
+        var(--line);
+
+      text-align: center;
+
+      vertical-align: middle;
+
+      white-space: nowrap;
+
+      font-size: 12px;
+
+      font-weight: 600;
+
+    }
+
+
+    td:last-child {
+
+      border-right: none;
+
+    }
+
+
+    tbody tr:hover td {
+
+      background:
+        #e9e5de;
+
+    }
+
+
+
+    /* =========================================================
+       LATEST DATA ROW
+       BOLD + PULSING WHILE ONGOING
+    ========================================================= */
+
+    tbody tr.latest-row td {
+
+      font-weight: 900;
+
+      border-top:
+        2px solid
+        var(--black);
+
+    }
+
+
+    tbody tr.latest-row.ongoing-latest td {
+
+      animation:
+        latestRowPulse
+        1.2s
+        ease-in-out
+        infinite;
+
+    }
+
+
+    @keyframes latestRowPulse {
+
+      0% {
+
+        background:
+          var(--cream);
+
+      }
+
+      50% {
+
+        background:
+          var(--red-soft);
+
+      }
+
+      100% {
+
+        background:
+          var(--cream);
+
+      }
+
+    }
+
+
+
+    /* =========================================================
+       COMPLETE LATEST ROW
+    ========================================================= */
+
+    tbody tr.latest-row.complete-latest td {
+
+      background:
+        var(--green-soft);
+
+      color:
+        #0b5728;
+
+      animation: none;
+
+      border-top:
+        2px solid
+        var(--green);
+
+      border-bottom:
+        1px solid
+        var(--green);
+
+    }
+
+
+
+    /* =========================================================
+       PRESSURE CELL EMPHASIS
+    ========================================================= */
+
+    td.latest-pressure {
+
+      font-size: 15px;
+
+      font-weight: 900;
+
+    }
+
+
+
+    /* =========================================================
+       MESSAGES
+    ========================================================= */
+
+    .message {
+
+      width: 100%;
+
+      height: 100%;
+
+      min-height: 120px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding: 25px;
+
+      text-align: center;
+
+      font-size: 11px;
+
+      font-weight: 800;
+
+      letter-spacing: 0.04em;
+
+      text-transform: uppercase;
+
+    }
+
+
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+
+    .footer {
+
+      flex-shrink: 0;
+
+      min-height: 37px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding:
+        7px
+        10px
+        max(
+          7px,
+          env(safe-area-inset-bottom)
+        );
+
+      background:
+        var(--cream);
+
+      border:
+        1px solid
+        var(--black);
+
+      text-align: center;
+
+      font-size: 9px;
+
+      font-weight: 900;
+
+      letter-spacing: 0.09em;
+
+      text-transform: uppercase;
+
+    }
+
+
+
+    /* =========================================================
+       TABLET
+    ========================================================= */
+
+    @media (max-width: 900px) {
+
+      .page {
+
+        padding: 5px;
+
+        gap: 5px;
+
+      }
+
+
+      .header {
+
+        padding:
+          16px
+          15px
+          14px;
+
+      }
+
+
+      .main-title {
+
+        font-size:
+          clamp(
+            37px,
+            7vw,
+            68px
+          );
+
+      }
+
+
+      .status-box {
+
+        margin-top: 14px;
+
+        min-width:
+          min(
+            480px,
+            92%
+          );
+
+      }
+
+
+      th {
+
+        min-width: 115px;
+
+        height: 44px;
+
+        padding:
+          7px
+          9px;
+
+        font-size: 10px;
+
+      }
+
+
+      td {
+
+        min-width: 115px;
+
+        height: 34px;
+
+        padding:
+          6px
+          9px;
+
+        font-size: 11px;
+
+      }
+
+    }
+
+
+
+    /* =========================================================
+       PHONE
+    ========================================================= */
+
+    @media (max-width: 600px) {
+
+      .page {
+
+        padding:
+          max(
+            3px,
+            env(safe-area-inset-top)
+          )
+          3px
+          max(
+            3px,
+            env(safe-area-inset-bottom)
+          );
+
+        gap: 3px;
+
+      }
+
+
+      .header {
+
+        padding:
+          13px
+          8px
+          11px;
+
+      }
+
+
+      .main-title {
+
+        font-size:
+          clamp(
+            31px,
+            10vw,
+            45px
+          );
+
+      }
+
+
+      .subtitle {
+
+        margin-top: 7px;
+
+        font-size: 6px;
+
+      }
+
+
+      .status-box {
+
+        margin-top: 11px;
+
+        width: 100%;
+
+        min-width: 0;
+
+        padding:
+          8px
+          9px;
+
+        gap: 7px;
+
+      }
+
+
+      .status-dot {
+
+        width: 8px;
+
+        height: 8px;
+
+      }
+
+
+      .status-text {
+
+        font-size:
+          clamp(
+            10px,
+            3vw,
+            13px
+          );
+
+      }
+
+
+      .pressure-summary {
+
+        margin-top: 8px;
+
+      }
+
+
+      .pressure-summary-label {
+
+        font-size: 6px;
+
+      }
+
+
+      .pressure-summary-value {
+
+        font-size: 21px;
+
+      }
+
+
+      .pressure-summary-unit {
+
+        font-size: 7px;
+
+      }
+
+
+      .panel-header {
+
+        min-height: 34px;
+
+        padding:
+          0
+          9px;
+
+      }
+
+
+      .panel-title {
+
+        font-size: 9px;
+
+      }
+
+
+      .refresh-label {
+
+        font-size: 6px;
+
+      }
+
+
+      th {
+
+        min-width: 100px;
+
+        height: 39px;
+
+        padding:
+          6px
+          7px;
+
+        font-size: 9px;
+
+      }
+
+
+      td {
+
+        min-width: 100px;
+
+        height: 29px;
+
+        padding:
+          5px
+          7px;
+
+        font-size: 10px;
+
+      }
+
+
+      td.latest-pressure {
+
+        font-size: 12px;
+
+      }
+
+
+      .footer {
+
+        min-height: 25px;
+
+        padding:
+          4px
+          8px;
+
+        font-size: 7px;
+
+      }
+
+    }
+
+
+
+    /* =========================================================
+       LANDSCAPE / SHORT SCREEN
+    ========================================================= */
+
+    @media (max-height: 600px) {
+
+      .header {
+
+        padding:
+          7px
+          12px;
+
+      }
+
+
+      .main-title {
+
+        font-size:
+          clamp(
+            28px,
+            5vw,
+            50px
+          );
+
+      }
+
+
+      .subtitle {
+
+        margin-top: 4px;
+
+      }
+
+
+      .status-box {
+
+        margin-top: 7px;
+
+        padding:
+          6px
+          10px;
+
+      }
+
+
+      .pressure-summary {
+
+        margin-top: 5px;
+
+      }
+
+
+      .panel-header {
+
+        min-height: 26px;
+
+      }
+
+
+      th {
+
+        height: 31px;
+
+        padding:
+          4px
+          7px;
+
+      }
+
+
+      td {
+
+        height: 24px;
+
+        padding:
+          3px
+          7px;
+
+      }
+
+
+      .footer {
+
+        min-height: 21px;
+
+        padding: 3px;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+
+<body>
+
+
+  <div class="page">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="header">
+
+
+      <div class="main-title">
+
+        FEC DEPRESSURIZE
+
+      </div>
+
+
+      <div class="subtitle">
+
+        TechSmith
+
+      </div>
+
+
+
+      <!-- ===================================================
+           LIVE STATUS
+      ==================================================== -->
+
+      <div
+        class="status-box ongoing"
+        id="statusBox"
+      >
+
+
+        <div
+          class="status-dot"
+          id="statusDot"
+        ></div>
+
+
+        <div
+          class="status-text"
+          id="statusText"
+        >
+
+          Ongoing Depressurize
+
+        </div>
+
+
+      </div>
+
+
+
+      <!-- ===================================================
+           LATEST PRESSURE
+      ==================================================== -->
+
+      <div class="pressure-summary">
+
+
+        <div class="pressure-summary-label">
+
+          Latest Pressure
+
+        </div>
+
+
+        <div
+          class="pressure-summary-value"
+          id="latestPressure"
+        >
+
+          ---
+
+        </div>
+
+
+        <div class="pressure-summary-unit">
+
+          barg
+
+        </div>
+
+
+      </div>
+
+
+    </header>
+
+
+
+    <!-- =====================================================
+         DATA
+    ====================================================== -->
+
+    <main class="data-panel">
+
+
+      <div class="panel-header">
+
+
+        <div class="panel-title">
+
+          Depressurization Reading
+
+        </div>
+
+
+        <div class="refresh-label">
+
+          Live Update · 60 Sec
+
+        </div>
+
+
+      </div>
+
+
+
+      <div
+        class="table-wrapper"
+        id="dataContainer"
+      >
+
+
+        <div class="message">
+
+          Loading Depressurization Data...
+
+        </div>
+
+
+      </div>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="footer">
+
+      Fly TechSmith
+
+    </footer>
+
+
+  </div>
+
+
+
+  <script>
+
+
+    /* =========================================================
+       CONFIGURATION
+    ========================================================= */
+
+
+    const REFRESH_TIME =
+      60000;
+
+
+    const COMPLETE_PRESSURE =
+      5;
+
+
+
+    /* =========================================================
+       GOOGLE SHEET
+    ========================================================= */
+
+    const SHEET = {
+
+
+      spreadsheetId:
+
+        "1Qp-04Fzx6E997Sye8czPoKg4q7T0Zy4qSHtcWWwL2II",
+
+
+      /*
+         Your shared URL does not contain a GID.
+
+         gid 0 = first sheet tab.
+
+         If your data is on another tab,
+         replace this with that tab's GID.
+      */
+
+      gid:
+
+        "0",
+
+
+      range:
+
+        "A:Z",
+
+
+      container:
+
+        "dataContainer",
+
+
+      callback:
+
+        "depressurizeResponse"
+
+
+    };
+
+
+
+    /* =========================================================
+       PRESSURE HEADER DETECTION
+
+       Script searches the sheet automatically for headings
+       containing these terms.
+    ========================================================= */
+
+    const PRESSURE_HEADER_WORDS = [
+
+      "PRESSURE",
+
+      "PRESSURE BARG",
+
+      "PRESSURE (BARG)",
+
+      "PRESSURE READING",
+
+      "PRESSURE READING (BARG)",
+
+      "PG",
+
+      "DIGITAL PG",
+
+      "BARG"
+
+    ];
+
+
+
+    /* =========================================================
+       NORMALIZE TEXT
+    ========================================================= */
+
+    function normalizeText(value) {
+
+
+      return String(
+        value || ""
+      )
+
+      .trim()
+
+      .toUpperCase();
+
+
+    }
+
+
+
+    /* =========================================================
+       CHECK CELL
+    ========================================================= */
+
+    function cellHasValue(cell) {
+
+
+      if (!cell) {
+
+        return false;
+
+      }
+
+
+      return !(
+
+        cell.v === null
+
+        ||
+
+        cell.v === undefined
+
+        ||
+
+        cell.v === ""
+
+      );
+
+
+    }
+
+
+
+    /* =========================================================
+       GET DISPLAY VALUE
+    ========================================================= */
+
+    function getCellDisplayValue(cell) {
+
+
+      if (!cell) {
+
+        return "";
+
+      }
+
+
+      if (
+
+        cell.f !== undefined
+
+        &&
+
+        cell.f !== null
+
+      ) {
+
+
+        return cell.f;
+
+
+      }
+
+
+      if (
+
+        cell.v !== undefined
+
+        &&
+
+        cell.v !== null
+
+      ) {
+
+
+        return cell.v;
+
+
+      }
+
+
+      return "";
+
+    }
+
+
+
+    /* =========================================================
+       EXTRACT NUMBER
+
+       Handles examples such as:
+
+       12.5
+       12.5 barg
+       5 BAR
+       4.85
+    ========================================================= */
+
+    function extractNumber(value) {
+
+
+      if (
+        value === null
+        ||
+        value === undefined
+      ) {
+
+        return null;
+
+      }
+
+
+      if (
+        typeof value === "number"
+      ) {
+
+        return value;
+
+      }
+
+
+      const cleaned =
+
+        String(value)
+
+        .replace(
+          /,/g,
+          ""
+        );
+
+
+      const match =
+
+        cleaned.match(
+          /-?\d+(\.\d+)?/
+        );
+
+
+      if (!match) {
+
+        return null;
+
+      }
+
+
+      const number =
+
+        parseFloat(
+          match[0]
+        );
+
+
+      return Number.isFinite(number)
+
+        ? number
+
+        : null;
+
+    }
+
+
+
+    /* =========================================================
+       FIND PRESSURE COLUMN
+    ========================================================= */
+
+    function findPressureColumn(
+      columns
+    ) {
+
+
+      /*
+         FIRST PASS:
+         look specifically for PRESSURE
+      */
+
+      for (
+        let i = 0;
+        i < columns.length;
+        i++
+      ) {
+
+
+        const name =
+
+          normalizeText(
+            columns[i].label
+          );
+
+
+        if (
+          name.includes(
+            "PRESSURE"
+          )
+        ) {
+
+          return i;
+
+        }
+
+      }
+
+
+
+      /*
+         SECOND PASS:
+         other common names
+      */
+
+      for (
+        let i = 0;
+        i < columns.length;
+        i++
+      ) {
+
+
+        const name =
+
+          normalizeText(
+            columns[i].label
+          );
+
+
+        if (
+          PRESSURE_HEADER_WORDS.some(
+
+            word =>
+              name === word
+
+          )
+        ) {
+
+          return i;
+
+        }
+
+      }
+
+
+
+      /*
+         THIRD PASS:
+         heading containing BARG
+      */
+
+      for (
+        let i = 0;
+        i < columns.length;
+        i++
+      ) {
+
+
+        const name =
+
+          normalizeText(
+            columns[i].label
+          );
+
+
+        if (
+          name.includes(
+            "BARG"
+          )
+        ) {
+
+          return i;
+
+        }
+
+      }
+
+
+      return -1;
+
+    }
+
+
+
+    /* =========================================================
+       STATUS CONTROL
+    ========================================================= */
+
+    function updateStatus(
+      pressure
+    ) {
+
+
+      const box =
+
+        document.getElementById(
+          "statusBox"
+        );
+
+
+      const text =
+
+        document.getElementById(
+          "statusText"
+        );
+
+
+      const pressureDisplay =
+
+        document.getElementById(
+          "latestPressure"
+        );
+
+
+
+      /* =======================================================
+         NO PRESSURE VALUE
+      ======================================================= */
+
+      if (
+        pressure === null
+        ||
+        !Number.isFinite(
+          pressure
+        )
+      ) {
+
+
+        pressureDisplay.textContent =
+          "---";
+
+
+        box.classList.remove(
+          "complete"
+        );
+
+
+        box.classList.add(
+          "ongoing"
+        );
+
+
+        text.textContent =
+          "Ongoing Depressurize";
+
+
+        return false;
+
+      }
+
+
+
+      pressureDisplay.textContent =
+
+        pressure.toFixed(
+          2
+        );
+
+
+
+      /* =======================================================
+         COMPLETE AT <= 5 BARG
+      ======================================================= */
+
+      if (
+        pressure <=
+        COMPLETE_PRESSURE
+      ) {
+
+
+        box.classList.remove(
+          "ongoing"
+        );
+
+
+        box.classList.add(
+          "complete"
+        );
+
+
+        text.textContent =
+          "Depressurization Complete";
+
+
+        return true;
+
+      }
+
+
+
+      /* =======================================================
+         STILL ONGOING
+      ======================================================= */
+
+      box.classList.remove(
+        "complete"
+      );
+
+
+      box.classList.add(
+        "ongoing"
+      );
+
+
+      text.textContent =
+        "Ongoing Depressurize";
+
+
+      return false;
+
+    }
+
+
+
+    /* =========================================================
+       LOAD GOOGLE SHEET
+    ========================================================= */
+
+    function loadSheet() {
+
+
+      /*
+         Only return rows where Column A
+         contains data.
+      */
+
+      const query =
+
+        "select * where A is not null";
+
+
+      const tqx =
+
+        `out:json;responseHandler:${SHEET.callback}`;
+
+
+
+      const url =
+
+        "https://docs.google.com/spreadsheets/d/"
+
+        +
+
+        SHEET.spreadsheetId
+
+        +
+
+        "/gviz/tq"
+
+        +
+
+        "?gid="
+
+        +
+
+        SHEET.gid
+
+        +
+
+        "&range="
+
+        +
+
+        encodeURIComponent(
+          SHEET.range
+        )
+
+        +
+
+        "&headers=1"
+
+        +
+
+        "&tqx="
+
+        +
+
+        encodeURIComponent(
+          tqx
+        )
+
+        +
+
+        "&tq="
+
+        +
+
+        encodeURIComponent(
+          query
+        )
+
+        +
+
+        "&_="
+
+        +
+
+        Date.now();
+
+
+
+      const script =
+
+        document.createElement(
+          "script"
+        );
+
+
+      script.src =
+        url;
+
+
+      script.async =
+        true;
+
+
+
+      script.onerror =
+        function () {
+
+
+          document.getElementById(
+            SHEET.container
+          ).innerHTML =
+
+            '<div class="message">' +
+
+            'Unable to Load Google Sheet Data' +
+
+            '</div>';
+
+
+        };
+
+
+
+      script.onload =
+        function () {
+
+
+          setTimeout(
+
+            function () {
+
+
+              if (
+                script.parentNode
+              ) {
+
+                script.remove();
+
+              }
+
+
+            },
+
+            1000
+
+          );
+
+
+        };
+
+
+      document.head.appendChild(
+        script
+      );
+
+
+    }
+
+
+
+    /* =========================================================
+       AUTO SCROLL TO LATEST DATA
+    ========================================================= */
+
+    function scrollToLatest(
+      container
+    ) {
+
+
+      requestAnimationFrame(
+
+        function () {
+
+
+          requestAnimationFrame(
+
+            function () {
+
+
+              container.scrollTop =
+
+                container.scrollHeight
+
+                -
+
+                container.clientHeight;
+
+
+            }
+
+          );
+
+
+        }
+
+      );
+
+
+    }
+
+
+
+    /* =========================================================
+       RENDER TABLE
+    ========================================================= */
+
+    function renderTable(
+      response
+    ) {
+
+
+      const container =
+
+        document.getElementById(
+          SHEET.container
+        );
+
+
+      if (
+        !response
+        ||
+        !response.table
+      ) {
+
+
+        container.innerHTML =
+
+          '<div class="message">' +
+
+          'No Data Available' +
+
+          '</div>';
+
+
+        return;
+
+      }
+
+
+
+      const columns =
+
+        response.table.cols || [];
+
+
+      const rows =
+
+        response.table.rows || [];
+
+
+
+      /* =======================================================
+         REMOVE UNUSED COLUMNS
+      ======================================================= */
+
+      const visibleColumns =
+        [];
+
+
+      columns.forEach(
+
+        function (
+          column,
+          index
+        ) {
+
+
+          const columnName =
+
+            normalizeText(
+              column.label
+            );
+
+
+          const hasData =
+
+            rows.some(
+
+              function (row) {
+
+
+                if (!row.c) {
+
+                  return false;
+
+                }
+
+
+                return cellHasValue(
+                  row.c[index]
+                );
+
+
+              }
+
+            );
+
+
+
+          /*
+             Keep the column only if it has:
+             - a heading
+             AND
+             - actual data
+
+             Therefore unused columns disappear.
+          */
+
+          if (
+            columnName !== ""
+            &&
+            hasData
+          ) {
+
+
+            visibleColumns.push({
+
+              column:
+                column,
+
+              index:
+                index
+
+            });
+
+
+          }
+
+
+        }
+
+      );
+
+
+
+      if (
+        visibleColumns.length === 0
+      ) {
+
+
+        container.innerHTML =
+
+          '<div class="message">' +
+
+          'No Reading Available' +
+
+          '</div>';
+
+
+        return;
+
+      }
+
+
+
+      /* =======================================================
+         FIND PRESSURE COLUMN
+      ======================================================= */
+
+      const pressureOriginalIndex =
+
+        findPressureColumn(
+          columns
+        );
+
+
+
+      /* =======================================================
+         CREATE TABLE
+      ======================================================= */
+
+      const table =
+
+        document.createElement(
+          "table"
+        );
+
+
+      const thead =
+
+        document.createElement(
+          "thead"
+        );
+
+
+      const headerRow =
+
+        document.createElement(
+          "tr"
+        );
+
+
+
+      visibleColumns.forEach(
+
+        function (item) {
+
+
+          const th =
+
+            document.createElement(
+              "th"
+            );
+
+
+          th.textContent =
+
+            item.column.label || "";
+
+
+          headerRow.appendChild(
+            th
+          );
+
+
+        }
+
+      );
+
+
+      thead.appendChild(
+        headerRow
+      );
+
+
+      table.appendChild(
+        thead
+      );
+
+
+
+      /* =======================================================
+         BODY
+      ======================================================= */
+
+      const tbody =
+
+        document.createElement(
+          "tbody"
+        );
+
+
+      let lastRowElement =
+        null;
+
+
+      let latestPressure =
+        null;
+
+
+      let actualRowCount =
+        0;
+
+
+
+      rows.forEach(
+
+        function (row) {
+
+
+          const hasData =
+
+            visibleColumns.some(
+
+              function (item) {
+
+
+                if (!row.c) {
+
+                  return false;
+
+                }
+
+
+                return cellHasValue(
+                  row.c[
+                    item.index
+                  ]
+                );
+
+
+              }
+
+            );
+
+
+          if (!hasData) {
+
+            return;
+
+          }
+
+
+          actualRowCount++;
+
+
+          const tr =
+
+            document.createElement(
+              "tr"
+            );
+
+
+
+          visibleColumns.forEach(
+
+            function (item) {
+
+
+              const td =
+
+                document.createElement(
+                  "td"
+                );
+
+
+              const cell =
+
+                row.c
+
+                ? row.c[
+                    item.index
+                  ]
+
+                : null;
+
+
+              td.textContent =
+
+                getCellDisplayValue(
+                  cell
+                );
+
+
+              tr.appendChild(
+                td
+              );
+
+
+            }
+
+          );
+
+
+          tbody.appendChild(
+            tr
+          );
+
+
+          lastRowElement =
+            tr;
+
+
+
+          /* ===================================================
+             LATEST PRESSURE
+          =================================================== */
+
+          if (
+            pressureOriginalIndex >= 0
+            &&
+            row.c
+          ) {
+
+
+            const pressureCell =
+
+              row.c[
+                pressureOriginalIndex
+              ];
+
+
+            const pressureValue =
+
+              pressureCell
+              ? (
+                  pressureCell.v ??
+                  pressureCell.f
+                )
+              : null;
+
+
+            const parsedPressure =
+
+              extractNumber(
+                pressureValue
+              );
+
+
+            if (
+              parsedPressure !== null
+            ) {
+
+
+              latestPressure =
+                parsedPressure;
+
+
+            }
+
+
+          }
+
+
+        }
+
+      );
+
+
+
+      /* =======================================================
+         NO DATA
+      ======================================================= */
+
+      if (
+        actualRowCount === 0
+      ) {
+
+
+        container.innerHTML =
+
+          '<div class="message">' +
+
+          'No Depressurization Reading Available' +
+
+          '</div>';
+
+
+        return;
+
+      }
+
+
+
+      /* =======================================================
+         DETERMINE STATUS
+      ======================================================= */
+
+      const complete =
+
+        updateStatus(
+          latestPressure
+        );
+
+
+
+      /* =======================================================
+         LATEST ROW STYLE
+      ======================================================= */
+
+      if (
+        lastRowElement
+      ) {
+
+
+        lastRowElement.classList.add(
+          "latest-row"
+        );
+
+
+        if (complete) {
+
+
+          lastRowElement.classList.add(
+            "complete-latest"
+          );
+
+
+        } else {
+
+
+          lastRowElement.classList.add(
+            "ongoing-latest"
+          );
+
+
+        }
+
+
+
+        /* =====================================================
+           EMPHASIZE PRESSURE CELL
+        ===================================================== */
+
+        if (
+          pressureOriginalIndex >= 0
+        ) {
+
+
+          const visiblePressurePosition =
+
+            visibleColumns.findIndex(
+
+              item =>
+                item.index ===
+                pressureOriginalIndex
+
+            );
+
+
+          if (
+            visiblePressurePosition >= 0
+          ) {
+
+
+            const pressureTd =
+
+              lastRowElement.children[
+                visiblePressurePosition
+              ];
+
+
+            if (pressureTd) {
+
+
+              pressureTd.classList.add(
+                "latest-pressure"
+              );
+
+
+            }
+
+
+          }
+
+
+        }
+
+
+      }
+
+
+
+      table.appendChild(
+        tbody
+      );
+
+
+      container.innerHTML =
+        "";
+
+
+      container.appendChild(
+        table
+      );
+
+
+
+      /* =======================================================
+         SHOW LATEST READING IMMEDIATELY
+      ======================================================= */
+
+      scrollToLatest(
+        container
+      );
+
+
+    }
+
+
+
+    /* =========================================================
+       GOOGLE CALLBACK
+    ========================================================= */
+
+    window.depressurizeResponse =
+
+      function (response) {
+
+
+        renderTable(
+          response
+        );
+
+
+      };
+
+
+
+    /* =========================================================
+       INITIAL LOAD
+    ========================================================= */
+
+    loadSheet();
+
+
+
+    /* =========================================================
+       AUTO REFRESH EVERY 60 SEC
+    ========================================================= */
+
+    setInterval(
+
+      loadSheet,
+
+      REFRESH_TIME
+
+    );
+
+
+  </script>
+
+
+</body>
+
+</html>

@@ -6,9 +6,24 @@
   <meta name="theme-color" content="#f2efe9" />
   <title>FEC Hydrotest Live Dashboard</title>
 
+  <!-- FAVICON -->
+  <link
+    rel="icon"
+    type="image/png"
+    href="https://i.ibb.co/gbgLwSqg/Chat-GPT-Image-Jul-26-2026-04-53-23-AM-2.png"
+  >
+  <link
+    rel="shortcut icon"
+    type="image/png"
+    href="https://i.ibb.co/gbgLwSqg/Chat-GPT-Image-Jul-26-2026-04-53-23-AM-2.png"
+  >
+  <link
+    rel="apple-touch-icon"
+    href="https://i.ibb.co/gbgLwSqg/Chat-GPT-Image-Jul-26-2026-04-53-23-AM-2.png"
+  >
+
   <style>
     :root {
-      /* Reference-image background only */
       --bg: #f2efe9;
 
       /* Original dark dashboard theme */
@@ -376,7 +391,7 @@
       width: 100%;
       height: 100%;
       border-radius: 10px;
-      touch-action: none;
+      touch-action: pan-y;
     }
 
     .loading,
@@ -412,31 +427,245 @@
       text-transform: uppercase;
     }
 
+    /* =========================
+       RESPONSIVE — TABLET / PHONE
+       ========================= */
     @media (max-width: 900px) {
-      .page { width: min(100% - 18px, 1560px); margin-top: 9px; }
-      .topbar { grid-template-columns: 1fr; }
-      .holding-panel { border-left: 0; border-top: 1px solid var(--border); padding: 18px; }
-      .brand-panel { padding: 23px 20px 20px; }
-      h1 { font-size: clamp(38px, 10vw, 62px); }
-      .metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      .chart-toolbar { align-items: flex-start; flex-direction: column; }
-      .data-info { text-align: left; white-space: normal; }
-      .chart-wrap { height: 345px; }
+      .page {
+        width: calc(100% - 16px);
+        margin: 8px auto 18px;
+      }
+
+      .topbar {
+        grid-template-columns: 1fr;
+        border-radius: 15px;
+      }
+
+      .brand-panel {
+        padding: 22px 20px 19px;
+      }
+
+      h1 {
+        font-size: clamp(36px, 9vw, 58px);
+        line-height: .94;
+      }
+
+      .holding-panel {
+        border-left: 0;
+        border-top: 1px solid var(--border);
+        padding: 18px 20px;
+      }
+
+      .metrics {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .chart-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .data-info {
+        text-align: left;
+        white-space: normal;
+      }
+
+      .chart-wrap {
+        height: 360px;
+      }
     }
 
-    @media (max-width: 520px) {
-      .page { width: calc(100% - 12px); margin-top: 6px; }
-      .brand-panel { padding: 20px 15px 17px; }
-      h1 { font-size: clamp(34px, 13vw, 50px); line-height: .91; }
-      .brand-word { font-size: 9px; }
-      .holding-panel { padding: 15px; }
-      .card-header { padding: 16px 12px 0; }
-      .station-name { font-size: 19px; }
-      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
-      .metric:last-child { grid-column: 1 / -1; }
-      .chart-toolbar { padding-left: 12px; padding-right: 12px; }
-      .legend { gap: 10px 13px; }
-      .chart-wrap { height: 325px; padding-left: 4px; padding-right: 4px; }
+    @media (max-width: 600px) {
+      body { min-width: 0; }
+
+      .page {
+        width: calc(100% - 10px);
+        margin-top: 5px;
+      }
+
+      .topbar,
+      .chart-card {
+        border-radius: 13px;
+      }
+
+      .brand-panel {
+        padding: 18px 14px 15px;
+      }
+
+      h1 {
+        font-size: clamp(31px, 12vw, 45px);
+        line-height: .92;
+        letter-spacing: -0.04em;
+      }
+
+      .brand-word {
+        margin-top: 11px;
+        font-size: 8px;
+        letter-spacing: .34em;
+      }
+
+      .holding-panel {
+        padding: 14px;
+      }
+
+      .holding-heading {
+        margin-bottom: 9px;
+        font-size: 10px;
+      }
+
+      .holding-row {
+        min-height: 44px;
+      }
+
+      .holding-label {
+        font-size: 9px;
+      }
+
+      .holding-value {
+        font-size: 19px;
+      }
+
+      .holding-dates {
+        gap: 10px;
+      }
+
+      .header-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .refresh-button {
+        width: 100%;
+        min-height: 44px;
+      }
+
+      .card-header {
+        padding: 15px 10px 0;
+      }
+
+      .station-title-block {
+        padding-bottom: 12px;
+      }
+
+      .station-name {
+        font-size: 20px;
+      }
+
+      .latest-data-status {
+        font-size: 9px;
+        line-height: 1.35;
+      }
+
+      .station-subtitle {
+        font-size: 10px;
+        line-height: 1.35;
+      }
+
+      .metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+        padding-bottom: 12px;
+      }
+
+      .metric {
+        min-height: 70px;
+        padding: 11px 10px 10px;
+      }
+
+      .metric:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+      }
+
+      .metric-label {
+        margin-bottom: 6px;
+        font-size: 8px;
+      }
+
+      .metric-value {
+        font-size: 17px;
+      }
+
+      .chart-toolbar {
+        padding: 11px 10px;
+      }
+
+      .legend {
+        display: grid;
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px 10px;
+        font-size: 8px;
+      }
+
+      .legend-item {
+        min-width: 0;
+        line-height: 1.25;
+      }
+
+      .legend-line {
+        width: 19px;
+      }
+
+      .data-info {
+        width: 100%;
+        font-size: 8px;
+        line-height: 1.4;
+      }
+
+      .chart-wrap {
+        height: 350px;
+        padding: 8px 2px 10px;
+      }
+
+      canvas {
+        border-radius: 8px;
+        touch-action: pan-y;
+      }
+
+      .footer {
+        margin-top: 8px;
+        padding: 8px 4px;
+        font-size: 8px;
+        line-height: 1.4;
+      }
+    }
+
+    @media (max-width: 380px) {
+      h1 {
+        font-size: 29px;
+      }
+
+      .holding-value {
+        font-size: 17px;
+      }
+
+      .date-value {
+        font-size: 9px;
+      }
+
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .metric:last-child:nth-child(odd) {
+        grid-column: auto;
+      }
+
+      .legend {
+        grid-template-columns: 1fr;
+      }
+
+      .chart-wrap {
+        height: 335px;
+      }
+    }
+
+    @media (orientation: landscape) and (max-height: 520px) and (max-width: 950px) {
+      .brand-panel { padding-top: 14px; padding-bottom: 13px; }
+      h1 { font-size: clamp(30px, 6vw, 44px); }
+      .holding-panel { padding-top: 12px; padding-bottom: 12px; }
+      .chart-wrap { height: 310px; }
     }
   </style>
 </head>
@@ -750,11 +979,12 @@
         }
 
         const mobile = width < 600;
+        const verySmall = width < 390;
         const margin = {
-          top: 20,
-          right: mobile ? 52 : 68,
-          bottom: mobile ? 48 : 52,
-          left: mobile ? 52 : 68
+          top: mobile ? 16 : 20,
+          right: verySmall ? 42 : (mobile ? 48 : 68),
+          bottom: mobile ? 45 : 52,
+          left: verySmall ? 45 : (mobile ? 50 : 68)
         };
 
         const plot = {
@@ -820,7 +1050,8 @@
         const ticks = 5;
 
         ctx.save();
-        ctx.font = "11px Inter, system-ui, sans-serif";
+        const mobile = this.canvas.getBoundingClientRect().width < 600;
+        ctx.font = `${mobile ? 9 : 11}px Inter, system-ui, sans-serif`;
         ctx.textBaseline = "middle";
 
         for (let i = 0; i <= ticks; i++) {
@@ -866,7 +1097,8 @@
         const skip = Math.max(1, Math.ceil(allTicks.length / maxLabels));
 
         ctx.save();
-        ctx.font = "10px Inter, system-ui, sans-serif";
+        const mobile = this.canvas.getBoundingClientRect().width < 600;
+        ctx.font = `${mobile ? 9 : 10}px Inter, system-ui, sans-serif`;
         ctx.textAlign = "center";
         ctx.textBaseline = "top";
 
@@ -904,18 +1136,19 @@
       drawAxisTitles(plot, width, height) {
         const ctx = this.ctx;
         ctx.save();
-        ctx.font = "700 10px Inter, system-ui, sans-serif";
+        const mobile = width < 600;
+        ctx.font = `700 ${mobile ? 8 : 10}px Inter, system-ui, sans-serif`;
         ctx.fillStyle = this.colors.muted;
         ctx.textAlign = "center";
 
         ctx.save();
-        ctx.translate(13, plot.top + plot.height / 2);
+        ctx.translate(mobile ? 9 : 13, plot.top + plot.height / 2);
         ctx.rotate(-Math.PI / 2);
         ctx.fillText("PRESSURE (BARG)", 0, 0);
         ctx.restore();
 
         ctx.save();
-        ctx.translate(width - 12, plot.top + plot.height / 2);
+        ctx.translate(width - (mobile ? 8 : 12), plot.top + plot.height / 2);
         ctx.rotate(Math.PI / 2);
         ctx.fillText("TEMPERATURE (°C)", 0, 0);
         ctx.restore();
@@ -997,11 +1230,13 @@
           ...values.map(v => `${v.label}: ${Number.isFinite(v.value) ? formatValue(v.value) + v.unit : "--"}`)
         ];
 
-        ctx.font = "12px Inter, system-ui, sans-serif";
+        const mobileTooltip = width < 600;
+        const tooltipFont = mobileTooltip ? 10 : 12;
+        ctx.font = `${tooltipFont}px Inter, system-ui, sans-serif`;
         const textWidth = Math.max(...lines.map(line => ctx.measureText(line).width));
-        const boxWidth = textWidth + 28;
-        const lineHeight = 20;
-        const boxHeight = lines.length * lineHeight + 16;
+        const boxWidth = Math.min(width - 12, textWidth + (mobileTooltip ? 20 : 28));
+        const lineHeight = mobileTooltip ? 17 : 20;
+        const boxHeight = lines.length * lineHeight + (mobileTooltip ? 12 : 16);
         let boxX = x + 12;
         let boxY = plot.top + 10;
 
@@ -1021,10 +1256,10 @@
           ctx.textBaseline = "top";
           ctx.textAlign = "left";
           ctx.font = index === 0
-            ? "700 12px Inter, system-ui, sans-serif"
-            : "12px Inter, system-ui, sans-serif";
+            ? `700 ${tooltipFont}px Inter, system-ui, sans-serif`
+            : `${tooltipFont}px Inter, system-ui, sans-serif`;
           ctx.fillStyle = index === 0 ? this.colors.text : this.colors.muted;
-          ctx.fillText(line, boxX + 14, y);
+          ctx.fillText(line, boxX + (mobileTooltip ? 10 : 14), y);
         });
 
         const pointData = [

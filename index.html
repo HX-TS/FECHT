@@ -109,70 +109,6 @@
 
 
     /* =========================================================
-       OPENING SPLASH IMAGE
-       SHOW FOR 0.5 SECOND
-    ========================================================= */
-
-    .opening-splash {
-
-      position: fixed;
-
-      inset: 0;
-
-      z-index: 999999;
-
-      display: flex;
-
-      align-items: center;
-
-      justify-content: center;
-
-      padding: 20px;
-
-      background:
-        #050505;
-
-      opacity: 1;
-
-      visibility: visible;
-
-      transition:
-        opacity 0.25s ease,
-        visibility 0.25s ease;
-
-    }
-
-
-    .opening-splash.hide {
-
-      opacity: 0;
-
-      visibility: hidden;
-
-      pointer-events: none;
-
-    }
-
-
-    .opening-splash img {
-
-      display: block;
-
-      width: auto;
-
-      height: auto;
-
-      max-width: 100%;
-
-      max-height: 100%;
-
-      object-fit: contain;
-
-    }
-
-
-
-    /* =========================================================
        PAGE
     ========================================================= */
 
@@ -648,7 +584,7 @@
 
 
     /* =========================================================
-       PRESSURE TRENDING
+       PRESSURE TRENDING LINK
     ========================================================= */
 
     .trend-link {
@@ -872,6 +808,7 @@
 
     /* =========================================================
        PRESSURE TRENDING COMPLETED
+       AFTER 21:30 HRS 22/8/2026
     ========================================================= */
 
     .trend-link.completed
@@ -927,7 +864,7 @@
 
 
     /* =========================================================
-       PRESSURE TRENDING HOVER MESSAGE
+       PRESSURE TRENDING HOVER
     ========================================================= */
 
     .trend-hover {
@@ -1165,8 +1102,7 @@
 
 
     /* =========================================================
-       DEPRESS ONGOING
-       PRESSURE > 6 BARG
+       DEPRESS ONGOING > 6 BARG
     ========================================================= */
 
     .depress-link.ongoing
@@ -1302,8 +1238,7 @@
 
 
     /* =========================================================
-       DEPRESS COMPLETE
-       PRESSURE <= 6 BARG
+       DEPRESS COMPLETE <= 6 BARG
     ========================================================= */
 
     .depress-link.complete
@@ -1370,7 +1305,7 @@
 
 
     /* =========================================================
-       WAITING FOR DEPRESS PRESSURE
+       DEPRESS WAITING FOR DATA
     ========================================================= */
 
     .depress-link.waiting
@@ -1629,13 +1564,6 @@
     }
 
 
-    th:last-child {
-
-      border-right: none;
-
-    }
-
-
     td {
 
       min-width: 125px;
@@ -1666,13 +1594,6 @@
       font-size: 12px;
 
       font-weight: 600;
-
-    }
-
-
-    td:last-child {
-
-      border-right: none;
 
     }
 
@@ -1898,13 +1819,6 @@
       :root {
 
         --datetime-width: 115px;
-
-      }
-
-
-      .opening-splash {
-
-        padding: 8px;
 
       }
 
@@ -2328,234 +2242,6 @@
 
     }
 
-
-
-    /* =========================================================
-       SHORT SCREEN / LANDSCAPE LAPTOP
-    ========================================================= */
-
-    @media
-    (max-height: 600px)
-    and
-    (min-width: 701px) {
-
-      .hero {
-
-        min-height: 100px;
-
-        height: 100px;
-
-      }
-
-
-      .hero-left {
-
-        padding:
-          7px
-          13px;
-
-      }
-
-
-      .hero-title {
-
-        font-size:
-          clamp(
-            21px,
-            3.2vw,
-            38px
-          );
-
-      }
-
-
-      .hero-title span {
-
-        display: inline;
-
-      }
-
-
-      .hero-title
-      span + span::before {
-
-        content: " ";
-
-      }
-
-
-      .hero-subtitle {
-
-        margin-top: 4px;
-
-      }
-
-
-      .hold-panel {
-
-        padding:
-          6px
-          10px;
-
-      }
-
-
-      .hold-title-row {
-
-        margin-bottom: 5px;
-
-      }
-
-
-      .hold-panel-title {
-
-        font-size: 10px;
-
-      }
-
-
-      .timer-grid {
-
-        row-gap: 3px;
-
-      }
-
-
-      .timer-label {
-
-        font-size: 8px;
-
-      }
-
-
-      .timer-value {
-
-        font-size: 14px;
-
-      }
-
-
-      .timer-note {
-
-        margin-top: 5px;
-
-        padding-top: 4px;
-
-      }
-
-
-      .timer-note-item {
-
-        font-size: 6px;
-
-      }
-
-
-      .timer-note-item strong {
-
-        font-size: 7px;
-
-      }
-
-
-      .trend-status {
-
-        margin-bottom: 6px;
-
-      }
-
-
-      .trend-title {
-
-        font-size: 14px;
-
-      }
-
-
-      .trend-arrow {
-
-        margin-top: 6px;
-
-        font-size: 15px;
-
-      }
-
-
-      .depress-status {
-
-        margin-bottom: 5px;
-
-      }
-
-
-      .depress-title {
-
-        font-size: 13px;
-
-      }
-
-
-      .depress-pressure {
-
-        margin-top: 4px;
-
-        font-size: 8px;
-
-      }
-
-
-      .depress-arrow {
-
-        margin-top: 4px;
-
-        font-size: 14px;
-
-      }
-
-
-      .panel-title {
-
-        min-height: 24px;
-
-        font-size: 9px;
-
-      }
-
-
-      th {
-
-        height: 30px;
-
-        padding:
-          4px
-          7px;
-
-      }
-
-
-      td {
-
-        height: 24px;
-
-        padding:
-          3px
-          7px;
-
-      }
-
-
-      .footer {
-
-        min-height: 22px;
-
-        padding: 3px;
-
-        font-size: 7px;
-
-      }
-
-    }
-
   </style>
 
 </head>
@@ -2564,29 +2250,6 @@
 
 <body>
 
-
-  <!-- =====================================================
-       OPENING IMAGE
-       SHOW FOR 0.5 SECOND ONLY
-  ====================================================== -->
-
-  <div
-    class="opening-splash"
-    id="openingSplash"
-  >
-
-    <img
-      src="https://i.ibb.co/hRR2gnvV/Screenshot-2026-08-23-063038.png"
-      alt="FEC Hydrotest"
-    >
-
-  </div>
-
-
-
-  <!-- =====================================================
-       PAGE
-  ====================================================== -->
 
   <div class="page">
 
@@ -2753,7 +2416,6 @@
         href="https://hx-ts.github.io/FECHT/GRAPH/"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Open Hydrotest Pressure Trending Graph"
       >
 
 
@@ -2822,7 +2484,6 @@
         href="https://hx-ts.github.io/FECHT/DEPRESSURIZE/index.html"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Open Depressurization Data"
       >
 
 
@@ -2894,9 +2555,7 @@
     <main class="dashboard">
 
 
-      <!-- ===================================================
-           GPS READING
-      ==================================================== -->
+      <!-- GPS -->
 
       <section class="reading-panel">
 
@@ -2928,9 +2587,7 @@
 
 
 
-      <!-- ===================================================
-           GPP4 READING
-      ==================================================== -->
+      <!-- GPP4 -->
 
       <section class="reading-panel">
 
@@ -2984,94 +2641,12 @@
 
 
     /* =========================================================
-       OPENING SPLASH
-       SHOW FOR 0.5 SECOND
-    ========================================================= */
-
-    window.addEventListener(
-      "load",
-      function () {
-
-
-        const splash =
-
-          document.getElementById(
-            "openingSplash"
-          );
-
-
-        if (!splash) {
-
-          return;
-
-        }
-
-
-
-        /*
-           DISPLAY FOR 500 ms
-           = 0.5 SECOND
-        */
-
-        setTimeout(
-
-          function () {
-
-
-            splash.classList.add(
-              "hide"
-            );
-
-
-
-            /*
-               REMOVE COMPLETELY
-               AFTER FADE
-            */
-
-            setTimeout(
-
-              function () {
-
-
-                if (
-                  splash.parentNode
-                ) {
-
-
-                  splash.remove();
-
-
-                }
-
-
-              },
-
-              300
-
-            );
-
-
-          },
-
-          500
-
-        );
-
-
-      }
-    );
-
-
-
-    /* =========================================================
        SETTINGS
     ========================================================= */
 
 
     /*
        GPS + GPP4 REFRESH
-       EVERY 60 SECONDS
     */
 
     const TABLE_REFRESH_TIME =
@@ -3080,8 +2655,9 @@
 
 
     /*
-       DEPRESSURIZATION DATA
-       REFRESH EVERY 15 SECONDS
+       DEPRESSURIZATION PRESSURE REFRESH
+
+       15 SECONDS
     */
 
     const DEPRESS_REFRESH_TIME =
@@ -3136,7 +2712,6 @@
 
 
       ms =
-
         Math.max(
           0,
           ms
@@ -3248,6 +2823,12 @@
       if (completed) {
 
 
+        /*
+           AFTER HOLDING PERIOD:
+
+           STOP ALL LIVE PULSING
+        */
+
         trendLink.classList.add(
           "completed"
         );
@@ -3267,6 +2848,10 @@
 
       else {
 
+
+        /*
+           HOLDING PERIOD STILL ACTIVE
+        */
 
         trendLink.classList.remove(
           "completed"
@@ -3330,7 +2915,7 @@
 
 
       /* =======================================================
-         BEFORE START
+         BEFORE HOLD START
       ======================================================= */
 
       if (
@@ -3374,10 +2959,9 @@
 
 
       /* =======================================================
-         HOLDING COMPLETE
+         HOLD COMPLETE
 
-         >= 21:30 HRS
-         22/8/2026
+         >= 21:30 HRS 22/8/2026
       ======================================================= */
 
       if (
@@ -3409,8 +2993,8 @@
 
 
         /*
-           PRESSURE TRENDING
-           PULSING ALSO STOPS
+           STOP PRESSURE TRENDING
+           LIVE BEEPING / BLINKING
         */
 
         setPressureTrendingCompleted(
@@ -3480,7 +3064,7 @@
 
 
     /* =========================================================
-       RUN HOLD TIMER
+       RUN TIMER
     ========================================================= */
 
     updateHoldingTimer();
@@ -3497,7 +3081,7 @@
 
 
     /* =========================================================
-       GOOGLE SHEET CONFIGURATION
+       GOOGLE SHEETS
     ========================================================= */
 
     const GPS = {
@@ -3602,7 +3186,7 @@
 
 
     /* =========================================================
-       NORMALIZE TEXT
+       NORMALIZE
     ========================================================= */
 
     function normalizeText(value) {
@@ -3795,8 +3379,8 @@
 
 
       /*
-         PRIORITY 1:
-         HEADER CONTAINING PRESSURE
+         FIRST:
+         PRESSURE
       */
 
       for (
@@ -3831,8 +3415,8 @@
 
 
       /*
-         PRIORITY 2:
-         HEADER CONTAINING BARG
+         SECOND:
+         BARG
       */
 
       for (
@@ -3873,7 +3457,7 @@
 
 
     /* =========================================================
-       LOAD GOOGLE SHEET
+       LOAD SHEET
     ========================================================= */
 
     function loadSheet(config) {
@@ -4044,7 +3628,7 @@
 
 
     /* =========================================================
-       SCROLL TABLE TO LATEST
+       SCROLL TO LATEST
     ========================================================= */
 
     function scrollTableToBottom(
@@ -4086,7 +3670,7 @@
 
 
     /* =========================================================
-       RENDER GPS / GPP4 TABLE
+       RENDER GPS / GPP4
     ========================================================= */
 
     function renderTable(
@@ -4582,10 +4166,6 @@
 
 
 
-      /* =======================================================
-         DISPLAY CURRENT PRESSURE
-      ======================================================= */
-
       pressureDisplay.textContent =
 
         "PRESSURE "
@@ -4603,8 +4183,9 @@
 
 
       /* =======================================================
-         COMPLETE
-         PRESSURE <= 6 BARG
+         DEPRESSURIZATION COMPLETE
+
+         PRESSURE <= 6.00 BARG
       ======================================================= */
 
       if (
@@ -4614,6 +4195,10 @@
 
       ) {
 
+
+        /*
+           STOP ALL LIVE PULSING
+        */
 
         link.classList.remove(
           "ongoing",
@@ -4643,7 +4228,8 @@
 
 
       /* =======================================================
-         ONGOING
+         DEPRESSURIZATION STILL ONGOING
+
          PRESSURE > 6 BARG
       ======================================================= */
 
@@ -4818,7 +4404,7 @@
 
 
     /* =========================================================
-       GPS CALLBACK
+       TABLE CALLBACKS
     ========================================================= */
 
     window.gpsResponse =
@@ -4834,11 +4420,6 @@
 
       };
 
-
-
-    /* =========================================================
-       GPP4 CALLBACK
-    ========================================================= */
 
     window.gpp4Response =
 
@@ -4856,7 +4437,7 @@
 
 
     /* =========================================================
-       GPS + GPP4 REFRESH
+       INITIAL TABLE LOAD
     ========================================================= */
 
     function refreshTables() {
@@ -4875,18 +4456,12 @@
     }
 
 
-
-    /* =========================================================
-       INITIAL GPS + GPP4 LOAD
-    ========================================================= */
-
     refreshTables();
 
 
 
     /* =========================================================
-       GPS + GPP4
-       REFRESH EVERY 60 SEC
+       GPS / GPP4 EVERY 60 SEC
     ========================================================= */
 
     setInterval(
@@ -4900,7 +4475,7 @@
 
 
     /* =========================================================
-       INITIAL DEPRESSURIZATION LOAD
+       DEPRESSURIZATION INITIAL LOAD
     ========================================================= */
 
     loadSheet(
@@ -4910,8 +4485,7 @@
 
 
     /* =========================================================
-       DEPRESSURIZATION
-       REFRESH EVERY 15 SEC
+       DEPRESSURIZATION EVERY 15 SEC
     ========================================================= */
 
     setInterval(

@@ -51,11 +51,13 @@
 
       --line: #cbc7bf;
 
-      --red: #e01b24;
+      --red: #d71920;
 
       --orange: #ff8500;
 
       --green: #16853e;
+
+      --green-soft: #dcefe2;
 
       --datetime-width: 150px;
 
@@ -166,7 +168,7 @@
 
 
     /* =========================================================
-       HEADER LEFT
+       MAIN TITLE
     ========================================================= */
 
     .hero-left {
@@ -207,9 +209,6 @@
 
       text-align: left;
 
-      color:
-        var(--black);
-
     }
 
 
@@ -240,7 +239,7 @@
 
 
     /* =========================================================
-       HOLDING PERIOD PANEL
+       HOLDING PERIOD
     ========================================================= */
 
     .hold-panel {
@@ -266,11 +265,6 @@
 
     }
 
-
-
-    /* =========================================================
-       HOLDING PERIOD TITLE
-    ========================================================= */
 
     .hold-title-row {
 
@@ -298,13 +292,9 @@
       background:
         var(--red);
 
-      box-shadow:
-        0 0 0 0
-        rgba(224, 27, 36, 0.75);
-
       animation:
         livePulse
-        1.15s
+        1.1s
         infinite;
 
     }
@@ -319,7 +309,7 @@
 
         box-shadow:
           0 0 0 0
-          rgba(224, 27, 36, 0.8);
+          rgba(215, 25, 32, 0.8);
 
       }
 
@@ -331,7 +321,7 @@
 
         box-shadow:
           0 0 0 8px
-          rgba(224, 27, 36, 0);
+          rgba(215, 25, 32, 0);
 
       }
 
@@ -343,7 +333,7 @@
 
         box-shadow:
           0 0 0 0
-          rgba(224, 27, 36, 0);
+          rgba(215, 25, 32, 0);
 
       }
 
@@ -367,7 +357,7 @@
 
 
     /* =========================================================
-       TIMER
+       HOLD TIMER
     ========================================================= */
 
     .timer-grid {
@@ -392,8 +382,6 @@
       font-size: 11px;
 
       font-weight: 800;
-
-      line-height: 1.2;
 
       letter-spacing: 0.04em;
 
@@ -422,9 +410,6 @@
 
       letter-spacing: 0.04em;
 
-      color:
-        var(--black);
-
     }
 
 
@@ -432,7 +417,7 @@
 
       animation:
         timerBlink
-        1.25s
+        1.2s
         ease-in-out
         infinite;
 
@@ -474,10 +459,6 @@
 
       height: 1px;
 
-      margin:
-        2px
-        0;
-
       background:
         var(--line);
 
@@ -486,7 +467,7 @@
 
 
     /* =========================================================
-       START / COMPLETION
+       HOLD START / COMPLETE TIME
     ========================================================= */
 
     .timer-note {
@@ -534,8 +515,6 @@
 
       font-size: 10px;
 
-      line-height: 1.3;
-
       color:
         var(--black);
 
@@ -551,8 +530,18 @@
 
 
     /* =========================================================
-       HOLD COMPLETED
+       HOLDING COMPLETED
+
+       NO MORE BEEP / PULSE
     ========================================================= */
+
+    .hold-panel.completed {
+
+      background:
+        var(--green-soft);
+
+    }
+
 
     .hold-panel.completed
     .live-dot {
@@ -563,6 +552,15 @@
       animation: none;
 
       box-shadow: none;
+
+    }
+
+
+    .hold-panel.completed
+    .hold-panel-title {
+
+      color:
+        var(--green);
 
     }
 
@@ -580,7 +578,7 @@
 
 
     /* =========================================================
-       PRESSURE TRENDING LINK
+       PRESSURE TRENDING
     ========================================================= */
 
     .trend-link {
@@ -603,8 +601,6 @@
         var(--cream);
 
       overflow: hidden;
-
-      outline: none;
 
     }
 
@@ -633,29 +629,8 @@
 
       cursor: pointer;
 
-      background:
-        var(--cream);
-
-      transition:
-        background
-        0.15s ease;
-
     }
 
-
-    .trend-link:hover
-    .trend-panel {
-
-      background:
-        #e5e1da;
-
-    }
-
-
-
-    /* =========================================================
-       PRESSURE TREND LIVE
-    ========================================================= */
 
     .trend-status {
 
@@ -678,22 +653,20 @@
 
       height: 10px;
 
-      flex-shrink: 0;
-
       border-radius: 50%;
 
       background:
         var(--red);
 
       animation:
-        trendDotPulse
+        trendPulse
         1s
         infinite;
 
     }
 
 
-    @keyframes trendDotPulse {
+    @keyframes trendPulse {
 
       0% {
 
@@ -702,7 +675,7 @@
 
         box-shadow:
           0 0 0 0
-          rgba(224, 27, 36, 0.8);
+          rgba(215, 25, 32, 0.8);
 
       }
 
@@ -714,7 +687,7 @@
 
         box-shadow:
           0 0 0 8px
-          rgba(224, 27, 36, 0);
+          rgba(215, 25, 32, 0);
 
       }
 
@@ -726,7 +699,7 @@
 
         box-shadow:
           0 0 0 0
-          rgba(224, 27, 36, 0);
+          rgba(215, 25, 32, 0);
 
       }
 
@@ -759,13 +732,11 @@
 
       font-weight: 900;
 
-      letter-spacing: -0.02em;
-
       text-transform: uppercase;
 
       animation:
         trendTextBlink
-        1.15s
+        1.1s
         ease-in-out
         infinite;
 
@@ -808,14 +779,12 @@
 
       font-weight: 900;
 
-      line-height: 1;
-
     }
 
 
 
     /* =========================================================
-       PRESSURE TREND HOVER MESSAGE
+       PRESSURE TRENDING HOVER
     ========================================================= */
 
     .trend-hover {
@@ -846,15 +815,13 @@
       color:
         #ffffff;
 
-      text-align: center;
-
       font-size: 9px;
 
       line-height: 1.3;
 
       font-weight: 900;
 
-      letter-spacing: 0.045em;
+      text-align: center;
 
       text-transform: uppercase;
 
@@ -866,10 +833,8 @@
       pointer-events: none;
 
       transition:
-        opacity
-        0.18s ease,
-        transform
-        0.18s ease;
+        opacity 0.18s ease,
+        transform 0.18s ease;
 
       z-index: 20;
 
@@ -879,13 +844,7 @@
     .trend-link:hover
     .trend-hover,
 
-    .trend-link:focus
-    .trend-hover,
-
     .trend-link:focus-visible
-    .trend-hover,
-
-    .trend-link:active
     .trend-hover {
 
       opacity: 1;
@@ -898,7 +857,7 @@
 
 
     /* =========================================================
-       DEPRESSURIZATION DATA LINK
+       DEPRESSURIZATION DATA
     ========================================================= */
 
     .depress-link {
@@ -922,19 +881,10 @@
 
       overflow: hidden;
 
-      outline: none;
-
     }
 
 
-
-    /* =========================================================
-       DEPRESSURIZATION PANEL
-    ========================================================= */
-
     .depress-panel {
-
-      position: relative;
 
       width: 100%;
 
@@ -949,37 +899,45 @@
       justify-content: center;
 
       padding:
-        18px
-        14px;
+        16px
+        12px;
 
       text-align: center;
 
-      cursor: pointer;
-
-      background:
-        var(--cream);
-
       transition:
-        background
-        0.18s ease,
-        color
-        0.18s ease;
+        background 0.2s ease,
+        color 0.2s ease;
 
     }
 
 
 
     /* =========================================================
-       DEPRESSURIZATION ICON
+       DEPRESSURIZATION LIVE STATUS
     ========================================================= */
 
-    .depress-icon {
+    .depress-status {
 
-      width: 11px;
+      display: flex;
 
-      height: 11px;
+      align-items: center;
 
-      margin-bottom: 13px;
+      justify-content: center;
+
+      gap: 8px;
+
+      margin-bottom: 12px;
+
+    }
+
+
+    .depress-dot {
+
+      width: 10px;
+
+      height: 10px;
+
+      flex-shrink: 0;
 
       border-radius: 50%;
 
@@ -989,25 +947,47 @@
     }
 
 
+    .depress-live {
 
-    /* =========================================================
-       DEPRESSURIZATION TITLE
-    ========================================================= */
+      font-size: 10px;
+
+      font-weight: 900;
+
+      letter-spacing: 0.10em;
+
+      text-transform: uppercase;
+
+    }
+
 
     .depress-title {
 
       font-size:
         clamp(
-          16px,
-          1.25vw,
-          21px
+          15px,
+          1.2vw,
+          20px
         );
 
-      line-height: 1;
+      line-height: 1.05;
 
       font-weight: 900;
 
-      letter-spacing: -0.02em;
+      text-transform: uppercase;
+
+    }
+
+
+    .depress-pressure {
+
+      margin-top: 9px;
+
+      font-size: 11px;
+
+      font-weight: 900;
+
+      font-variant-numeric:
+        tabular-nums;
 
       text-transform: uppercase;
 
@@ -1016,11 +996,9 @@
 
     .depress-arrow {
 
-      margin-top: 14px;
+      margin-top: 10px;
 
-      font-size: 22px;
-
-      line-height: 1;
+      font-size: 20px;
 
       font-weight: 900;
 
@@ -1029,13 +1007,158 @@
 
 
     /* =========================================================
-       DEPRESSURIZATION HOVER
+       DEPRESSURIZATION ONGOING
+
+       RED BEEPING / PULSING
+    ========================================================= */
+
+    .depress-link.ongoing
+    .depress-dot {
+
+      animation:
+        depressDotPulse
+        0.9s
+        infinite;
+
+    }
+
+
+    .depress-link.ongoing
+    .depress-title {
+
+      animation:
+        depressTextPulse
+        0.95s
+        ease-in-out
+        infinite;
+
+    }
+
+
+    @keyframes depressDotPulse {
+
+      0% {
+
+        background:
+          var(--red);
+
+        box-shadow:
+          0 0 0 0
+          rgba(215, 25, 32, 0.9);
+
+      }
+
+
+      50% {
+
+        background:
+          var(--orange);
+
+        box-shadow:
+          0 0 0 9px
+          rgba(215, 25, 32, 0);
+
+      }
+
+
+      100% {
+
+        background:
+          var(--red);
+
+        box-shadow:
+          0 0 0 0
+          rgba(215, 25, 32, 0);
+
+      }
+
+    }
+
+
+    @keyframes depressTextPulse {
+
+      0% {
+
+        color:
+          var(--black);
+
+      }
+
+
+      50% {
+
+        color:
+          var(--red);
+
+      }
+
+
+      100% {
+
+        color:
+          var(--black);
+
+      }
+
+    }
+
+
+
+    /* =========================================================
+       DEPRESSURIZATION COMPLETE AT <= 6 BARG
+    ========================================================= */
+
+    .depress-link.complete
+    .depress-panel {
+
+      background:
+        var(--green-soft);
+
+      color:
+        var(--green);
+
+    }
+
+
+    .depress-link.complete
+    .depress-dot {
+
+      background:
+        var(--green);
+
+      animation: none;
+
+      box-shadow: none;
+
+    }
+
+
+    .depress-link.complete
+    .depress-title {
+
+      color:
+        var(--green);
+
+      animation: none;
+
+    }
+
+
+    .depress-link.complete
+    .depress-live {
+
+      color:
+        var(--green);
+
+    }
+
+
+
+    /* =========================================================
+       DEPRESS HOVER
     ========================================================= */
 
     .depress-link:hover
-    .depress-panel,
-
-    .depress-link:focus-visible
     .depress-panel {
 
       background:
@@ -1048,12 +1171,15 @@
 
 
     .depress-link:hover
-    .depress-icon,
+    .depress-title,
 
-    .depress-link:focus-visible
-    .depress-icon {
+    .depress-link:hover
+    .depress-live,
 
-      background:
+    .depress-link:hover
+    .depress-pressure {
+
+      color:
         #ffffff;
 
     }
@@ -1081,11 +1207,6 @@
     }
 
 
-
-    /* =========================================================
-       READING PANEL
-    ========================================================= */
-
     .reading-panel {
 
       min-height: 0;
@@ -1106,11 +1227,6 @@
     }
 
 
-
-    /* =========================================================
-       PANEL TITLE
-    ========================================================= */
-
     .panel-title {
 
       flex-shrink: 0;
@@ -1127,20 +1243,15 @@
         0
         16px;
 
-      background:
-        var(--cream);
-
       border-bottom:
         1px solid
         var(--line);
-
-      text-align: center;
 
       font-size: 13px;
 
       font-weight: 900;
 
-      letter-spacing: 0.03em;
+      text-align: center;
 
       text-transform: uppercase;
 
@@ -1149,7 +1260,7 @@
 
 
     /* =========================================================
-       TABLE WRAPPER
+       TABLE
     ========================================================= */
 
     .table-wrapper {
@@ -1167,44 +1278,8 @@
 
       scrollbar-width: thin;
 
-      scrollbar-color:
-        #888
-        var(--cream-2);
-
-      scroll-behavior: auto;
-
     }
 
-
-    .table-wrapper::-webkit-scrollbar {
-
-      width: 8px;
-
-      height: 8px;
-
-    }
-
-
-    .table-wrapper::-webkit-scrollbar-track {
-
-      background:
-        var(--cream-2);
-
-    }
-
-
-    .table-wrapper::-webkit-scrollbar-thumb {
-
-      background:
-        #888;
-
-    }
-
-
-
-    /* =========================================================
-       TABLE
-    ========================================================= */
 
     table {
 
@@ -1217,18 +1292,8 @@
       background:
         var(--cream);
 
-      color:
-        var(--black);
-
-      font-size: 13px;
-
     }
 
-
-
-    /* =========================================================
-       TABLE HEADER
-    ========================================================= */
 
     thead {
 
@@ -1254,9 +1319,6 @@
       background:
         var(--cream);
 
-      color:
-        var(--black);
-
       border-right:
         1px solid
         var(--line);
@@ -1267,30 +1329,14 @@
 
       text-align: center;
 
-      vertical-align: middle;
-
       font-size: 11px;
 
       font-weight: 900;
-
-      line-height: 1.2;
 
       text-transform: uppercase;
 
     }
 
-
-    th:last-child {
-
-      border-right: none;
-
-    }
-
-
-
-    /* =========================================================
-       TABLE DATA
-    ========================================================= */
 
     td {
 
@@ -1305,9 +1351,6 @@
       background:
         var(--cream);
 
-      color:
-        var(--black);
-
       border-right:
         1px solid
         var(--line);
@@ -1318,8 +1361,6 @@
 
       text-align: center;
 
-      vertical-align: middle;
-
       white-space: nowrap;
 
       font-size: 12px;
@@ -1329,27 +1370,10 @@
     }
 
 
-    td:last-child {
-
-      border-right: none;
-
-    }
-
-
-    tbody tr:hover td {
+    tbody tr.latest-row td {
 
       background:
-        #e9e5de;
-
-    }
-
-
-
-    /* =========================================================
-       LATEST READING
-    ========================================================= */
-
-    tbody tr.latest-row td {
+        #e7e3dc;
 
       font-weight: 900;
 
@@ -1357,15 +1381,12 @@
         2px solid
         var(--black);
 
-      background:
-        #e7e3dc;
-
     }
 
 
 
     /* =========================================================
-       TIMESTAMP / DATE / TIME WIDTH
+       DATE TIME WIDTH
     ========================================================= */
 
     th:nth-child(1),
@@ -1400,26 +1421,15 @@
 
       height: 100%;
 
-      min-height: 80px;
-
       display: flex;
 
       align-items: center;
 
       justify-content: center;
 
-      padding: 20px;
-
-      background:
-        var(--cream);
-
-      text-align: center;
-
       font-size: 11px;
 
-      font-weight: 700;
-
-      letter-spacing: 0.03em;
+      font-weight: 800;
 
       text-transform: uppercase;
 
@@ -1443,22 +1453,12 @@
 
       justify-content: center;
 
-      padding:
-        7px
-        10px
-        max(
-          7px,
-          env(safe-area-inset-bottom)
-        );
-
       background:
         var(--cream);
 
       border:
         1px solid
         var(--black);
-
-      text-align: center;
 
       font-size: 10px;
 
@@ -1473,7 +1473,7 @@
 
 
     /* =========================================================
-       TABLET / SMALL LAPTOP
+       SMALL LAPTOP / TABLET
     ========================================================= */
 
     @media (max-width: 1200px) {
@@ -1496,21 +1496,12 @@
       }
 
 
-      .hero-left {
-
-        padding:
-          15px
-          18px;
-
-      }
-
-
       .hero-title {
 
         font-size:
           clamp(
             28px,
-            4.3vw,
+            4vw,
             52px
           );
 
@@ -1520,8 +1511,8 @@
       .hold-panel {
 
         padding:
-          14px
-          15px;
+          13px
+          14px;
 
       }
 
@@ -1529,13 +1520,6 @@
       .hold-panel-title {
 
         font-size: 12px;
-
-      }
-
-
-      .timer-label {
-
-        font-size: 10px;
 
       }
 
@@ -1549,26 +1533,10 @@
       }
 
 
+      .depress-title,
       .trend-title {
 
-        font-size: 16px;
-
-      }
-
-
-      .depress-title {
-
         font-size: 15px;
-
-      }
-
-
-      .trend-panel,
-      .depress-panel {
-
-        padding:
-          14px
-          9px;
 
       }
 
@@ -1591,38 +1559,18 @@
 
       .page {
 
-        padding:
-          max(
-            3px,
-            env(safe-area-inset-top)
-          )
-          3px
-          max(
-            3px,
-            env(safe-area-inset-bottom)
-          );
+        padding: 3px;
 
         gap: 3px;
 
       }
 
 
-
-      /* =======================================================
-         MOBILE HEADER
-
-         ROW 1 = TITLE
-         ROW 2 = HOLD + PRESSURE TRENDING
-         ROW 3 = DEPRESSURIZATION DATA
-      ======================================================= */
-
       .hero {
 
         height: 245px;
 
         min-height: 245px;
-
-        display: grid;
 
         grid-template-columns:
           1fr
@@ -1636,11 +1584,6 @@
       }
 
 
-
-      /* =======================================================
-         MOBILE TITLE
-      ======================================================= */
-
       .hero-left {
 
         grid-column:
@@ -1651,8 +1594,6 @@
         padding:
           8px
           10px;
-
-        justify-content: center;
 
         border-bottom:
           1px solid
@@ -1669,8 +1610,6 @@
             6.7vw,
             31px
           );
-
-        line-height: 0.88;
 
       }
 
@@ -1689,20 +1628,6 @@
 
       }
 
-
-      .hero-subtitle {
-
-        margin-top: 5px;
-
-        font-size: 6px;
-
-      }
-
-
-
-      /* =======================================================
-         MOBILE HOLD PERIOD
-      ======================================================= */
 
       .hold-panel {
 
@@ -1723,40 +1648,9 @@
       }
 
 
-      .hold-title-row {
-
-        gap: 6px;
-
-        margin-bottom: 7px;
-
-      }
-
-
-      .live-dot {
-
-        width: 7px;
-
-        height: 7px;
-
-      }
-
-
       .hold-panel-title {
 
         font-size: 9px;
-
-        line-height: 1.15;
-
-        letter-spacing: 0.02em;
-
-      }
-
-
-      .timer-grid {
-
-        column-gap: 5px;
-
-        row-gap: 4px;
 
       }
 
@@ -1777,17 +1671,6 @@
       }
 
 
-      .timer-note {
-
-        margin-top: 6px;
-
-        padding-top: 5px;
-
-        gap: 3px;
-
-      }
-
-
       .timer-note-item {
 
         font-size: 6px;
@@ -1797,17 +1680,10 @@
 
       .timer-note-item strong {
 
-        margin-top: 1px;
-
         font-size: 7px;
 
       }
 
-
-
-      /* =======================================================
-         MOBILE PRESSURE TRENDING
-      ======================================================= */
 
       .trend-link {
 
@@ -1820,71 +1696,9 @@
       }
 
 
-      .trend-panel {
-
-        padding:
-          8px
-          7px;
-
-      }
-
-
-      .trend-status {
-
-        gap: 5px;
-
-        margin-bottom: 8px;
-
-      }
-
-
-      .trend-dot {
-
-        width: 7px;
-
-        height: 7px;
-
-      }
-
-
-      .trend-live {
-
-        font-size: 7px;
-
-      }
-
-
       .trend-title {
 
         font-size: 15px;
-
-      }
-
-
-      .trend-arrow {
-
-        margin-top: 8px;
-
-        font-size: 15px;
-
-      }
-
-
-      .trend-hover {
-
-        left: 6px;
-
-        right: 6px;
-
-        bottom: 6px;
-
-        min-height: 36px;
-
-        padding:
-          6px
-          7px;
-
-        font-size: 6px;
 
       }
 
@@ -1914,29 +1728,41 @@
 
         flex-direction: row;
 
-        gap: 11px;
+        gap: 9px;
 
         padding:
-          8px
-          12px;
+          6px
+          10px;
 
       }
 
 
-      .depress-icon {
-
-        width: 8px;
-
-        height: 8px;
+      .depress-status {
 
         margin-bottom: 0;
 
       }
 
 
+      .depress-dot {
+
+        width: 7px;
+
+        height: 7px;
+
+      }
+
+
+      .depress-live {
+
+        font-size: 7px;
+
+      }
+
+
       .depress-title {
 
-        font-size: 13px;
+        font-size: 12px;
 
       }
 
@@ -1948,19 +1774,23 @@
       }
 
 
-      .depress-arrow {
+      .depress-pressure {
 
         margin-top: 0;
 
-        font-size: 16px;
+        font-size: 8px;
 
       }
 
 
+      .depress-arrow {
 
-      /* =======================================================
-         MOBILE DATA TABLE
-      ======================================================= */
+        margin-top: 0;
+
+        font-size: 14px;
+
+      }
+
 
       .dashboard {
 
@@ -1984,10 +1814,6 @@
 
         height: 38px;
 
-        padding:
-          6px
-          7px;
-
         font-size: 9px;
 
       }
@@ -1999,10 +1825,6 @@
 
         height: 29px;
 
-        padding:
-          5px
-          7px;
-
         font-size: 10px;
 
       }
@@ -2012,245 +1834,7 @@
 
         min-height: 25px;
 
-        padding:
-          4px
-          8px;
-
         font-size: 8px;
-
-      }
-
-    }
-
-
-
-    /* =========================================================
-       SHORT SCREEN / LANDSCAPE LAPTOP
-    ========================================================= */
-
-    @media
-    (max-height: 600px)
-    and
-    (min-width: 701px) {
-
-      .hero {
-
-        min-height: 100px;
-
-        height: 100px;
-
-      }
-
-
-      .hero-left {
-
-        padding:
-          7px
-          13px;
-
-      }
-
-
-      .hero-title {
-
-        font-size:
-          clamp(
-            21px,
-            3.2vw,
-            38px
-          );
-
-      }
-
-
-      .hero-title span {
-
-        display: inline;
-
-      }
-
-
-      .hero-title
-      span + span::before {
-
-        content: " ";
-
-      }
-
-
-      .hero-subtitle {
-
-        margin-top: 4px;
-
-      }
-
-
-      .hold-panel {
-
-        padding:
-          6px
-          10px;
-
-      }
-
-
-      .hold-title-row {
-
-        margin-bottom: 5px;
-
-      }
-
-
-      .hold-panel-title {
-
-        font-size: 10px;
-
-      }
-
-
-      .timer-grid {
-
-        row-gap: 3px;
-
-      }
-
-
-      .timer-label {
-
-        font-size: 8px;
-
-      }
-
-
-      .timer-value {
-
-        font-size: 14px;
-
-      }
-
-
-      .timer-note {
-
-        margin-top: 5px;
-
-        padding-top: 4px;
-
-      }
-
-
-      .timer-note-item {
-
-        font-size: 6px;
-
-      }
-
-
-      .timer-note-item strong {
-
-        font-size: 7px;
-
-      }
-
-
-      .trend-status {
-
-        margin-bottom: 6px;
-
-      }
-
-
-      .trend-title {
-
-        font-size: 14px;
-
-      }
-
-
-      .trend-arrow {
-
-        margin-top: 6px;
-
-        font-size: 15px;
-
-      }
-
-
-      .trend-hover {
-
-        bottom: 5px;
-
-        min-height: 30px;
-
-        padding:
-          4px
-          6px;
-
-        font-size: 6px;
-
-      }
-
-
-      .depress-icon {
-
-        margin-bottom: 6px;
-
-      }
-
-
-      .depress-title {
-
-        font-size: 13px;
-
-      }
-
-
-      .depress-arrow {
-
-        margin-top: 6px;
-
-        font-size: 15px;
-
-      }
-
-
-      .panel-title {
-
-        min-height: 24px;
-
-        font-size: 9px;
-
-      }
-
-
-      th {
-
-        height: 30px;
-
-        padding:
-          4px
-          7px;
-
-      }
-
-
-      td {
-
-        height: 24px;
-
-        padding:
-          3px
-          7px;
-
-      }
-
-
-      .footer {
-
-        min-height: 22px;
-
-        padding: 3px;
-
-        font-size: 7px;
 
       }
 
@@ -2327,7 +1911,7 @@
             id="holdStatusTitle"
           >
 
-            Hydrotest Holding Period
+            HYDROTEST HOLDING PERIOD
 
           </div>
 
@@ -2356,9 +1940,7 @@
           </div>
 
 
-
           <div class="timer-divider"></div>
-
 
 
           <div class="timer-label">
@@ -2392,9 +1974,7 @@
             <strong>
 
               21:30 HRS
-
               <br>
-
               21/8/2026
 
             </strong>
@@ -2409,9 +1989,7 @@
             <strong>
 
               21:30 HRS
-
               <br>
-
               22/8/2026
 
             </strong>
@@ -2435,7 +2013,6 @@
         href="https://hx-ts.github.io/FECHT/GRAPH/"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Open Hydrotest Pressure Trending Graph"
       >
 
 
@@ -2444,27 +2021,22 @@
 
           <div class="trend-status">
 
-
             <div class="trend-dot"></div>
-
 
             <div class="trend-live">
 
-              Live
+              LIVE
 
             </div>
-
 
           </div>
 
 
           <div class="trend-title">
 
-            Pressure
-
+            PRESSURE
             <br>
-
-            Trending
+            TRENDING
 
           </div>
 
@@ -2476,14 +2048,9 @@
           </div>
 
 
-
-          <!-- ===============================================
-               HOVER MESSAGE
-          ================================================ -->
-
           <div class="trend-hover">
 
-            Click to Open Hydrotest Graph Plot
+            CLICK TO OPEN HYDROTEST GRAPH PLOT
 
           </div>
 
@@ -2500,27 +2067,57 @@
       ==================================================== -->
 
       <a
-        class="depress-link"
+        class="depress-link ongoing"
+        id="depressLink"
         href="https://hx-ts.github.io/FECHT/DEPRESSURIZE/index.html"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Open Depressurization Data"
       >
 
 
         <div class="depress-panel">
 
 
-          <div class="depress-icon"></div>
+          <div class="depress-status">
 
 
-          <div class="depress-title">
+            <div
+              class="depress-dot"
+              id="depressDot"
+            ></div>
 
-            Depressurization
 
+            <div
+              class="depress-live"
+              id="depressLive"
+            >
+
+              LIVE
+
+            </div>
+
+
+          </div>
+
+
+          <div
+            class="depress-title"
+            id="depressTitle"
+          >
+
+            DEPRESSURIZATION
             <br>
+            DATA
 
-            Data
+          </div>
+
+
+          <div
+            class="depress-pressure"
+            id="depressPressure"
+          >
+
+            PRESSURE -- BARG
 
           </div>
 
@@ -2543,16 +2140,13 @@
 
 
     <!-- =====================================================
-         MAIN DASHBOARD
+         MAIN TABLES
     ====================================================== -->
 
     <main class="dashboard">
 
 
-
-      <!-- ===================================================
-           GPS READING
-      ==================================================== -->
+      <!-- GPS -->
 
       <section class="reading-panel">
 
@@ -2569,13 +2163,11 @@
           id="gpsContainer"
         >
 
-
           <div class="message">
 
             Loading GPS Data...
 
           </div>
-
 
         </div>
 
@@ -2584,9 +2176,7 @@
 
 
 
-      <!-- ===================================================
-           GPP4 READING
-      ==================================================== -->
+      <!-- GPP4 -->
 
       <section class="reading-panel">
 
@@ -2603,13 +2193,11 @@
           id="gpp4Container"
         >
 
-
           <div class="message">
 
             Loading GPP4 Data...
 
           </div>
-
 
         </div>
 
@@ -2640,10 +2228,28 @@
 
 
     /* =========================================================
-       HYDROTEST HOLDING PERIOD
-       MALAYSIA TIME UTC +08:00
+       SETTINGS
     ========================================================= */
 
+    const REFRESH_TIME =
+      60000;
+
+
+    /*
+       DEPRESSURIZATION IS COMPLETE
+       AT 6 BARG OR LOWER
+    */
+
+    const DEPRESS_COMPLETE_PRESSURE =
+      6;
+
+
+
+    /* =========================================================
+       HYDROTEST HOLDING PERIOD
+
+       MALAYSIA UTC+08
+    ========================================================= */
 
     const HOLD_START =
 
@@ -2670,14 +2276,13 @@
 
 
     /* =========================================================
-       FORMAT TIMER HH:MM:SS
+       FORMAT DURATION
     ========================================================= */
 
     function formatDuration(ms) {
 
 
       ms =
-
         Math.max(
           0,
           ms
@@ -2719,10 +2324,10 @@
       return (
 
         String(hours)
-          .padStart(
-            2,
-            "0"
-          )
+        .padStart(
+          2,
+          "0"
+        )
 
         +
 
@@ -2731,10 +2336,10 @@
         +
 
         String(minutes)
-          .padStart(
-            2,
-            "0"
-          )
+        .padStart(
+          2,
+          "0"
+        )
 
         +
 
@@ -2743,19 +2348,20 @@
         +
 
         String(seconds)
-          .padStart(
-            2,
-            "0"
-          )
+        .padStart(
+          2,
+          "0"
+        )
 
       );
+
 
     }
 
 
 
     /* =========================================================
-       UPDATE HOLD TIMER
+       HOLD TIMER
     ========================================================= */
 
     function updateHoldingTimer() {
@@ -2795,7 +2401,7 @@
 
 
       /* =======================================================
-         BEFORE START
+         BEFORE HOLD START
       ======================================================= */
 
       if (
@@ -2818,7 +2424,7 @@
 
 
         statusTitle.textContent =
-          "Hydrotest Holding Period";
+          "HYDROTEST HOLDING PERIOD";
 
 
         panel.classList.remove(
@@ -2828,12 +2434,18 @@
 
         return;
 
+
       }
 
 
 
       /* =======================================================
-         COMPLETED
+         HOLDING COMPLETE
+
+         AFTER:
+         21:30 HRS 22/8/2026
+
+         ALL PULSING STOPS
       ======================================================= */
 
       if (
@@ -2848,10 +2460,7 @@
 
 
         holdingElement.textContent =
-
-          formatDuration(
-            TOTAL_HOLD_MS
-          );
+          "24:00:00";
 
 
         remainingElement.textContent =
@@ -2859,7 +2468,7 @@
 
 
         statusTitle.textContent =
-          "Hydrotest Hold Completed";
+          "HOLDING COMPLETED";
 
 
         panel.classList.add(
@@ -2869,12 +2478,13 @@
 
         return;
 
+
       }
 
 
 
       /* =======================================================
-         ACTIVE
+         ACTIVE HOLD
       ======================================================= */
 
       const elapsed =
@@ -2910,7 +2520,7 @@
 
 
       statusTitle.textContent =
-        "Hydrotest Holding Period";
+        "HYDROTEST HOLDING PERIOD";
 
 
       panel.classList.remove(
@@ -2919,6 +2529,7 @@
 
 
     }
+
 
 
     updateHoldingTimer();
@@ -2932,16 +2543,7 @@
 
 
     /* =========================================================
-       GOOGLE SHEET REFRESH
-    ========================================================= */
-
-    const REFRESH_TIME =
-      60000;
-
-
-
-    /* =========================================================
-       GPS SHEET
+       SHEET CONFIGURATION
     ========================================================= */
 
     const GPS = {
@@ -2983,10 +2585,6 @@
 
 
 
-    /* =========================================================
-       GPP4 SHEET
-    ========================================================= */
-
     const GPP4 = {
 
 
@@ -3023,7 +2621,315 @@
 
 
     /* =========================================================
-       LOAD GOOGLE SHEET
+       DEPRESSURIZATION SHEET
+    ========================================================= */
+
+    const DEPRESS = {
+
+
+      spreadsheetId:
+
+        "1Qp-04Fzx6E997Sye8czPoKg4q7T0Zy4qSHtcWWwL2II",
+
+
+      gid:
+
+        "0",
+
+
+      range:
+
+        "A:Z",
+
+
+      callback:
+
+        "depressDashboardResponse"
+
+
+    };
+
+
+
+    /* =========================================================
+       NORMALIZE TEXT
+    ========================================================= */
+
+    function normalizeText(value) {
+
+
+      return String(
+        value || ""
+      )
+
+      .trim()
+
+      .toUpperCase();
+
+
+    }
+
+
+
+    /* =========================================================
+       CELL VALUE CHECK
+    ========================================================= */
+
+    function cellHasValue(cell) {
+
+
+      if (!cell) {
+
+        return false;
+
+      }
+
+
+      return !(
+
+        cell.v === null
+
+        ||
+
+        cell.v === undefined
+
+        ||
+
+        cell.v === ""
+
+      );
+
+
+    }
+
+
+
+    /* =========================================================
+       DISPLAY VALUE
+    ========================================================= */
+
+    function getCellDisplayValue(cell) {
+
+
+      if (!cell) {
+
+        return "";
+
+      }
+
+
+      if (
+
+        cell.f !== undefined
+
+        &&
+
+        cell.f !== null
+
+      ) {
+
+
+        return cell.f;
+
+
+      }
+
+
+      if (
+
+        cell.v !== undefined
+
+        &&
+
+        cell.v !== null
+
+      ) {
+
+
+        return cell.v;
+
+
+      }
+
+
+      return "";
+
+
+    }
+
+
+
+    /* =========================================================
+       EXTRACT NUMBER
+    ========================================================= */
+
+    function extractNumber(value) {
+
+
+      if (
+
+        value === null
+
+        ||
+
+        value === undefined
+
+      ) {
+
+
+        return null;
+
+
+      }
+
+
+      if (
+        typeof value === "number"
+      ) {
+
+
+        return value;
+
+
+      }
+
+
+      const match =
+
+        String(value)
+
+        .replace(
+          /,/g,
+          ""
+        )
+
+        .match(
+          /-?\d+(\.\d+)?/
+        );
+
+
+      if (!match) {
+
+        return null;
+
+      }
+
+
+      const number =
+
+        parseFloat(
+          match[0]
+        );
+
+
+      return Number.isFinite(number)
+
+        ? number
+
+        : null;
+
+
+    }
+
+
+
+    /* =========================================================
+       FIND DEPRESSURIZATION PRESSURE COLUMN
+    ========================================================= */
+
+    function findPressureColumn(
+      columns
+    ) {
+
+
+      /*
+         FIRST:
+         HEADER CONTAINING PRESSURE
+      */
+
+      for (
+
+        let i = 0;
+
+        i < columns.length;
+
+        i++
+
+      ) {
+
+
+        const name =
+
+          normalizeText(
+            columns[i].label
+          );
+
+
+        if (
+          name.includes(
+            "PRESSURE"
+          )
+        ) {
+
+
+          return i;
+
+
+        }
+
+
+      }
+
+
+
+      /*
+         SECOND:
+         HEADER CONTAINING BARG
+      */
+
+      for (
+
+        let i = 0;
+
+        i < columns.length;
+
+        i++
+
+      ) {
+
+
+        const name =
+
+          normalizeText(
+            columns[i].label
+          );
+
+
+        if (
+          name.includes(
+            "BARG"
+          )
+        ) {
+
+
+          return i;
+
+
+        }
+
+
+      }
+
+
+      return -1;
+
+
+    }
+
+
+
+    /* =========================================================
+       LOAD NORMAL TABLE SHEET
     ========================================================= */
 
     function loadSheet(config) {
@@ -3117,29 +3023,41 @@
         true;
 
 
-
       script.onerror =
         function () {
 
 
-          const container =
-
-            document.getElementById(
-              config.container
-            );
+          if (
+            config.container
+          ) {
 
 
-          container.innerHTML =
+            const container =
 
-            '<div class="message">' +
+              document.getElementById(
+                config.container
+              );
 
-            'Unable to Load Google Sheet Data' +
 
-            '</div>';
+            if (container) {
+
+
+              container.innerHTML =
+
+                '<div class="message">' +
+
+                'Unable to Load Google Sheet Data' +
+
+                '</div>';
+
+
+            }
+
+
+          }
 
 
         };
-
 
 
       script.onload =
@@ -3182,95 +3100,7 @@
 
 
     /* =========================================================
-       CHECK CELL VALUE
-    ========================================================= */
-
-    function cellHasValue(cell) {
-
-
-      if (!cell) {
-
-        return false;
-
-      }
-
-
-      return !(
-
-        cell.v === null
-
-        ||
-
-        cell.v === undefined
-
-        ||
-
-        cell.v === ""
-
-      );
-
-
-    }
-
-
-
-    /* =========================================================
-       DISPLAY VALUE
-    ========================================================= */
-
-    function getCellDisplayValue(cell) {
-
-
-      if (!cell) {
-
-        return "";
-
-      }
-
-
-      if (
-
-        cell.f !== undefined
-
-        &&
-
-        cell.f !== null
-
-      ) {
-
-
-        return cell.f;
-
-
-      }
-
-
-      if (
-
-        cell.v !== undefined
-
-        &&
-
-        cell.v !== null
-
-      ) {
-
-
-        return cell.v;
-
-
-      }
-
-
-      return "";
-
-
-    }
-
-
-
-    /* =========================================================
-       AUTO SCROLL TO LATEST DATA
+       SCROLL TABLE TO LATEST
     ========================================================= */
 
     function scrollTableToBottom(
@@ -3312,7 +3142,7 @@
 
 
     /* =========================================================
-       RENDER TABLE
+       RENDER GPS / GPP4 TABLE
     ========================================================= */
 
     function renderTable(
@@ -3350,8 +3180,8 @@
 
         return;
 
-      }
 
+      }
 
 
       const columns =
@@ -3364,11 +3194,6 @@
         response.table.rows || [];
 
 
-
-      /* =======================================================
-         HIDDEN COLUMNS
-      ======================================================= */
-
       const hiddenColumns =
 
         (
@@ -3380,22 +3205,15 @@
           function (name) {
 
 
-            return String(name)
-
-              .trim()
-
-              .toUpperCase();
+            return normalizeText(
+              name
+            );
 
 
           }
 
         );
 
-
-
-      /* =======================================================
-         VISIBLE COLUMNS
-      ======================================================= */
 
       const visibleColumns =
         [];
@@ -3409,24 +3227,17 @@
         ) {
 
 
-          const columnName =
+          const name =
 
-            String(
-              column.label || ""
-            )
-
-            .trim()
-
-            .toUpperCase();
-
+            normalizeText(
+              column.label
+            );
 
 
           if (
-
             hiddenColumns.includes(
-              columnName
+              name
             )
-
           ) {
 
 
@@ -3436,7 +3247,6 @@
           }
 
 
-
           const hasData =
 
             rows.some(
@@ -3444,15 +3254,16 @@
               function (row) {
 
 
-                if (!row.c) {
+                return (
 
-                  return false;
+                  row.c
 
-                }
+                  &&
 
+                  cellHasValue(
+                    row.c[index]
+                  )
 
-                return cellHasValue(
-                  row.c[index]
                 );
 
 
@@ -3461,10 +3272,9 @@
             );
 
 
-
           if (
 
-            columnName !== ""
+            name !== ""
 
             ||
 
@@ -3475,14 +3285,11 @@
 
             visibleColumns.push({
 
-
               column:
                 column,
 
-
               index:
                 index
-
 
             });
 
@@ -3495,46 +3302,12 @@
       );
 
 
-
-      /* =======================================================
-         NO DATA
-      ======================================================= */
-
-      if (
-        visibleColumns.length === 0
-      ) {
-
-
-        container.innerHTML =
-
-          '<div class="message">' +
-
-          'No Data Available' +
-
-          '</div>';
-
-
-        return;
-
-      }
-
-
-
-      /* =======================================================
-         CREATE TABLE
-      ======================================================= */
-
       const table =
 
         document.createElement(
           "table"
         );
 
-
-
-      /* =======================================================
-         TABLE HEADER
-      ======================================================= */
 
       const thead =
 
@@ -3587,11 +3360,6 @@
       );
 
 
-
-      /* =======================================================
-         TABLE BODY
-      ======================================================= */
-
       const tbody =
 
         document.createElement(
@@ -3599,13 +3367,12 @@
         );
 
 
-      let rowCount =
-        0;
-
-
       let lastRowElement =
         null;
 
+
+      let rowCount =
+        0;
 
 
       rows.forEach(
@@ -3620,18 +3387,15 @@
               function (item) {
 
 
-                if (!row.c) {
+                return (
 
-                  return false;
+                  row.c
 
-                }
+                  &&
 
-
-                return cellHasValue(
-
-                  row.c[
-                    item.index
-                  ]
+                  cellHasValue(
+                    row.c[item.index]
+                  )
 
                 );
 
@@ -3712,11 +3476,6 @@
       );
 
 
-
-      /* =======================================================
-         NO READINGS
-      ======================================================= */
-
       if (
         rowCount === 0
       ) {
@@ -3726,20 +3485,16 @@
 
           '<div class="message">' +
 
-          'No Readings Available Yet' +
+          'No Readings Available' +
 
           '</div>';
 
 
         return;
 
+
       }
 
-
-
-      /* =======================================================
-         HIGHLIGHT LATEST ROW
-      ======================================================= */
 
       if (
         lastRowElement
@@ -3752,7 +3507,6 @@
 
 
       }
-
 
 
       table.appendChild(
@@ -3769,17 +3523,333 @@
       );
 
 
-
-      /* =======================================================
-         SHOW LATEST DATA
-      ======================================================= */
-
       scrollTableToBottom(
         container
       );
 
 
     }
+
+
+
+    /* =========================================================
+       UPDATE DEPRESSURIZATION HEADER BOX
+    ========================================================= */
+
+    function updateDepressurizationBox(
+      pressure
+    ) {
+
+
+      const link =
+
+        document.getElementById(
+          "depressLink"
+        );
+
+
+      const title =
+
+        document.getElementById(
+          "depressTitle"
+        );
+
+
+      const live =
+
+        document.getElementById(
+          "depressLive"
+        );
+
+
+      const pressureDisplay =
+
+        document.getElementById(
+          "depressPressure"
+        );
+
+
+
+      /* =======================================================
+         NO VALID PRESSURE YET
+      ======================================================= */
+
+      if (
+
+        pressure === null
+
+        ||
+
+        !Number.isFinite(
+          pressure
+        )
+
+      ) {
+
+
+        link.classList.remove(
+          "complete"
+        );
+
+
+        link.classList.add(
+          "ongoing"
+        );
+
+
+        live.textContent =
+          "LIVE";
+
+
+        title.innerHTML =
+
+          "DEPRESSURIZATION<br>DATA";
+
+
+        pressureDisplay.textContent =
+          "PRESSURE -- BARG";
+
+
+        return;
+
+
+      }
+
+
+
+      pressureDisplay.textContent =
+
+        "PRESSURE "
+
+        +
+
+        pressure.toFixed(
+          2
+        )
+
+        +
+
+        " BARG";
+
+
+
+      /* =======================================================
+         COMPLETE AT 6 BARG OR LOWER
+      ======================================================= */
+
+      if (
+
+        pressure <=
+        DEPRESS_COMPLETE_PRESSURE
+
+      ) {
+
+
+        link.classList.remove(
+          "ongoing"
+        );
+
+
+        link.classList.add(
+          "complete"
+        );
+
+
+        /*
+           NO MORE LIVE / BEEPING
+        */
+
+        live.textContent =
+          "COMPLETE";
+
+
+        title.innerHTML =
+
+          "DEPRESSURIZE<br>COMPLETE";
+
+
+        return;
+
+
+      }
+
+
+
+      /* =======================================================
+         STILL DEPRESSURIZING
+      ======================================================= */
+
+      link.classList.remove(
+        "complete"
+      );
+
+
+      link.classList.add(
+        "ongoing"
+      );
+
+
+      live.textContent =
+        "LIVE";
+
+
+      title.innerHTML =
+
+        "DEPRESSURIZATION<br>DATA";
+
+
+    }
+
+
+
+    /* =========================================================
+       DEPRESSURIZATION CALLBACK
+    ========================================================= */
+
+    window.depressDashboardResponse =
+
+      function (response) {
+
+
+        if (
+
+          !response
+
+          ||
+
+          !response.table
+
+        ) {
+
+
+          updateDepressurizationBox(
+            null
+          );
+
+
+          return;
+
+
+        }
+
+
+        const columns =
+
+          response.table.cols || [];
+
+
+        const rows =
+
+          response.table.rows || [];
+
+
+        const pressureIndex =
+
+          findPressureColumn(
+            columns
+          );
+
+
+        if (
+          pressureIndex < 0
+        ) {
+
+
+          updateDepressurizationBox(
+            null
+          );
+
+
+          return;
+
+
+        }
+
+
+        let latestPressure =
+          null;
+
+
+
+        rows.forEach(
+
+          function (row) {
+
+
+            if (
+              !row.c
+            ) {
+
+
+              return;
+
+
+            }
+
+
+            const cell =
+
+              row.c[
+                pressureIndex
+              ];
+
+
+            if (
+              !cellHasValue(
+                cell
+              )
+            ) {
+
+
+              return;
+
+
+            }
+
+
+            const rawValue =
+
+              cell.v !== undefined
+
+              &&
+
+              cell.v !== null
+
+              ? cell.v
+
+              : cell.f;
+
+
+            const parsed =
+
+              extractNumber(
+                rawValue
+              );
+
+
+            if (
+              parsed !== null
+            ) {
+
+
+              latestPressure =
+                parsed;
+
+
+            }
+
+
+          }
+
+        );
+
+
+        updateDepressurizationBox(
+          latestPressure
+        );
+
+
+      };
 
 
 
@@ -3822,7 +3892,7 @@
 
 
     /* =========================================================
-       REFRESH ALL DATA
+       REFRESH ALL
     ========================================================= */
 
     function refreshAll() {
@@ -3835,6 +3905,11 @@
 
       loadSheet(
         GPP4
+      );
+
+
+      loadSheet(
+        DEPRESS
       );
 
 
@@ -3851,7 +3926,7 @@
 
 
     /* =========================================================
-       AUTO REFRESH EVERY 60 SEC
+       AUTO REFRESH
     ========================================================= */
 
     setInterval(

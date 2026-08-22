@@ -57,8 +57,9 @@
     }
 
     .page {
-      width: min(1560px, calc(100% - 28px));
-      margin: 14px auto 24px;
+      width: calc(100% - 20px);
+      max-width: none;
+      margin: 10px auto 24px;
     }
 
     /* =========================
@@ -432,8 +433,8 @@
        ========================= */
     @media (max-width: 900px) {
       .page {
-        width: calc(100% - 16px);
-        margin: 8px auto 18px;
+        width: calc(100% - 12px);
+        margin: 6px auto 18px;
       }
 
       .topbar {
@@ -480,8 +481,8 @@
       body { min-width: 0; }
 
       .page {
-        width: calc(100% - 10px);
-        margin-top: 5px;
+        width: calc(100% - 8px);
+        margin-top: 4px;
       }
 
       .topbar,

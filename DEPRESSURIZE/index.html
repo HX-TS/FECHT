@@ -10,7 +10,7 @@
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
   >
 
-  <title>FEC Depressurize</title>
+  <title>FEC Hydrotest Live Dashboard</title>
 
 
   <!-- =========================================================
@@ -38,7 +38,7 @@
   <style>
 
     /* =========================================================
-       COLOR SCHEME
+       GLOBAL
     ========================================================= */
 
     :root {
@@ -47,17 +47,11 @@
 
       --cream: #f2efe9;
 
-      --cream-dark: #e5e0d8;
+      --cream-2: #ebe8e2;
 
-      --cream-light: #faf8f4;
-
-      --line: #c9c4bc;
+      --line: #cbc7bf;
 
       --red: #d71920;
-
-      --red-dark: #a90000;
-
-      --red-light: #ffb3b3;
 
       --orange: #ff8500;
 
@@ -67,15 +61,12 @@
 
       --green-soft: #dcefe2;
 
-      --grey: #5d5953;
+      --grey: #5b5751;
+
+      --datetime-width: 150px;
 
     }
 
-
-
-    /* =========================================================
-       RESET
-    ========================================================= */
 
     * {
 
@@ -146,26 +137,26 @@
        HEADER
     ========================================================= */
 
-    .header {
+    .hero {
 
       flex-shrink: 0;
 
-      min-height: 195px;
+      min-height: 160px;
 
-      display: flex;
+      height:
+        clamp(
+          160px,
+          21vh,
+          220px
+        );
 
-      flex-direction: column;
+      display: grid;
 
-      align-items: center;
-
-      justify-content: center;
-
-      text-align: center;
-
-      padding:
-        20px
-        20px
-        17px;
+      grid-template-columns:
+        minmax(0, 1fr)
+        minmax(330px, 390px)
+        minmax(190px, 235px)
+        minmax(190px, 235px);
 
       background:
         var(--cream);
@@ -173,6 +164,8 @@
       border:
         1px solid
         var(--black);
+
+      overflow: hidden;
 
     }
 
@@ -182,37 +175,62 @@
        MAIN TITLE
     ========================================================= */
 
-    .main-title {
+    .hero-left {
 
-      font-size:
-        clamp(
-          42px,
-          6.5vw,
-          92px
-        );
+      min-width: 0;
 
-      line-height: 0.88;
+      display: flex;
 
-      font-weight: 900;
+      flex-direction: column;
 
-      letter-spacing: -0.055em;
+      align-items: flex-start;
 
-      text-transform: uppercase;
+      justify-content: center;
 
-      color:
-        var(--black);
+      padding:
+        20px
+        30px;
 
     }
 
 
-    .subtitle {
-
-      margin-top: 11px;
+    .hero-title {
 
       font-size:
         clamp(
-          8px,
-          0.9vw,
+          34px,
+          4vw,
+          72px
+        );
+
+      font-weight: 900;
+
+      line-height: 0.87;
+
+      letter-spacing: -0.05em;
+
+      text-transform: uppercase;
+
+      text-align: left;
+
+    }
+
+
+    .hero-title span {
+
+      display: block;
+
+    }
+
+
+    .hero-subtitle {
+
+      margin-top: 14px;
+
+      font-size:
+        clamp(
+          9px,
+          0.8vw,
           13px
         );
 
@@ -220,7 +238,290 @@
 
       letter-spacing: 0.30em;
 
+    }
+
+
+
+    /* =========================================================
+       HYDROTEST HOLD PANEL
+    ========================================================= */
+
+    .hold-panel {
+
+      min-width: 0;
+
+      display: flex;
+
+      flex-direction: column;
+
+      justify-content: center;
+
+      padding:
+        17px
+        22px;
+
+      border-left:
+        1px solid
+        var(--black);
+
+      background:
+        var(--cream);
+
+      transition:
+        background
+        0.2s ease;
+
+    }
+
+
+    .hold-title-row {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 10px;
+
+      margin-bottom: 14px;
+
+    }
+
+
+    .live-dot {
+
+      width: 10px;
+
+      height: 10px;
+
+      flex-shrink: 0;
+
+      border-radius: 50%;
+
+      background:
+        var(--red);
+
+      animation:
+        livePulse
+        1.1s
+        infinite;
+
+    }
+
+
+    @keyframes livePulse {
+
+      0% {
+
+        background:
+          var(--red);
+
+        box-shadow:
+          0 0 0 0
+          rgba(215, 25, 32, 0.85);
+
+      }
+
+
+      50% {
+
+        background:
+          var(--orange);
+
+        box-shadow:
+          0 0 0 8px
+          rgba(215, 25, 32, 0);
+
+      }
+
+
+      100% {
+
+        background:
+          var(--red);
+
+        box-shadow:
+          0 0 0 0
+          rgba(215, 25, 32, 0);
+
+      }
+
+    }
+
+
+    .hold-panel-title {
+
+      font-size: 14px;
+
+      line-height: 1.15;
+
+      font-weight: 900;
+
+      letter-spacing: 0.045em;
+
       text-transform: uppercase;
+
+    }
+
+
+
+    /* =========================================================
+       HOLD TIMER
+    ========================================================= */
+
+    .timer-grid {
+
+      display: grid;
+
+      grid-template-columns:
+        1fr
+        auto;
+
+      column-gap: 18px;
+
+      row-gap: 9px;
+
+      align-items: center;
+
+    }
+
+
+    .timer-label {
+
+      font-size: 11px;
+
+      font-weight: 800;
+
+      letter-spacing: 0.04em;
+
+      text-transform: uppercase;
+
+      color:
+        #4e4b45;
+
+    }
+
+
+    .timer-value {
+
+      min-width: 112px;
+
+      text-align: right;
+
+      font-size: 19px;
+
+      line-height: 1;
+
+      font-weight: 900;
+
+      font-variant-numeric:
+        tabular-nums;
+
+      letter-spacing: 0.04em;
+
+    }
+
+
+    .timer-value.live {
+
+      animation:
+        timerBlink
+        1.2s
+        ease-in-out
+        infinite;
+
+    }
+
+
+    @keyframes timerBlink {
+
+      0% {
+
+        color:
+          var(--black);
+
+      }
+
+
+      50% {
+
+        color:
+          var(--red);
+
+      }
+
+
+      100% {
+
+        color:
+          var(--black);
+
+      }
+
+    }
+
+
+    .timer-divider {
+
+      grid-column:
+        1 / -1;
+
+      height: 1px;
+
+      background:
+        var(--line);
+
+    }
+
+
+
+    /* =========================================================
+       HOLD START / COMPLETE
+    ========================================================= */
+
+    .timer-note {
+
+      margin-top: 14px;
+
+      padding-top: 9px;
+
+      border-top:
+        1px solid
+        var(--line);
+
+      display: grid;
+
+      grid-template-columns:
+        1fr
+        1fr;
+
+      gap: 10px;
+
+    }
+
+
+    .timer-note-item {
+
+      font-size: 9px;
+
+      line-height: 1.3;
+
+      font-weight: 700;
+
+      color:
+        var(--grey);
+
+      text-transform: uppercase;
+
+    }
+
+
+    .timer-note-item strong {
+
+      display: block;
+
+      margin-top: 3px;
+
+      font-size: 10px;
 
       color:
         var(--black);
@@ -228,22 +529,127 @@
     }
 
 
+    .timer-note-item:last-child {
+
+      text-align: right;
+
+    }
+
+
 
     /* =========================================================
-       STATUS BOX
+       HOLD COMPLETED
     ========================================================= */
 
-    .status-box {
+    .hold-panel.completed {
 
-      margin-top: 18px;
+      background:
+        var(--green-soft);
 
-      width:
-        min(
-          560px,
-          92%
-        );
+    }
 
-      min-height: 47px;
+
+    .hold-panel.completed
+    .live-dot {
+
+      background:
+        var(--green);
+
+      animation: none;
+
+      box-shadow: none;
+
+    }
+
+
+    .hold-panel.completed
+    .hold-panel-title {
+
+      color:
+        var(--green-dark);
+
+    }
+
+
+    .hold-panel.completed
+    .timer-value.live {
+
+      color:
+        var(--green-dark);
+
+      animation: none;
+
+    }
+
+
+
+    /* =========================================================
+       PRESSURE TRENDING LINK
+    ========================================================= */
+
+    .trend-link {
+
+      position: relative;
+
+      min-width: 0;
+
+      display: flex;
+
+      text-decoration: none;
+
+      color: inherit;
+
+      border-left:
+        1px solid
+        var(--black);
+
+      background:
+        var(--cream);
+
+      overflow: hidden;
+
+      outline: none;
+
+    }
+
+
+    .trend-panel {
+
+      position: relative;
+
+      width: 100%;
+
+      min-height: 100%;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding:
+        18px
+        14px;
+
+      text-align: center;
+
+      cursor: pointer;
+
+      background:
+        var(--cream);
+
+      transition:
+        background
+        0.18s ease,
+        color
+        0.18s ease;
+
+    }
+
+
+    .trend-status {
 
       display: flex;
 
@@ -251,32 +657,376 @@
 
       justify-content: center;
 
-      gap: 12px;
+      gap: 9px;
 
-      padding:
-        10px
-        18px;
+      margin-bottom: 13px;
 
-      border:
-        1px solid
-        var(--black);
+    }
+
+
+    .trend-dot {
+
+      width: 10px;
+
+      height: 10px;
+
+      flex-shrink: 0;
+
+      border-radius: 50%;
 
       background:
-        var(--cream-dark);
+        var(--red);
+
+      animation:
+        trendDotPulse
+        1s
+        infinite;
+
+    }
+
+
+    @keyframes trendDotPulse {
+
+      0% {
+
+        background:
+          var(--red);
+
+        box-shadow:
+          0 0 0 0
+          rgba(215, 25, 32, 0.85);
+
+      }
+
+
+      50% {
+
+        background:
+          var(--orange);
+
+        box-shadow:
+          0 0 0 8px
+          rgba(215, 25, 32, 0);
+
+      }
+
+
+      100% {
+
+        background:
+          var(--red);
+
+        box-shadow:
+          0 0 0 0
+          rgba(215, 25, 32, 0);
+
+      }
+
+    }
+
+
+    .trend-live {
+
+      font-size: 10px;
+
+      font-weight: 900;
+
+      letter-spacing: 0.10em;
+
+      text-transform: uppercase;
+
+    }
+
+
+    .trend-title {
+
+      font-size:
+        clamp(
+          17px,
+          1.35vw,
+          22px
+        );
+
+      line-height: 1;
+
+      font-weight: 900;
+
+      letter-spacing: -0.02em;
+
+      text-transform: uppercase;
+
+      animation:
+        trendTextBlink
+        1.15s
+        ease-in-out
+        infinite;
+
+    }
+
+
+    @keyframes trendTextBlink {
+
+      0% {
+
+        color:
+          var(--black);
+
+      }
+
+
+      50% {
+
+        color:
+          var(--red);
+
+      }
+
+
+      100% {
+
+        color:
+          var(--black);
+
+      }
+
+    }
+
+
+    .trend-arrow {
+
+      margin-top: 14px;
+
+      font-size: 22px;
+
+      line-height: 1;
+
+      font-weight: 900;
 
     }
 
 
 
     /* =========================================================
-       STATUS DOT
+       PRESSURE TRENDING COMPLETED
+       AFTER 21:30 HRS 22/8/2026
     ========================================================= */
 
-    .status-dot {
+    .trend-link.completed
+    .trend-panel {
 
-      width: 11px;
+      background:
+        var(--green-soft);
 
-      height: 11px;
+    }
+
+
+    .trend-link.completed
+    .trend-dot {
+
+      background:
+        var(--green);
+
+      animation: none;
+
+      box-shadow: none;
+
+    }
+
+
+    .trend-link.completed
+    .trend-live {
+
+      color:
+        var(--green-dark);
+
+    }
+
+
+    .trend-link.completed
+    .trend-title {
+
+      color:
+        var(--green-dark);
+
+      animation: none;
+
+    }
+
+
+    .trend-link.completed
+    .trend-arrow {
+
+      color:
+        var(--green-dark);
+
+    }
+
+
+
+    /* =========================================================
+       PRESSURE TRENDING HOVER
+    ========================================================= */
+
+    .trend-hover {
+
+      position: absolute;
+
+      left: 10px;
+
+      right: 10px;
+
+      bottom: 10px;
+
+      min-height: 44px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding:
+        9px
+        10px;
+
+      background:
+        var(--black);
+
+      color:
+        #ffffff;
+
+      text-align: center;
+
+      font-size: 9px;
+
+      line-height: 1.3;
+
+      font-weight: 900;
+
+      letter-spacing: 0.045em;
+
+      text-transform: uppercase;
+
+      opacity: 0;
+
+      transform:
+        translateY(8px);
+
+      pointer-events: none;
+
+      transition:
+        opacity
+        0.18s ease,
+        transform
+        0.18s ease;
+
+      z-index: 20;
+
+    }
+
+
+    .trend-link:hover
+    .trend-hover,
+
+    .trend-link:focus-visible
+    .trend-hover {
+
+      opacity: 1;
+
+      transform:
+        translateY(0);
+
+    }
+
+
+
+    /* =========================================================
+       DEPRESSURIZATION LINK
+    ========================================================= */
+
+    .depress-link {
+
+      position: relative;
+
+      min-width: 0;
+
+      display: flex;
+
+      text-decoration: none;
+
+      color: inherit;
+
+      border-left:
+        1px solid
+        var(--black);
+
+      background:
+        var(--cream);
+
+      overflow: hidden;
+
+      outline: none;
+
+    }
+
+
+    .depress-panel {
+
+      width: 100%;
+
+      min-height: 100%;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding:
+        16px
+        12px;
+
+      text-align: center;
+
+      background:
+        var(--cream);
+
+      transition:
+        background
+        0.18s ease,
+        color
+        0.18s ease;
+
+    }
+
+
+
+    /* =========================================================
+       DEPRESS STATUS
+    ========================================================= */
+
+    .depress-status {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      gap: 8px;
+
+      margin-bottom: 11px;
+
+    }
+
+
+    .depress-dot {
+
+      width: 10px;
+
+      height: 10px;
 
       flex-shrink: 0;
 
@@ -288,55 +1038,92 @@
     }
 
 
+    .depress-live {
 
-    /* =========================================================
-       STATUS TEXT
-    ========================================================= */
-
-    .status-text {
-
-      font-size:
-        clamp(
-          13px,
-          1.3vw,
-          19px
-        );
-
-      line-height: 1.1;
+      font-size: 10px;
 
       font-weight: 900;
 
-      letter-spacing: 0.055em;
+      letter-spacing: 0.10em;
 
       text-transform: uppercase;
 
     }
 
 
+    .depress-title {
+
+      font-size:
+        clamp(
+          15px,
+          1.2vw,
+          20px
+        );
+
+      line-height: 1.05;
+
+      font-weight: 900;
+
+      text-transform: uppercase;
+
+    }
+
+
+    .depress-pressure {
+
+      margin-top: 9px;
+
+      font-size: 11px;
+
+      line-height: 1;
+
+      font-weight: 900;
+
+      font-variant-numeric:
+        tabular-nums;
+
+      text-transform: uppercase;
+
+    }
+
+
+    .depress-arrow {
+
+      margin-top: 10px;
+
+      font-size: 20px;
+
+      line-height: 1;
+
+      font-weight: 900;
+
+    }
+
+
 
     /* =========================================================
-       ONGOING DEPRESSURIZATION
+       DEPRESS ONGOING > 6 BARG
     ========================================================= */
 
-    .status-box.ongoing
-    .status-dot {
+    .depress-link.ongoing
+    .depress-dot {
 
       animation:
-        statusDotPulse
+        depressDotPulse
         0.85s
         infinite;
 
     }
 
 
-    .status-box.ongoing
-    .status-text {
+    .depress-link.ongoing
+    .depress-live {
 
       color:
         var(--red);
 
       animation:
-        statusTextPulse
+        depressLivePulse
         0.9s
         ease-in-out
         infinite;
@@ -344,7 +1131,19 @@
     }
 
 
-    @keyframes statusDotPulse {
+    .depress-link.ongoing
+    .depress-title {
+
+      animation:
+        depressTextPulse
+        0.95s
+        ease-in-out
+        infinite;
+
+    }
+
+
+    @keyframes depressDotPulse {
 
       0% {
 
@@ -353,7 +1152,7 @@
 
         box-shadow:
           0 0 0 0
-          rgba(215, 25, 32, 0.95);
+          rgba(215, 25, 32, 0.9);
 
       }
 
@@ -364,7 +1163,7 @@
           var(--orange);
 
         box-shadow:
-          0 0 0 10px
+          0 0 0 9px
           rgba(215, 25, 32, 0);
 
       }
@@ -384,24 +1183,18 @@
     }
 
 
-    @keyframes statusTextPulse {
+    @keyframes depressLivePulse {
 
       0% {
 
         opacity: 1;
-
-        color:
-          var(--red);
 
       }
 
 
       50% {
 
-        opacity: 0.45;
-
-        color:
-          var(--red-dark);
+        opacity: 0.35;
 
       }
 
@@ -410,8 +1203,33 @@
 
         opacity: 1;
 
+      }
+
+    }
+
+
+    @keyframes depressTextPulse {
+
+      0% {
+
+        color:
+          var(--black);
+
+      }
+
+
+      50% {
+
         color:
           var(--red);
+
+      }
+
+
+      100% {
+
+        color:
+          var(--black);
 
       }
 
@@ -420,38 +1238,102 @@
 
 
     /* =========================================================
-       COMPLETE STATUS
+       DEPRESS COMPLETE <= 6 BARG
     ========================================================= */
 
-    .status-box.complete {
+    .depress-link.complete
+    .depress-panel {
 
       background:
         var(--green-soft);
 
-      border-color:
-        var(--green);
-
     }
 
 
-    .status-box.complete
-    .status-dot {
+    .depress-link.complete
+    .depress-dot {
 
       background:
         var(--green);
 
+      animation: none;
+
       box-shadow: none;
 
+    }
+
+
+    .depress-link.complete
+    .depress-live {
+
+      color:
+        var(--green-dark);
+
       animation: none;
 
     }
 
 
-    .status-box.complete
-    .status-text {
+    .depress-link.complete
+    .depress-title {
 
       color:
-        var(--green);
+        var(--green-dark);
+
+      animation: none;
+
+    }
+
+
+    .depress-link.complete
+    .depress-pressure {
+
+      color:
+        var(--green-dark);
+
+    }
+
+
+    .depress-link.complete
+    .depress-arrow {
+
+      color:
+        var(--green-dark);
+
+    }
+
+
+
+    /* =========================================================
+       DEPRESS WAITING FOR DATA
+    ========================================================= */
+
+    .depress-link.waiting
+    .depress-dot {
+
+      background:
+        var(--grey);
+
+      animation: none;
+
+      box-shadow: none;
+
+    }
+
+
+    .depress-link.waiting
+    .depress-live {
+
+      color:
+        var(--grey);
+
+      animation: none;
+
+    }
+
+
+    .depress-link.waiting
+    .depress-title {
 
       animation: none;
 
@@ -460,120 +1342,68 @@
 
 
     /* =========================================================
-       LATEST PRESSURE SUMMARY
+       DEPRESS HOVER
     ========================================================= */
 
-    .pressure-summary {
+    .depress-link:hover
+    .depress-panel {
 
-      margin-top: 12px;
-
-      display: flex;
-
-      align-items: baseline;
-
-      justify-content: center;
-
-      gap: 9px;
-
-    }
-
-
-    .pressure-summary-label {
-
-      font-size: 9px;
-
-      font-weight: 800;
-
-      letter-spacing: 0.07em;
-
-      text-transform: uppercase;
-
-      color:
-        var(--grey);
-
-    }
-
-
-    .pressure-summary-value {
-
-      font-size:
-        clamp(
-          24px,
-          2.2vw,
-          34px
-        );
-
-      line-height: 1;
-
-      font-weight: 900;
-
-      font-variant-numeric:
-        tabular-nums;
-
-      color:
+      background:
         var(--black);
 
+      color:
+        #ffffff;
+
     }
 
 
-    .pressure-summary-unit {
+    .depress-link:hover
+    .depress-title,
 
-      font-size: 10px;
+    .depress-link:hover
+    .depress-live,
 
-      font-weight: 900;
+    .depress-link:hover
+    .depress-pressure,
 
-      text-transform: uppercase;
+    .depress-link:hover
+    .depress-arrow {
+
+      color:
+        #ffffff;
 
     }
 
 
 
     /* =========================================================
-       AUDIO STATUS
+       DASHBOARD
     ========================================================= */
 
-    .audio-status {
-
-      margin-top: 7px;
-
-      font-size: 7px;
-
-      font-weight: 800;
-
-      letter-spacing: 0.08em;
-
-      text-transform: uppercase;
-
-      color:
-        var(--grey);
-
-    }
-
-
-    .audio-status.enabled {
-
-      color:
-        var(--green);
-
-    }
-
-
-
-    /* =========================================================
-       MAIN DATA PANEL
-    ========================================================= */
-
-    .data-panel {
+    .dashboard {
 
       flex: 1;
+
+      min-height: 0;
+
+      display: grid;
+
+      grid-template-rows:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+      gap: 7px;
+
+    }
+
+
+    .reading-panel {
 
       min-height: 0;
 
       display: flex;
 
       flex-direction: column;
-
-      overflow: hidden;
 
       background:
         var(--cream);
@@ -582,21 +1412,16 @@
         1px solid
         var(--black);
 
+      overflow: hidden;
+
     }
 
 
-
-    /* =========================================================
-       DATA PANEL HEADER
-    ========================================================= */
-
-    .panel-header {
-
-      position: relative;
+    .panel-title {
 
       flex-shrink: 0;
 
-      min-height: 44px;
+      min-height: 42px;
 
       display: flex;
 
@@ -613,73 +1438,24 @@
 
       border-bottom:
         1px solid
-        var(--black);
-
-    }
-
-
-
-    /* =========================================================
-       DEPRESSURIZATION READING
-    ========================================================= */
-
-    .panel-title {
-
-      width: 100%;
+        var(--line);
 
       text-align: center;
 
       font-size: 13px;
 
-      line-height: 1;
-
       font-weight: 900;
 
-      letter-spacing: 0.07em;
+      letter-spacing: 0.03em;
 
       text-transform: uppercase;
-
-      color:
-        var(--black);
 
     }
 
 
 
     /* =========================================================
-       LIVE UPDATE LABEL
-    ========================================================= */
-
-    .refresh-label {
-
-      position: absolute;
-
-      right: 16px;
-
-      top: 50%;
-
-      transform:
-        translateY(-50%);
-
-      font-size: 8px;
-
-      font-weight: 700;
-
-      letter-spacing: 0.06em;
-
-      text-transform: uppercase;
-
-      color:
-        var(--grey);
-
-      white-space: nowrap;
-
-    }
-
-
-
-    /* =========================================================
-       TABLE WINDOW
+       TABLE
     ========================================================= */
 
     .table-wrapper {
@@ -695,13 +1471,11 @@
       background:
         var(--cream);
 
-      scroll-behavior: auto;
-
       scrollbar-width: thin;
 
       scrollbar-color:
-        #777
-        var(--cream-dark);
+        #888
+        var(--cream-2);
 
     }
 
@@ -718,7 +1492,7 @@
     .table-wrapper::-webkit-scrollbar-track {
 
       background:
-        var(--cream-dark);
+        var(--cream-2);
 
     }
 
@@ -726,15 +1500,10 @@
     .table-wrapper::-webkit-scrollbar-thumb {
 
       background:
-        #777;
+        #888;
 
     }
 
-
-
-    /* =========================================================
-       TABLE
-    ========================================================= */
 
     table {
 
@@ -747,16 +1516,8 @@
       background:
         var(--cream);
 
-      color:
-        var(--black);
-
     }
 
-
-
-    /* =========================================================
-       TABLE HEADER
-    ========================================================= */
 
     thead {
 
@@ -771,7 +1532,7 @@
 
     th {
 
-      min-width: 130px;
+      min-width: 125px;
 
       height: 50px;
 
@@ -780,7 +1541,7 @@
         12px;
 
       background:
-        var(--cream-dark);
+        var(--cream);
 
       border-right:
         1px solid
@@ -796,35 +1557,18 @@
 
       font-size: 11px;
 
-      line-height: 1.2;
-
       font-weight: 900;
 
       text-transform: uppercase;
 
-      color:
-        var(--black);
-
     }
 
-
-    th:last-child {
-
-      border-right: none;
-
-    }
-
-
-
-    /* =========================================================
-       TABLE DATA
-    ========================================================= */
 
     td {
 
-      min-width: 130px;
+      min-width: 125px;
 
-      height: 39px;
+      height: 38px;
 
       padding:
         7px
@@ -851,223 +1595,53 @@
 
       font-weight: 600;
 
-      color:
-        var(--black);
-
-    }
-
-
-    td:last-child {
-
-      border-right: none;
-
     }
 
 
     tbody tr:hover td {
 
       background:
-        #eae6df;
+        #e9e5de;
 
     }
 
-
-
-    /* =========================================================
-       LATEST ROW
-    ========================================================= */
 
     tbody tr.latest-row td {
 
-      font-weight: 900;
-
-      border-top:
-        2px solid
-        var(--red);
-
-      border-bottom:
-        2px solid
-        var(--red);
-
-    }
-
-
-
-    /* =========================================================
-       LATEST ROW - ONGOING
-       STRONG RED PULSING
-    ========================================================= */
-
-    tbody tr.latest-row.ongoing-latest td {
-
-      animation:
-        latestRowPulse
-        0.85s
-        ease-in-out
-        infinite;
-
-    }
-
-
-    @keyframes latestRowPulse {
-
-      0% {
-
-        background:
-          var(--cream);
-
-        color:
-          var(--black);
-
-        box-shadow:
-          inset 0 0 0 0
-          rgba(215, 25, 32, 0);
-
-      }
-
-
-      25% {
-
-        background:
-          #ffd0d0;
-
-        color:
-          var(--black);
-
-      }
-
-
-      50% {
-
-        background:
-          var(--red);
-
-        color:
-          #ffffff;
-
-        box-shadow:
-          inset 0 0 22px
-          rgba(110, 0, 0, 0.38);
-
-      }
-
-
-      75% {
-
-        background:
-          var(--red-light);
-
-        color:
-          var(--black);
-
-      }
-
-
-      100% {
-
-        background:
-          var(--cream);
-
-        color:
-          var(--black);
-
-        box-shadow:
-          inset 0 0 0 0
-          rgba(215, 25, 32, 0);
-
-      }
-
-    }
-
-
-
-    /* =========================================================
-       COMPLETE LATEST ROW
-    ========================================================= */
-
-    tbody tr.latest-row.complete-latest td {
-
       background:
-        var(--green-soft);
-
-      color:
-        var(--green-dark);
-
-      animation: none;
-
-      border-top:
-        2px solid
-        var(--green);
-
-      border-bottom:
-        2px solid
-        var(--green);
-
-    }
-
-
-
-    /* =========================================================
-       LATEST PRESSURE CELL
-    ========================================================= */
-
-    td.latest-pressure {
-
-      font-size: 17px;
+        #e7e3dc;
 
       font-weight: 900;
 
-      letter-spacing: 0.04em;
+      border-top:
+        2px solid
+        var(--black);
 
     }
 
 
 
     /* =========================================================
-       NEW DATA VISUAL ALERT
+       DATE / TIME WIDTH
     ========================================================= */
 
-    .data-panel.new-data-alert {
+    th:nth-child(1),
+    td:nth-child(1),
 
-      animation:
-        newDataPanelFlash
-        0.32s
-        ease-in-out
-        4;
+    th:nth-child(2),
+    td:nth-child(2),
 
-    }
+    th:nth-child(3),
+    td:nth-child(3) {
 
+      width:
+        var(--datetime-width);
 
-    @keyframes newDataPanelFlash {
+      min-width:
+        var(--datetime-width);
 
-      0% {
-
-        border-color:
-          var(--black);
-
-      }
-
-
-      50% {
-
-        border-color:
-          var(--red);
-
-        box-shadow:
-          inset 0 0 0 4px
-          var(--red);
-
-      }
-
-
-      100% {
-
-        border-color:
-          var(--black);
-
-        box-shadow: none;
-
-      }
+      max-width:
+        var(--datetime-width);
 
     }
 
@@ -1083,7 +1657,7 @@
 
       height: 100%;
 
-      min-height: 120px;
+      min-height: 80px;
 
       display: flex;
 
@@ -1091,18 +1665,13 @@
 
       justify-content: center;
 
-      padding: 25px;
-
-      background:
-        var(--cream);
+      padding: 20px;
 
       text-align: center;
 
       font-size: 11px;
 
       font-weight: 800;
-
-      letter-spacing: 0.04em;
 
       text-transform: uppercase;
 
@@ -1118,7 +1687,7 @@
 
       flex-shrink: 0;
 
-      min-height: 37px;
+      min-height: 38px;
 
       display: flex;
 
@@ -1141,13 +1710,11 @@
         1px solid
         var(--black);
 
-      text-align: center;
-
-      font-size: 9px;
+      font-size: 10px;
 
       font-weight: 900;
 
-      letter-spacing: 0.09em;
+      letter-spacing: 0.08em;
 
       text-transform: uppercase;
 
@@ -1156,95 +1723,84 @@
 
 
     /* =========================================================
-       TABLET
+       SMALL LAPTOP / TABLET
     ========================================================= */
 
-    @media (max-width: 900px) {
+    @media (max-width: 1200px) {
 
-      .page {
+      :root {
 
-        padding: 5px;
-
-        gap: 5px;
+        --datetime-width: 135px;
 
       }
 
 
-      .header {
+      .hero {
 
-        min-height: 185px;
+        grid-template-columns:
+          minmax(0, 1fr)
+          300px
+          175px
+          175px;
+
+      }
+
+
+      .hero-left {
 
         padding:
-          16px
           15px
-          14px;
+          18px;
 
       }
 
 
-      .main-title {
+      .hero-title {
 
         font-size:
           clamp(
-            37px,
-            7vw,
-            68px
+            28px,
+            4.3vw,
+            52px
           );
 
       }
 
 
-      .status-box {
+      .hold-panel {
 
-        margin-top: 14px;
-
-        width:
-          min(
-            480px,
-            94%
-          );
+        padding:
+          14px
+          15px;
 
       }
 
 
-      .panel-title {
+      .hold-panel-title {
 
         font-size: 12px;
 
       }
 
 
-      th {
-
-        min-width: 115px;
-
-        height: 44px;
-
-        padding:
-          7px
-          9px;
+      .timer-label {
 
         font-size: 10px;
 
       }
 
 
-      td {
+      .timer-value {
 
-        min-width: 115px;
+        min-width: 95px;
 
-        height: 34px;
-
-        padding:
-          6px
-          9px;
-
-        font-size: 11px;
+        font-size: 17px;
 
       }
 
 
-      td.latest-pressure {
+      .trend-title,
+      .depress-title {
 
         font-size: 15px;
 
@@ -1255,10 +1811,17 @@
 
 
     /* =========================================================
-       PHONE
+       MOBILE
     ========================================================= */
 
-    @media (max-width: 600px) {
+    @media (max-width: 700px) {
+
+      :root {
+
+        --datetime-width: 115px;
+
+      }
+
 
       .page {
 
@@ -1278,139 +1841,363 @@
       }
 
 
-      .header {
+      .hero {
 
-        min-height: 162px;
+        height: 245px;
+
+        min-height: 245px;
+
+        grid-template-columns:
+          1fr
+          1fr;
+
+        grid-template-rows:
+          68px
+          106px
+          71px;
+
+      }
+
+
+
+      /* TITLE */
+
+      .hero-left {
+
+        grid-column:
+          1 / -1;
+
+        grid-row: 1;
 
         padding:
-          12px
+          8px
+          10px;
+
+        border-bottom:
+          1px solid
+          var(--black);
+
+      }
+
+
+      .hero-title {
+
+        font-size:
+          clamp(
+            22px,
+            6.7vw,
+            31px
+          );
+
+      }
+
+
+      .hero-title span {
+
+        display: inline;
+
+      }
+
+
+      .hero-title
+      span + span::before {
+
+        content: " ";
+
+      }
+
+
+      .hero-subtitle {
+
+        margin-top: 5px;
+
+        font-size: 6px;
+
+      }
+
+
+
+      /* HOLD */
+
+      .hold-panel {
+
+        grid-column: 1;
+
+        grid-row: 2;
+
+        border-left: none;
+
+        border-right:
+          1px solid
+          var(--black);
+
+        padding:
           8px
           9px;
 
       }
 
 
-      .main-title {
+      .hold-title-row {
 
-        font-size:
-          clamp(
-            31px,
-            10vw,
-            45px
-          );
+        gap: 6px;
+
+        margin-bottom: 7px;
 
       }
 
 
-      .subtitle {
+      .live-dot {
 
-        margin-top: 7px;
+        width: 7px;
 
-        font-size: 6px;
-
-      }
-
-
-      .status-box {
-
-        margin-top: 10px;
-
-        width: 100%;
-
-        min-height: 38px;
-
-        padding:
-          7px
-          8px;
-
-        gap: 7px;
+        height: 7px;
 
       }
 
 
-      .status-dot {
+      .hold-panel-title {
 
-        width: 8px;
-
-        height: 8px;
+        font-size: 9px;
 
       }
 
 
-      .status-text {
+      .timer-grid {
 
-        font-size:
-          clamp(
-            10px,
-            3.1vw,
-            13px
-          );
+        column-gap: 5px;
+
+        row-gap: 4px;
 
       }
 
 
-      .pressure-summary {
-
-        margin-top: 7px;
-
-      }
-
-
-      .pressure-summary-label {
-
-        font-size: 6px;
-
-      }
-
-
-      .pressure-summary-value {
-
-        font-size: 22px;
-
-      }
-
-
-      .pressure-summary-unit {
+      .timer-label {
 
         font-size: 7px;
 
       }
 
 
-      .audio-status {
+      .timer-value {
 
-        margin-top: 5px;
+        min-width: 70px;
 
-        font-size: 5px;
+        font-size: 12px;
 
       }
 
 
-      .panel-header {
+      .timer-note {
+
+        margin-top: 6px;
+
+        padding-top: 5px;
+
+        gap: 3px;
+
+      }
+
+
+      .timer-note-item {
+
+        font-size: 6px;
+
+      }
+
+
+      .timer-note-item strong {
+
+        font-size: 7px;
+
+      }
+
+
+
+      /* PRESSURE TREND */
+
+      .trend-link {
+
+        grid-column: 2;
+
+        grid-row: 2;
+
+        border-left: none;
+
+      }
+
+
+      .trend-panel {
+
+        padding:
+          8px
+          7px;
+
+      }
+
+
+      .trend-status {
+
+        gap: 5px;
+
+        margin-bottom: 8px;
+
+      }
+
+
+      .trend-dot {
+
+        width: 7px;
+
+        height: 7px;
+
+      }
+
+
+      .trend-live {
+
+        font-size: 7px;
+
+      }
+
+
+      .trend-title {
+
+        font-size: 14px;
+
+      }
+
+
+      .trend-arrow {
+
+        margin-top: 8px;
+
+        font-size: 15px;
+
+      }
+
+
+      .trend-hover {
+
+        left: 6px;
+
+        right: 6px;
+
+        bottom: 6px;
 
         min-height: 36px;
 
         padding:
-          0
-          8px;
+          6px
+          7px;
+
+        font-size: 6px;
+
+      }
+
+
+
+      /* DEPRESS */
+
+      .depress-link {
+
+        grid-column:
+          1 / -1;
+
+        grid-row: 3;
+
+        border-left: none;
+
+        border-top:
+          1px solid
+          var(--black);
+
+      }
+
+
+      .depress-panel {
+
+        flex-direction: row;
+
+        gap: 9px;
+
+        padding:
+          6px
+          10px;
+
+      }
+
+
+      .depress-status {
+
+        margin-bottom: 0;
+
+      }
+
+
+      .depress-dot {
+
+        width: 7px;
+
+        height: 7px;
+
+      }
+
+
+      .depress-live {
+
+        font-size: 7px;
+
+      }
+
+
+      .depress-title {
+
+        font-size: 12px;
+
+      }
+
+
+      .depress-title br {
+
+        display: none;
+
+      }
+
+
+      .depress-pressure {
+
+        margin-top: 0;
+
+        font-size: 8px;
+
+      }
+
+
+      .depress-arrow {
+
+        margin-top: 0;
+
+        font-size: 14px;
+
+      }
+
+
+
+      /* TABLE */
+
+      .dashboard {
+
+        gap: 3px;
 
       }
 
 
       .panel-title {
 
-        font-size: 9px;
+        min-height: 29px;
 
-        letter-spacing: 0.04em;
-
-      }
-
-
-      .refresh-label {
-
-        right: 7px;
-
-        font-size: 5px;
+        font-size: 10px;
 
       }
 
@@ -1419,7 +2206,7 @@
 
         min-width: 100px;
 
-        height: 39px;
+        height: 38px;
 
         padding:
           6px
@@ -1445,133 +2232,11 @@
       }
 
 
-      td.latest-pressure {
-
-        font-size: 13px;
-
-      }
-
-
       .footer {
 
         min-height: 25px;
 
-        padding:
-          4px
-          8px;
-
-        font-size: 7px;
-
-      }
-
-    }
-
-
-
-    /* =========================================================
-       SHORT SCREEN / LANDSCAPE
-    ========================================================= */
-
-    @media (max-height: 600px) {
-
-      .header {
-
-        min-height: 115px;
-
-        padding:
-          7px
-          12px;
-
-      }
-
-
-      .main-title {
-
-        font-size:
-          clamp(
-            28px,
-            5vw,
-            50px
-          );
-
-      }
-
-
-      .subtitle {
-
-        margin-top: 4px;
-
-      }
-
-
-      .status-box {
-
-        margin-top: 7px;
-
-        min-height: 33px;
-
-        padding:
-          6px
-          10px;
-
-      }
-
-
-      .pressure-summary {
-
-        margin-top: 5px;
-
-      }
-
-
-      .audio-status {
-
-        margin-top: 3px;
-
-      }
-
-
-      .panel-header {
-
-        min-height: 29px;
-
-      }
-
-
-      .panel-title {
-
-        font-size: 9px;
-
-      }
-
-
-      th {
-
-        height: 31px;
-
-        padding:
-          4px
-          7px;
-
-      }
-
-
-      td {
-
-        height: 24px;
-
-        padding:
-          3px
-          7px;
-
-      }
-
-
-      .footer {
-
-        min-height: 21px;
-
-        padding: 3px;
+        font-size: 8px;
 
       }
 
@@ -1593,43 +2258,146 @@
          HEADER
     ====================================================== -->
 
-    <header class="header">
+    <header class="hero">
 
 
-      <div class="main-title">
+      <!-- ===================================================
+           TITLE
+      ==================================================== -->
 
-        FEC DEPRESSURIZE
-
-      </div>
+      <div class="hero-left">
 
 
-      <div class="subtitle">
+        <div class="hero-title">
 
-        TechSmith
+          <span>
+            FEC HYDROTEST
+          </span>
+
+          <span>
+            LIVE DASHBOARD
+          </span>
+
+        </div>
+
+
+        <div class="hero-subtitle">
+
+          TechSmith
+
+        </div>
+
 
       </div>
 
 
 
       <!-- ===================================================
-           STATUS
+           HOLDING PERIOD
       ==================================================== -->
 
       <div
-        class="status-box ongoing"
-        id="statusBox"
+        class="hold-panel"
+        id="holdPanel"
       >
 
 
-        <div class="status-dot"></div>
+        <div class="hold-title-row">
 
 
-        <div
-          class="status-text"
-          id="statusText"
-        >
+          <div class="live-dot"></div>
 
-          ONGOING DEPRESSURIZE
+
+          <div
+            class="hold-panel-title"
+            id="holdStatusTitle"
+          >
+
+            HYDROTEST HOLDING PERIOD
+
+          </div>
+
+
+        </div>
+
+
+
+        <div class="timer-grid">
+
+
+          <div class="timer-label">
+
+            Holding Time
+
+          </div>
+
+
+          <div
+            class="timer-value live"
+            id="holdingTime"
+          >
+
+            00:00:00
+
+          </div>
+
+
+          <div class="timer-divider"></div>
+
+
+          <div class="timer-label">
+
+            Remaining Hrs
+
+          </div>
+
+
+          <div
+            class="timer-value"
+            id="remainingTime"
+          >
+
+            24:00:00
+
+          </div>
+
+
+        </div>
+
+
+
+        <div class="timer-note">
+
+
+          <div class="timer-note-item">
+
+            Start
+
+            <strong>
+
+              21:30 HRS
+              <br>
+              21/8/2026
+
+            </strong>
+
+          </div>
+
+
+          <div class="timer-note-item">
+
+            Completion
+
+            <strong>
+
+              21:30 HRS
+              <br>
+              22/8/2026
+
+            </strong>
+
+          </div>
+
 
         </div>
 
@@ -1639,52 +2407,141 @@
 
 
       <!-- ===================================================
-           LATEST PRESSURE
+           PRESSURE TRENDING
       ==================================================== -->
 
-      <div class="pressure-summary">
+      <a
+        class="trend-link"
+        id="trendLink"
+        href="https://hx-ts.github.io/FECHT/GRAPH/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
 
 
-        <div class="pressure-summary-label">
+        <div class="trend-panel">
 
-          Latest Pressure
+
+          <div class="trend-status">
+
+
+            <div class="trend-dot"></div>
+
+
+            <div
+              class="trend-live"
+              id="trendLive"
+            >
+
+              LIVE
+
+            </div>
+
+
+          </div>
+
+
+          <div
+            class="trend-title"
+            id="trendTitle"
+          >
+
+            PRESSURE
+            <br>
+            TRENDING
+
+          </div>
+
+
+          <div class="trend-arrow">
+
+            ↗
+
+          </div>
+
+
+          <div class="trend-hover">
+
+            CLICK TO OPEN HYDROTEST GRAPH PLOT
+
+          </div>
+
 
         </div>
 
 
-        <div
-          class="pressure-summary-value"
-          id="latestPressure"
-        >
-
-          ---
-
-        </div>
-
-
-        <div class="pressure-summary-unit">
-
-          BARG
-
-        </div>
-
-
-      </div>
+      </a>
 
 
 
       <!-- ===================================================
-           SOUND STATUS
+           DEPRESSURIZATION
       ==================================================== -->
 
-      <div
-        class="audio-status"
-        id="audioStatus"
+      <a
+        class="depress-link waiting"
+        id="depressLink"
+        href="https://hx-ts.github.io/FECHT/DEPRESSURIZE/index.html"
+        target="_blank"
+        rel="noopener noreferrer"
       >
 
-        TAP / CLICK PAGE ONCE TO ENABLE NEW DATA BEEP
 
-      </div>
+        <div class="depress-panel">
+
+
+          <div class="depress-status">
+
+
+            <div class="depress-dot"></div>
+
+
+            <div
+              class="depress-live"
+              id="depressLive"
+            >
+
+              WAITING
+
+            </div>
+
+
+          </div>
+
+
+          <div
+            class="depress-title"
+            id="depressTitle"
+          >
+
+            DEPRESSURIZATION
+            <br>
+            DATA
+
+          </div>
+
+
+          <div
+            class="depress-pressure"
+            id="depressPressure"
+          >
+
+            PRESSURE -- BARG
+
+          </div>
+
+
+          <div class="depress-arrow">
+
+            ↗
+
+          </div>
+
+
+        </div>
+
+
+      </a>
 
 
     </header>
@@ -1692,54 +2549,73 @@
 
 
     <!-- =====================================================
-         DATA PANEL
+         TABLES
     ====================================================== -->
 
-    <main
-      class="data-panel"
-      id="dataPanel"
-    >
+    <main class="dashboard">
 
 
-      <div class="panel-header">
+      <!-- GPS -->
+
+      <section class="reading-panel">
 
 
         <div class="panel-title">
 
-          DEPRESSURIZATION READING
+          GPS READING
 
         </div>
 
 
-        <div class="refresh-label">
+        <div
+          class="table-wrapper"
+          id="gpsContainer"
+        >
 
-          LIVE UPDATE · 15 SEC
+
+          <div class="message">
+
+            Loading GPS Data...
+
+          </div>
+
 
         </div>
 
 
-      </div>
+      </section>
 
 
 
-      <!-- ===================================================
-           GOOGLE SHEET DATA
-      ==================================================== -->
+      <!-- GPP4 -->
 
-      <div
-        class="table-wrapper"
-        id="dataContainer"
-      >
+      <section class="reading-panel">
 
 
-        <div class="message">
+        <div class="panel-title">
 
-          Loading Depressurization Data...
+          GPP4 READING
 
         </div>
 
 
-      </div>
+        <div
+          class="table-wrapper"
+          id="gpp4Container"
+        >
+
+
+          <div class="message">
+
+            Loading GPP4 Data...
+
+          </div>
+
+
+        </div>
+
+
+      </section>
 
 
     </main>
@@ -1770,42 +2646,490 @@
 
 
     /*
-       GOOGLE SHEET REFRESH EVERY 15 SECONDS
+       GPS + GPP4 REFRESH
     */
 
-    const REFRESH_TIME =
+    const TABLE_REFRESH_TIME =
+      60000;
+
+
+
+    /*
+       DEPRESSURIZATION PRESSURE REFRESH
+
+       15 SECONDS
+    */
+
+    const DEPRESS_REFRESH_TIME =
       15000;
 
 
 
     /*
-       DEPRESSURIZATION COMPLETE WHEN
-       LATEST PRESSURE <= 5 BARG
+       DEPRESSURIZATION COMPLETE
+       AT 6.00 BARG OR LOWER
     */
 
-    const COMPLETE_PRESSURE =
-      5;
+    const DEPRESS_COMPLETE_PRESSURE =
+      6;
 
 
 
     /* =========================================================
-       GOOGLE SHEET
+       HYDROTEST HOLDING PERIOD
+       MALAYSIA UTC +08
     ========================================================= */
 
-    const SHEET = {
+    const HOLD_START =
+
+      new Date(
+        "2026-08-21T21:30:00+08:00"
+      );
+
+
+    const HOLD_END =
+
+      new Date(
+        "2026-08-22T21:30:00+08:00"
+      );
+
+
+    const TOTAL_HOLD_MS =
+
+      HOLD_END.getTime()
+
+      -
+
+      HOLD_START.getTime();
+
+
+
+    /* =========================================================
+       FORMAT HH:MM:SS
+    ========================================================= */
+
+    function formatDuration(ms) {
+
+
+      ms =
+        Math.max(
+          0,
+          ms
+        );
+
+
+      const totalSeconds =
+
+        Math.floor(
+          ms / 1000
+        );
+
+
+      const hours =
+
+        Math.floor(
+          totalSeconds / 3600
+        );
+
+
+      const minutes =
+
+        Math.floor(
+
+          (
+            totalSeconds % 3600
+          )
+
+          / 60
+
+        );
+
+
+      const seconds =
+
+        totalSeconds % 60;
+
+
+      return (
+
+        String(hours)
+        .padStart(
+          2,
+          "0"
+        )
+
+        +
+
+        ":"
+
+        +
+
+        String(minutes)
+        .padStart(
+          2,
+          "0"
+        )
+
+        +
+
+        ":"
+
+        +
+
+        String(seconds)
+        .padStart(
+          2,
+          "0"
+        )
+
+      );
+
+
+    }
+
+
+
+    /* =========================================================
+       PRESSURE TRENDING STATUS
+    ========================================================= */
+
+    function setPressureTrendingCompleted(
+      completed
+    ) {
+
+
+      const trendLink =
+
+        document.getElementById(
+          "trendLink"
+        );
+
+
+      const trendLive =
+
+        document.getElementById(
+          "trendLive"
+        );
+
+
+      const trendTitle =
+
+        document.getElementById(
+          "trendTitle"
+        );
+
+
+
+      if (completed) {
+
+
+        /*
+           AFTER HOLDING PERIOD:
+
+           STOP ALL LIVE PULSING
+        */
+
+        trendLink.classList.add(
+          "completed"
+        );
+
+
+        trendLive.textContent =
+          "COMPLETE";
+
+
+        trendTitle.innerHTML =
+
+          "HOLDING<br>COMPLETED";
+
+
+      }
+
+
+      else {
+
+
+        /*
+           HOLDING PERIOD STILL ACTIVE
+        */
+
+        trendLink.classList.remove(
+          "completed"
+        );
+
+
+        trendLive.textContent =
+          "LIVE";
+
+
+        trendTitle.innerHTML =
+
+          "PRESSURE<br>TRENDING";
+
+
+      }
+
+
+    }
+
+
+
+    /* =========================================================
+       UPDATE HOLD TIMER
+    ========================================================= */
+
+    function updateHoldingTimer() {
+
+
+      const now =
+        new Date();
+
+
+      const holdingElement =
+
+        document.getElementById(
+          "holdingTime"
+        );
+
+
+      const remainingElement =
+
+        document.getElementById(
+          "remainingTime"
+        );
+
+
+      const holdPanel =
+
+        document.getElementById(
+          "holdPanel"
+        );
+
+
+      const statusTitle =
+
+        document.getElementById(
+          "holdStatusTitle"
+        );
+
+
+
+      /* =======================================================
+         BEFORE HOLD START
+      ======================================================= */
+
+      if (
+
+        now.getTime()
+
+        <
+
+        HOLD_START.getTime()
+
+      ) {
+
+
+        holdingElement.textContent =
+          "00:00:00";
+
+
+        remainingElement.textContent =
+          "24:00:00";
+
+
+        statusTitle.textContent =
+          "HYDROTEST HOLDING PERIOD";
+
+
+        holdPanel.classList.remove(
+          "completed"
+        );
+
+
+        setPressureTrendingCompleted(
+          false
+        );
+
+
+        return;
+
+
+      }
+
+
+
+      /* =======================================================
+         HOLD COMPLETE
+
+         >= 21:30 HRS 22/8/2026
+      ======================================================= */
+
+      if (
+
+        now.getTime()
+
+        >=
+
+        HOLD_END.getTime()
+
+      ) {
+
+
+        holdingElement.textContent =
+          "24:00:00";
+
+
+        remainingElement.textContent =
+          "00:00:00";
+
+
+        statusTitle.textContent =
+          "HOLDING COMPLETED";
+
+
+        holdPanel.classList.add(
+          "completed"
+        );
+
+
+        /*
+           STOP PRESSURE TRENDING
+           LIVE BEEPING / BLINKING
+        */
+
+        setPressureTrendingCompleted(
+          true
+        );
+
+
+        return;
+
+
+      }
+
+
+
+      /* =======================================================
+         HOLD ACTIVE
+      ======================================================= */
+
+      const elapsed =
+
+        now.getTime()
+
+        -
+
+        HOLD_START.getTime();
+
+
+      const remaining =
+
+        HOLD_END.getTime()
+
+        -
+
+        now.getTime();
+
+
+      holdingElement.textContent =
+
+        formatDuration(
+          elapsed
+        );
+
+
+      remainingElement.textContent =
+
+        formatDuration(
+          remaining
+        );
+
+
+      statusTitle.textContent =
+        "HYDROTEST HOLDING PERIOD";
+
+
+      holdPanel.classList.remove(
+        "completed"
+      );
+
+
+      setPressureTrendingCompleted(
+        false
+      );
+
+
+    }
+
+
+
+    /* =========================================================
+       RUN TIMER
+    ========================================================= */
+
+    updateHoldingTimer();
+
+
+    setInterval(
+
+      updateHoldingTimer,
+
+      1000
+
+    );
+
+
+
+    /* =========================================================
+       GOOGLE SHEETS
+    ========================================================= */
+
+    const GPS = {
 
 
       spreadsheetId:
 
-        "1Qp-04Fzx6E997Sye8czPoKg4q7T0Zy4qSHtcWWwL2II",
+        "1OucgLhFiTqkeWiXJ0aI7j_tMsu9lVnqTxSK8y2AMCn4",
 
 
-      /*
-         FIRST SHEET TAB.
+      gid:
 
-         CHANGE THIS IF YOUR DATA TAB
-         USES ANOTHER GID.
-      */
+        "1148130591",
+
+
+      range:
+
+        "A:Z",
+
+
+      container:
+
+        "gpsContainer",
+
+
+      callback:
+
+        "gpsResponse",
+
+
+      hiddenColumns: [
+
+        "INPUT"
+
+      ]
+
+
+    };
+
+
+
+    const GPP4 = {
+
+
+      spreadsheetId:
+
+        "1MKLNtFUQT8GiiVmyoXSkQjw7oPF2z44MO8gdCIUo5t0",
+
 
       gid:
 
@@ -1819,12 +3143,42 @@
 
       container:
 
-        "dataContainer",
+        "gpp4Container",
 
 
       callback:
 
-        "depressurizeResponse"
+        "gpp4Response",
+
+
+      hiddenColumns: []
+
+
+    };
+
+
+
+    const DEPRESS = {
+
+
+      spreadsheetId:
+
+        "1Qp-04Fzx6E997Sye8czPoKg4q7T0Zy4qSHtcWWwL2II",
+
+
+      gid:
+
+        "0",
+
+
+      range:
+
+        "A:Z",
+
+
+      callback:
+
+        "depressDashboardResponse"
 
 
     };
@@ -1832,382 +3186,7 @@
 
 
     /* =========================================================
-       AUDIO SYSTEM
-    ========================================================= */
-
-    let audioContext =
-      null;
-
-
-    let audioUnlocked =
-      false;
-
-
-    /*
-       USED TO DETECT NEW LATEST DATA.
-
-       INITIAL LOAD WILL NOT BEEP.
-    */
-
-    let previousLatestSignature =
-      null;
-
-
-
-    /* =========================================================
-       UNLOCK AUDIO
-    ========================================================= */
-
-    function unlockAudio() {
-
-
-      try {
-
-
-        const AudioContextClass =
-
-          window.AudioContext
-
-          ||
-
-          window.webkitAudioContext;
-
-
-
-        if (!AudioContextClass) {
-
-          return;
-
-        }
-
-
-
-        if (!audioContext) {
-
-
-          audioContext =
-
-            new AudioContextClass();
-
-
-        }
-
-
-
-        if (
-          audioContext.state === "suspended"
-        ) {
-
-
-          audioContext.resume();
-
-
-        }
-
-
-
-        audioUnlocked =
-          true;
-
-
-
-        const audioStatus =
-
-          document.getElementById(
-            "audioStatus"
-          );
-
-
-        audioStatus.textContent =
-          "NEW DATA BEEP ENABLED";
-
-
-        audioStatus.classList.add(
-          "enabled"
-        );
-
-
-      }
-
-
-      catch (error) {
-
-
-        console.log(
-          "Audio unavailable:",
-          error
-        );
-
-
-      }
-
-
-    }
-
-
-
-    /* =========================================================
-       BROWSER REQUIRES USER INTERACTION
-    ========================================================= */
-
-    document.addEventListener(
-
-      "pointerdown",
-
-      unlockAudio,
-
-      {
-        once: true
-      }
-
-    );
-
-
-    document.addEventListener(
-
-      "keydown",
-
-      unlockAudio,
-
-      {
-        once: true
-      }
-
-    );
-
-
-
-    /* =========================================================
-       CREATE ONE BEEP
-    ========================================================= */
-
-    function createBeep(
-      frequency,
-      startOffset,
-      duration
-    ) {
-
-
-      if (
-
-        !audioUnlocked
-
-        ||
-
-        !audioContext
-
-      ) {
-
-        return;
-
-      }
-
-
-
-      const startTime =
-
-        audioContext.currentTime
-
-        +
-
-        startOffset;
-
-
-      const oscillator =
-
-        audioContext.createOscillator();
-
-
-      const gain =
-
-        audioContext.createGain();
-
-
-
-      oscillator.type =
-        "sine";
-
-
-      oscillator.frequency.setValueAtTime(
-
-        frequency,
-
-        startTime
-
-      );
-
-
-      gain.gain.setValueAtTime(
-
-        0.0001,
-
-        startTime
-
-      );
-
-
-      gain.gain.exponentialRampToValueAtTime(
-
-        0.30,
-
-        startTime + 0.015
-
-      );
-
-
-      gain.gain.exponentialRampToValueAtTime(
-
-        0.0001,
-
-        startTime + duration
-
-      );
-
-
-      oscillator.connect(
-        gain
-      );
-
-
-      gain.connect(
-        audioContext.destination
-      );
-
-
-      oscillator.start(
-        startTime
-      );
-
-
-      oscillator.stop(
-        startTime + duration + 0.02
-      );
-
-
-    }
-
-
-
-    /* =========================================================
-       NEW DATA DOUBLE BEEP
-    ========================================================= */
-
-    function playNewDataBeep() {
-
-
-      if (
-
-        !audioUnlocked
-
-        ||
-
-        !audioContext
-
-      ) {
-
-        return;
-
-      }
-
-
-
-      if (
-        audioContext.state === "suspended"
-      ) {
-
-
-        audioContext.resume();
-
-
-      }
-
-
-
-      /* FIRST BEEP */
-
-      createBeep(
-
-        950,
-
-        0,
-
-        0.18
-
-      );
-
-
-
-      /* SECOND BEEP */
-
-      createBeep(
-
-        1150,
-
-        0.26,
-
-        0.20
-
-      );
-
-
-    }
-
-
-
-    /* =========================================================
-       VISUAL NEW DATA ALERT
-    ========================================================= */
-
-    function showNewDataVisualAlert() {
-
-
-      const panel =
-
-        document.getElementById(
-          "dataPanel"
-        );
-
-
-      panel.classList.remove(
-        "new-data-alert"
-      );
-
-
-      /*
-         FORCE ANIMATION RESET
-      */
-
-      void panel.offsetWidth;
-
-
-      panel.classList.add(
-        "new-data-alert"
-      );
-
-
-      setTimeout(
-
-        function () {
-
-
-          panel.classList.remove(
-            "new-data-alert"
-          );
-
-
-        },
-
-        1700
-
-      );
-
-
-    }
-
-
-
-    /* =========================================================
-       NORMALIZE TEXT
+       NORMALIZE
     ========================================================= */
 
     function normalizeText(value) {
@@ -2227,7 +3206,7 @@
 
 
     /* =========================================================
-       CHECK CELL VALUE
+       CELL VALUE
     ========================================================= */
 
     function cellHasValue(cell) {
@@ -2260,7 +3239,7 @@
 
 
     /* =========================================================
-       GET DISPLAY VALUE
+       DISPLAY VALUE
     ========================================================= */
 
     function getCellDisplayValue(cell) {
@@ -2331,7 +3310,9 @@
 
       ) {
 
+
         return null;
+
 
       }
 
@@ -2340,24 +3321,23 @@
         typeof value === "number"
       ) {
 
+
         return value;
+
 
       }
 
 
-      const cleaned =
+      const match =
 
         String(value)
 
         .replace(
           /,/g,
           ""
-        );
+        )
 
-
-      const match =
-
-        cleaned.match(
+        .match(
           /-?\d+(\.\d+)?/
         );
 
@@ -2376,18 +3356,13 @@
         );
 
 
-      if (
-        !Number.isFinite(
-          number
-        )
-      ) {
+      return Number.isFinite(
+        number
+      )
 
-        return null;
+        ? number
 
-      }
-
-
-      return number;
+        : null;
 
 
     }
@@ -2404,8 +3379,8 @@
 
 
       /*
-         PRIORITY 1:
-         HEADER CONTAINING PRESSURE
+         FIRST:
+         PRESSURE
       */
 
       for (
@@ -2440,8 +3415,8 @@
 
 
       /*
-         PRIORITY 2:
-         HEADER CONTAINING BARG
+         SECOND:
+         BARG
       */
 
       for (
@@ -2474,50 +3449,6 @@
       }
 
 
-
-      /*
-         PRIORITY 3:
-         COMMON PG NAMES
-      */
-
-      for (
-        let i = 0;
-        i < columns.length;
-        i++
-      ) {
-
-
-        const name =
-
-          normalizeText(
-            columns[i].label
-          );
-
-
-        if (
-
-          name === "PG"
-
-          ||
-
-          name === "DIGITAL PG"
-
-          ||
-
-          name === "PRESSURE PG"
-
-        ) {
-
-
-          return i;
-
-
-        }
-
-
-      }
-
-
       return -1;
 
 
@@ -2526,153 +3457,10 @@
 
 
     /* =========================================================
-       UPDATE STATUS
+       LOAD SHEET
     ========================================================= */
 
-    function updateStatus(
-      pressure
-    ) {
-
-
-      const statusBox =
-
-        document.getElementById(
-          "statusBox"
-        );
-
-
-      const statusText =
-
-        document.getElementById(
-          "statusText"
-        );
-
-
-      const pressureDisplay =
-
-        document.getElementById(
-          "latestPressure"
-        );
-
-
-
-      /* =======================================================
-         NO VALID PRESSURE
-      ======================================================= */
-
-      if (
-
-        pressure === null
-
-        ||
-
-        !Number.isFinite(
-          pressure
-        )
-
-      ) {
-
-
-        pressureDisplay.textContent =
-          "---";
-
-
-        statusBox.classList.remove(
-          "complete"
-        );
-
-
-        statusBox.classList.add(
-          "ongoing"
-        );
-
-
-        statusText.textContent =
-          "ONGOING DEPRESSURIZE";
-
-
-        return false;
-
-
-      }
-
-
-
-      /* =======================================================
-         DISPLAY PRESSURE
-      ======================================================= */
-
-      pressureDisplay.textContent =
-
-        pressure.toFixed(
-          2
-        );
-
-
-
-      /* =======================================================
-         COMPLETE AT <= 5 BARG
-      ======================================================= */
-
-      if (
-
-        pressure <=
-        COMPLETE_PRESSURE
-
-      ) {
-
-
-        statusBox.classList.remove(
-          "ongoing"
-        );
-
-
-        statusBox.classList.add(
-          "complete"
-        );
-
-
-        statusText.textContent =
-          "DEPRESSURIZATION COMPLETE";
-
-
-        return true;
-
-
-      }
-
-
-
-      /* =======================================================
-         ONGOING
-      ======================================================= */
-
-      statusBox.classList.remove(
-        "complete"
-      );
-
-
-      statusBox.classList.add(
-        "ongoing"
-      );
-
-
-      statusText.textContent =
-        "ONGOING DEPRESSURIZE";
-
-
-      return false;
-
-
-    }
-
-
-
-    /* =========================================================
-       LOAD GOOGLE SHEET
-    ========================================================= */
-
-    function loadSheet() {
+    function loadSheet(config) {
 
 
       const query =
@@ -2682,7 +3470,7 @@
 
       const tqx =
 
-        `out:json;responseHandler:${SHEET.callback}`;
+        `out:json;responseHandler:${config.callback}`;
 
 
       const url =
@@ -2691,7 +3479,7 @@
 
         +
 
-        SHEET.spreadsheetId
+        config.spreadsheetId
 
         +
 
@@ -2703,7 +3491,7 @@
 
         +
 
-        SHEET.gid
+        config.gid
 
         +
 
@@ -2712,7 +3500,7 @@
         +
 
         encodeURIComponent(
-          SHEET.range
+          config.range
         )
 
         +
@@ -2748,7 +3536,6 @@
         Date.now();
 
 
-
       const script =
 
         document.createElement(
@@ -2764,38 +3551,42 @@
         true;
 
 
-
-      /* =======================================================
-         LOAD ERROR
-      ======================================================= */
-
       script.onerror =
         function () {
 
 
-          const container =
-
-            document.getElementById(
-              SHEET.container
-            );
+          if (
+            config.container
+          ) {
 
 
-          container.innerHTML =
+            const container =
 
-            '<div class="message">' +
+              document.getElementById(
+                config.container
+              );
 
-            'Unable to Load Google Sheet Data' +
 
-            '</div>';
+            if (container) {
+
+
+              container.innerHTML =
+
+                '<div class="message">' +
+
+                'Unable to Load Google Sheet Data' +
+
+                '</div>';
+
+
+            }
+
+
+          }
 
 
         };
 
-
-
-      /* =======================================================
-         REMOVE JSONP SCRIPT
-      ======================================================= */
 
       script.onload =
         function () {
@@ -2837,10 +3628,10 @@
 
 
     /* =========================================================
-       SCROLL TO LATEST DATA
+       SCROLL TO LATEST
     ========================================================= */
 
-    function scrollToLatest(
+    function scrollTableToBottom(
       container
     ) {
 
@@ -2879,72 +3670,19 @@
 
 
     /* =========================================================
-       CREATE LATEST ROW SIGNATURE
-    ========================================================= */
-
-    function createRowSignature(
-      row,
-      visibleColumns
-    ) {
-
-
-      if (
-        !row
-        ||
-        !row.c
-      ) {
-
-        return "";
-
-      }
-
-
-      return visibleColumns
-
-        .map(
-
-          function (item) {
-
-
-            return String(
-
-              getCellDisplayValue(
-
-                row.c[
-                  item.index
-                ]
-
-              )
-
-            );
-
-
-          }
-
-        )
-
-        .join(
-          "|"
-        );
-
-
-    }
-
-
-
-    /* =========================================================
-       RENDER TABLE
+       RENDER GPS / GPP4
     ========================================================= */
 
     function renderTable(
-      response
+      response,
+      config
     ) {
 
 
       const container =
 
         document.getElementById(
-          SHEET.container
+          config.container
         );
 
 
@@ -2974,7 +3712,6 @@
       }
 
 
-
       const columns =
 
         response.table.cols || [];
@@ -2985,22 +3722,26 @@
         response.table.rows || [];
 
 
+      const hiddenColumns =
 
-      /* =======================================================
-         FIND PRESSURE COLUMN
-      ======================================================= */
+        (
+          config.hiddenColumns || []
+        )
 
-      const pressureOriginalIndex =
+        .map(
 
-        findPressureColumn(
-          columns
+          function (name) {
+
+
+            return normalizeText(
+              name
+            );
+
+
+          }
+
         );
 
-
-
-      /* =======================================================
-         HIDE UNUSED COLUMNS
-      ======================================================= */
 
       const visibleColumns =
         [];
@@ -3014,32 +3755,42 @@
         ) {
 
 
-          const columnName =
+          const name =
 
             normalizeText(
               column.label
             );
 
 
-          const hasActualData =
+          if (
+            hiddenColumns.includes(
+              name
+            )
+          ) {
+
+
+            return;
+
+
+          }
+
+
+          const hasData =
 
             rows.some(
 
               function (row) {
 
 
-                if (!row.c) {
+                return (
 
-                  return false;
+                  row.c
 
-                }
+                  &&
 
-
-                return cellHasValue(
-
-                  row.c[
-                    index
-                  ]
+                  cellHasValue(
+                    row.c[index]
+                  )
 
                 );
 
@@ -3051,25 +3802,22 @@
 
           if (
 
-            columnName !== ""
+            name !== ""
 
-            &&
+            ||
 
-            hasActualData
+            hasData
 
           ) {
 
 
             visibleColumns.push({
 
-
               column:
                 column,
 
-
               index:
                 index
-
 
             });
 
@@ -3082,7 +3830,6 @@
       );
 
 
-
       if (
         visibleColumns.length === 0
       ) {
@@ -3092,7 +3839,7 @@
 
           '<div class="message">' +
 
-          'No Reading Available' +
+          'No Data Available' +
 
           '</div>';
 
@@ -3102,11 +3849,6 @@
 
       }
 
-
-
-      /* =======================================================
-         CREATE TABLE
-      ======================================================= */
 
       const table =
 
@@ -3166,11 +3908,6 @@
       );
 
 
-
-      /* =======================================================
-         TABLE BODY
-      ======================================================= */
-
       const tbody =
 
         document.createElement(
@@ -3178,21 +3915,12 @@
         );
 
 
-      let rowCount =
-        0;
-
-
       let lastRowElement =
         null;
 
 
-      let lastValidSourceRow =
-        null;
-
-
-      let latestPressure =
-        null;
-
+      let rowCount =
+        0;
 
 
       rows.forEach(
@@ -3200,25 +3928,22 @@
         function (row) {
 
 
-          const rowHasData =
+          const hasData =
 
             visibleColumns.some(
 
               function (item) {
 
 
-                if (!row.c) {
+                return (
 
-                  return false;
+                  row.c
 
-                }
+                  &&
 
-
-                return cellHasValue(
-
-                  row.c[
-                    item.index
-                  ]
+                  cellHasValue(
+                    row.c[item.index]
+                  )
 
                 );
 
@@ -3228,7 +3953,7 @@
             );
 
 
-          if (!rowHasData) {
+          if (!hasData) {
 
             return;
 
@@ -3294,85 +4019,10 @@
             tr;
 
 
-          lastValidSourceRow =
-            row;
-
-
-
-          /* ===================================================
-             LATEST PRESSURE
-          =================================================== */
-
-          if (
-
-            pressureOriginalIndex >= 0
-
-            &&
-
-            row.c
-
-          ) {
-
-
-            const pressureCell =
-
-              row.c[
-                pressureOriginalIndex
-              ];
-
-
-            if (
-              pressureCell
-            ) {
-
-
-              const pressureSource =
-
-                pressureCell.v !== null
-
-                &&
-
-                pressureCell.v !== undefined
-
-                ? pressureCell.v
-
-                : pressureCell.f;
-
-
-              const parsedPressure =
-
-                extractNumber(
-                  pressureSource
-                );
-
-
-              if (
-                parsedPressure !== null
-              ) {
-
-
-                latestPressure =
-                  parsedPressure;
-
-
-              }
-
-
-            }
-
-
-          }
-
-
         }
 
       );
 
-
-
-      /* =======================================================
-         NO DATA
-      ======================================================= */
 
       if (
         rowCount === 0
@@ -3383,7 +4033,7 @@
 
           '<div class="message">' +
 
-          'No Depressurization Reading Available' +
+          'No Readings Available' +
 
           '</div>';
 
@@ -3393,86 +4043,6 @@
 
       }
 
-
-
-      /* =======================================================
-         CHECK IF NEW LATEST DATA EXISTS
-      ======================================================= */
-
-      const currentLatestSignature =
-
-        createRowSignature(
-
-          lastValidSourceRow,
-
-          visibleColumns
-
-        );
-
-
-      if (
-        previousLatestSignature === null
-      ) {
-
-
-        /*
-           INITIAL LOAD
-           DO NOT BEEP
-        */
-
-        previousLatestSignature =
-
-          currentLatestSignature;
-
-
-      }
-
-
-      else if (
-
-        currentLatestSignature
-
-        !==
-
-        previousLatestSignature
-
-      ) {
-
-
-        /*
-           NEW READING DETECTED
-        */
-
-        playNewDataBeep();
-
-
-        showNewDataVisualAlert();
-
-
-        previousLatestSignature =
-
-          currentLatestSignature;
-
-
-      }
-
-
-
-      /* =======================================================
-         UPDATE STATUS
-      ======================================================= */
-
-      const depressurizationComplete =
-
-        updateStatus(
-          latestPressure
-        );
-
-
-
-      /* =======================================================
-         LATEST ROW STYLE
-      ======================================================= */
 
       if (
         lastRowElement
@@ -3484,98 +4054,8 @@
         );
 
 
-        if (
-          depressurizationComplete
-        ) {
-
-
-          lastRowElement.classList.add(
-            "complete-latest"
-          );
-
-
-        }
-
-
-        else {
-
-
-          lastRowElement.classList.add(
-            "ongoing-latest"
-          );
-
-
-        }
-
-
-
-        /* =====================================================
-           EMPHASIZE PRESSURE CELL
-        ===================================================== */
-
-        if (
-          pressureOriginalIndex >= 0
-        ) {
-
-
-          const visiblePressurePosition =
-
-            visibleColumns.findIndex(
-
-              function (item) {
-
-
-                return (
-
-                  item.index ===
-                  pressureOriginalIndex
-
-                );
-
-
-              }
-
-            );
-
-
-          if (
-            visiblePressurePosition >= 0
-          ) {
-
-
-            const pressureCellElement =
-
-              lastRowElement.children[
-                visiblePressurePosition
-              ];
-
-
-            if (
-              pressureCellElement
-            ) {
-
-
-              pressureCellElement.classList.add(
-                "latest-pressure"
-              );
-
-
-            }
-
-
-          }
-
-
-        }
-
-
       }
 
-
-
-      /* =======================================================
-         DISPLAY TABLE
-      ======================================================= */
 
       table.appendChild(
         tbody
@@ -3591,12 +4071,7 @@
       );
 
 
-
-      /* =======================================================
-         SHOW LATEST DATA
-      ======================================================= */
-
-      scrollToLatest(
+      scrollTableToBottom(
         container
       );
 
@@ -3606,16 +4081,321 @@
 
 
     /* =========================================================
-       GOOGLE CALLBACK
+       UPDATE DEPRESSURIZATION BOX
     ========================================================= */
 
-    window.depressurizeResponse =
+    function updateDepressurizationBox(
+      pressure
+    ) {
+
+
+      const link =
+
+        document.getElementById(
+          "depressLink"
+        );
+
+
+      const live =
+
+        document.getElementById(
+          "depressLive"
+        );
+
+
+      const title =
+
+        document.getElementById(
+          "depressTitle"
+        );
+
+
+      const pressureDisplay =
+
+        document.getElementById(
+          "depressPressure"
+        );
+
+
+
+      /* =======================================================
+         NO VALID PRESSURE
+      ======================================================= */
+
+      if (
+
+        pressure === null
+
+        ||
+
+        !Number.isFinite(
+          pressure
+        )
+
+      ) {
+
+
+        link.classList.remove(
+          "ongoing",
+          "complete"
+        );
+
+
+        link.classList.add(
+          "waiting"
+        );
+
+
+        live.textContent =
+          "WAITING";
+
+
+        title.innerHTML =
+
+          "DEPRESSURIZATION<br>DATA";
+
+
+        pressureDisplay.textContent =
+          "PRESSURE -- BARG";
+
+
+        return;
+
+
+      }
+
+
+
+      pressureDisplay.textContent =
+
+        "PRESSURE "
+
+        +
+
+        pressure.toFixed(
+          2
+        )
+
+        +
+
+        " BARG";
+
+
+
+      /* =======================================================
+         DEPRESSURIZATION COMPLETE
+
+         PRESSURE <= 6.00 BARG
+      ======================================================= */
+
+      if (
+
+        pressure <=
+        DEPRESS_COMPLETE_PRESSURE
+
+      ) {
+
+
+        /*
+           STOP ALL LIVE PULSING
+        */
+
+        link.classList.remove(
+          "ongoing",
+          "waiting"
+        );
+
+
+        link.classList.add(
+          "complete"
+        );
+
+
+        live.textContent =
+          "COMPLETE";
+
+
+        title.innerHTML =
+
+          "DEPRESSURIZE<br>COMPLETE";
+
+
+        return;
+
+
+      }
+
+
+
+      /* =======================================================
+         DEPRESSURIZATION STILL ONGOING
+
+         PRESSURE > 6 BARG
+      ======================================================= */
+
+      link.classList.remove(
+        "complete",
+        "waiting"
+      );
+
+
+      link.classList.add(
+        "ongoing"
+      );
+
+
+      live.textContent =
+        "LIVE";
+
+
+      title.innerHTML =
+
+        "DEPRESSURIZATION<br>DATA";
+
+
+    }
+
+
+
+    /* =========================================================
+       DEPRESSURIZATION CALLBACK
+    ========================================================= */
+
+    window.depressDashboardResponse =
 
       function (response) {
 
 
-        renderTable(
-          response
+        if (
+
+          !response
+
+          ||
+
+          !response.table
+
+        ) {
+
+
+          updateDepressurizationBox(
+            null
+          );
+
+
+          return;
+
+
+        }
+
+
+        const columns =
+
+          response.table.cols || [];
+
+
+        const rows =
+
+          response.table.rows || [];
+
+
+        const pressureIndex =
+
+          findPressureColumn(
+            columns
+          );
+
+
+        if (
+          pressureIndex < 0
+        ) {
+
+
+          updateDepressurizationBox(
+            null
+          );
+
+
+          return;
+
+
+        }
+
+
+        let latestPressure =
+          null;
+
+
+        rows.forEach(
+
+          function (row) {
+
+
+            if (
+              !row.c
+            ) {
+
+              return;
+
+            }
+
+
+            const cell =
+
+              row.c[
+                pressureIndex
+              ];
+
+
+            if (
+              !cellHasValue(
+                cell
+              )
+            ) {
+
+              return;
+
+            }
+
+
+            const rawValue =
+
+              cell.v !== undefined
+
+              &&
+
+              cell.v !== null
+
+              ? cell.v
+
+              : cell.f;
+
+
+            const parsed =
+
+              extractNumber(
+                rawValue
+              );
+
+
+            if (
+              parsed !== null
+            ) {
+
+
+              latestPressure =
+                parsed;
+
+
+            }
+
+
+          }
+
+        );
+
+
+        updateDepressurizationBox(
+          latestPressure
         );
 
 
@@ -3624,22 +4404,103 @@
 
 
     /* =========================================================
-       INITIAL LOAD
+       TABLE CALLBACKS
     ========================================================= */
 
-    loadSheet();
+    window.gpsResponse =
+
+      function (response) {
+
+
+        renderTable(
+          response,
+          GPS
+        );
+
+
+      };
+
+
+    window.gpp4Response =
+
+      function (response) {
+
+
+        renderTable(
+          response,
+          GPP4
+        );
+
+
+      };
 
 
 
     /* =========================================================
-       AUTO REFRESH EVERY 15 SECONDS
+       INITIAL TABLE LOAD
+    ========================================================= */
+
+    function refreshTables() {
+
+
+      loadSheet(
+        GPS
+      );
+
+
+      loadSheet(
+        GPP4
+      );
+
+
+    }
+
+
+    refreshTables();
+
+
+
+    /* =========================================================
+       GPS / GPP4 EVERY 60 SEC
     ========================================================= */
 
     setInterval(
 
-      loadSheet,
+      refreshTables,
 
-      REFRESH_TIME
+      TABLE_REFRESH_TIME
+
+    );
+
+
+
+    /* =========================================================
+       DEPRESSURIZATION INITIAL LOAD
+    ========================================================= */
+
+    loadSheet(
+      DEPRESS
+    );
+
+
+
+    /* =========================================================
+       DEPRESSURIZATION EVERY 15 SEC
+    ========================================================= */
+
+    setInterval(
+
+      function () {
+
+
+        loadSheet(
+          DEPRESS
+        );
+
+
+      },
+
+      DEPRESS_REFRESH_TIME
 
     );
 

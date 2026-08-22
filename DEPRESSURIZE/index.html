@@ -353,12 +353,7 @@
 
         box-shadow:
           0 0 0 0
-          rgba(
-            215,
-            25,
-            32,
-            0.95
-          );
+          rgba(215, 25, 32, 0.95);
 
       }
 
@@ -370,12 +365,7 @@
 
         box-shadow:
           0 0 0 10px
-          rgba(
-            215,
-            25,
-            32,
-            0
-          );
+          rgba(215, 25, 32, 0);
 
       }
 
@@ -387,12 +377,7 @@
 
         box-shadow:
           0 0 0 0
-          rgba(
-            215,
-            25,
-            32,
-            0
-          );
+          rgba(215, 25, 32, 0);
 
       }
 
@@ -636,7 +621,6 @@
 
     /* =========================================================
        DEPRESSURIZATION READING
-       CENTER + UPPERCASE
     ========================================================= */
 
     .panel-title {
@@ -911,7 +895,6 @@
 
     /* =========================================================
        LATEST ROW - ONGOING
-
        STRONG RED PULSING
     ========================================================= */
 
@@ -938,12 +921,7 @@
 
         box-shadow:
           inset 0 0 0 0
-          rgba(
-            215,
-            25,
-            32,
-            0
-          );
+          rgba(215, 25, 32, 0);
 
       }
 
@@ -969,12 +947,7 @@
 
         box-shadow:
           inset 0 0 22px
-          rgba(
-            110,
-            0,
-            0,
-            0.38
-          );
+          rgba(110, 0, 0, 0.38);
 
       }
 
@@ -1000,12 +973,7 @@
 
         box-shadow:
           inset 0 0 0 0
-          rgba(
-            215,
-            25,
-            32,
-            0
-          );
+          rgba(215, 25, 32, 0);
 
       }
 
@@ -1056,9 +1024,7 @@
 
 
     /* =========================================================
-       NEW DATA FLASH
-
-       ADDED WHEN NEW DATA IS DETECTED
+       NEW DATA VISUAL ALERT
     ========================================================= */
 
     .data-panel.new-data-alert {
@@ -1165,9 +1131,7 @@
         10px
         max(
           7px,
-          env(
-            safe-area-inset-bottom
-          )
+          env(safe-area-inset-bottom)
         );
 
       background:
@@ -1301,16 +1265,12 @@
         padding:
           max(
             3px,
-            env(
-              safe-area-inset-top
-            )
+            env(safe-area-inset-top)
           )
           3px
           max(
             3px,
-            env(
-              safe-area-inset-bottom
-            )
+            env(safe-area-inset-bottom)
           );
 
         gap: 3px;
@@ -1629,7 +1589,6 @@
   <div class="page">
 
 
-
     <!-- =====================================================
          HEADER
     ====================================================== -->
@@ -1723,7 +1682,7 @@
         id="audioStatus"
       >
 
-        Tap / Click Page Once to Enable New Data Beep
+        TAP / CLICK PAGE ONCE TO ENABLE NEW DATA BEEP
 
       </div>
 
@@ -1754,7 +1713,7 @@
 
         <div class="refresh-label">
 
-          LIVE UPDATE · 60 SEC
+          LIVE UPDATE · 15 SEC
 
         </div>
 
@@ -1811,11 +1770,11 @@
 
 
     /*
-       CHECK GOOGLE SHEET EVERY 60 SECONDS
+       GOOGLE SHEET REFRESH EVERY 15 SECONDS
     */
 
     const REFRESH_TIME =
-      60000;
+      15000;
 
 
 
@@ -1876,7 +1835,6 @@
        AUDIO SYSTEM
     ========================================================= */
 
-
     let audioContext =
       null;
 
@@ -1885,14 +1843,10 @@
       false;
 
 
-
     /*
-       USED TO DETECT NEW DATA.
+       USED TO DETECT NEW LATEST DATA.
 
-       FIRST PAGE LOAD:
-       previousLatestSignature = null
-
-       THEREFORE INITIAL LOAD DOES NOT BEEP.
+       INITIAL LOAD WILL NOT BEEP.
     */
 
     let previousLatestSignature =
@@ -1922,9 +1876,7 @@
 
         if (!AudioContextClass) {
 
-
           return;
-
 
         }
 
@@ -1967,7 +1919,7 @@
 
 
         audioStatus.textContent =
-          "New Data Beep Enabled";
+          "NEW DATA BEEP ENABLED";
 
 
         audioStatus.classList.add(
@@ -1994,10 +1946,9 @@
 
 
 
-    /*
-       ONE USER INTERACTION IS REQUIRED
-       BY MODERN BROWSERS.
-    */
+    /* =========================================================
+       BROWSER REQUIRES USER INTERACTION
+    ========================================================= */
 
     document.addEventListener(
 
@@ -2047,9 +1998,7 @@
 
       ) {
 
-
         return;
-
 
       }
 
@@ -2062,7 +2011,6 @@
         +
 
         startOffset;
-
 
 
       const oscillator =
@@ -2087,7 +2035,6 @@
         startTime
 
       );
-
 
 
       gain.gain.setValueAtTime(
@@ -2117,7 +2064,6 @@
       );
 
 
-
       oscillator.connect(
         gain
       );
@@ -2126,7 +2072,6 @@
       gain.connect(
         audioContext.destination
       );
-
 
 
       oscillator.start(
@@ -2160,9 +2105,7 @@
 
       ) {
 
-
         return;
-
 
       }
 
@@ -2180,9 +2123,7 @@
 
 
 
-      /*
-         FIRST BEEP
-      */
+      /* FIRST BEEP */
 
       createBeep(
 
@@ -2196,9 +2137,7 @@
 
 
 
-      /*
-         SECOND BEEP
-      */
+      /* SECOND BEEP */
 
       createBeep(
 
@@ -2234,19 +2173,16 @@
       );
 
 
-
       /*
-         FORCE BROWSER TO RESET ANIMATION
+         FORCE ANIMATION RESET
       */
 
       void panel.offsetWidth;
 
 
-
       panel.classList.add(
         "new-data-alert"
       );
-
 
 
       setTimeout(
@@ -2337,10 +2273,6 @@
       }
 
 
-      /*
-         PREFER GOOGLE FORMATTED VALUE
-      */
-
       if (
 
         cell.f !== undefined
@@ -2356,7 +2288,6 @@
 
 
       }
-
 
 
       if (
@@ -2400,24 +2331,18 @@
 
       ) {
 
-
         return null;
 
-
       }
-
 
 
       if (
         typeof value === "number"
       ) {
 
-
         return value;
 
-
       }
-
 
 
       const cleaned =
@@ -2430,7 +2355,6 @@
         );
 
 
-
       const match =
 
         cleaned.match(
@@ -2438,15 +2362,11 @@
         );
 
 
-
       if (!match) {
-
 
         return null;
 
-
       }
-
 
 
       const number =
@@ -2456,19 +2376,15 @@
         );
 
 
-
       if (
         !Number.isFinite(
           number
         )
       ) {
 
-
         return null;
 
-
       }
-
 
 
       return number;
@@ -2487,19 +2403,15 @@
     ) {
 
 
-      /* =======================================================
+      /*
          PRIORITY 1:
          HEADER CONTAINING PRESSURE
-      ======================================================= */
+      */
 
       for (
-
         let i = 0;
-
         i < columns.length;
-
         i++
-
       ) {
 
 
@@ -2511,11 +2423,9 @@
 
 
         if (
-
           name.includes(
             "PRESSURE"
           )
-
         ) {
 
 
@@ -2529,19 +2439,15 @@
 
 
 
-      /* =======================================================
+      /*
          PRIORITY 2:
          HEADER CONTAINING BARG
-      ======================================================= */
+      */
 
       for (
-
         let i = 0;
-
         i < columns.length;
-
         i++
-
       ) {
 
 
@@ -2553,11 +2459,9 @@
 
 
         if (
-
           name.includes(
             "BARG"
           )
-
         ) {
 
 
@@ -2571,19 +2475,15 @@
 
 
 
-      /* =======================================================
+      /*
          PRIORITY 3:
-         COMMON PRESSURE GAUGE NAMES
-      ======================================================= */
+         COMMON PG NAMES
+      */
 
       for (
-
         let i = 0;
-
         i < columns.length;
-
         i++
-
       ) {
 
 
@@ -2618,7 +2518,6 @@
       }
 
 
-
       return -1;
 
 
@@ -2627,7 +2526,7 @@
 
 
     /* =========================================================
-       UPDATE DEPRESSURIZATION STATUS
+       UPDATE STATUS
     ========================================================= */
 
     function updateStatus(
@@ -2658,7 +2557,7 @@
 
 
       /* =======================================================
-         NO PRESSURE VALUE
+         NO VALID PRESSURE
       ======================================================= */
 
       if (
@@ -2700,7 +2599,7 @@
 
 
       /* =======================================================
-         DISPLAY LATEST PRESSURE
+         DISPLAY PRESSURE
       ======================================================= */
 
       pressureDisplay.textContent =
@@ -2745,7 +2644,7 @@
 
 
       /* =======================================================
-         STILL DEPRESSURIZING
+         ONGOING
       ======================================================= */
 
       statusBox.classList.remove(
@@ -2784,7 +2683,6 @@
       const tqx =
 
         `out:json;responseHandler:${SHEET.callback}`;
-
 
 
       const url =
@@ -2982,9 +2880,6 @@
 
     /* =========================================================
        CREATE LATEST ROW SIGNATURE
-
-       THIS IS USED TO DETECT WHETHER THE
-       LATEST DATA HAS CHANGED.
     ========================================================= */
 
     function createRowSignature(
@@ -2999,9 +2894,7 @@
         !row.c
       ) {
 
-
         return "";
-
 
       }
 
@@ -3055,11 +2948,6 @@
         );
 
 
-
-      /* =======================================================
-         INVALID RESPONSE
-      ======================================================= */
-
       if (
 
         !response
@@ -3111,7 +2999,6 @@
 
 
       /* =======================================================
-         DETERMINE VISIBLE COLUMNS
          HIDE UNUSED COLUMNS
       ======================================================= */
 
@@ -3134,7 +3021,6 @@
             );
 
 
-
           const hasActualData =
 
             rows.some(
@@ -3144,9 +3030,7 @@
 
                 if (!row.c) {
 
-
                   return false;
-
 
                 }
 
@@ -3164,14 +3048,6 @@
 
             );
 
-
-
-          /*
-             ONLY DISPLAY COLUMNS THAT HAVE:
-
-             1. A HEADER
-             2. ACTUAL DATA
-          */
 
           if (
 
@@ -3207,10 +3083,6 @@
 
 
 
-      /* =======================================================
-         NO COLUMNS
-      ======================================================= */
-
       if (
         visibleColumns.length === 0
       ) {
@@ -3243,11 +3115,6 @@
         );
 
 
-
-      /* =======================================================
-         TABLE HEADER
-      ======================================================= */
-
       const thead =
 
         document.createElement(
@@ -3260,7 +3127,6 @@
         document.createElement(
           "tr"
         );
-
 
 
       visibleColumns.forEach(
@@ -3334,10 +3200,6 @@
         function (row) {
 
 
-          /* ===================================================
-             CHECK VALID ROW
-          =================================================== */
-
           const rowHasData =
 
             visibleColumns.some(
@@ -3347,9 +3209,7 @@
 
                 if (!row.c) {
 
-
                   return false;
-
 
                 }
 
@@ -3368,31 +3228,21 @@
             );
 
 
-
           if (!rowHasData) {
 
-
             return;
-
 
           }
 
 
-
           rowCount++;
 
-
-
-          /* ===================================================
-             CREATE ROW
-          =================================================== */
 
           const tr =
 
             document.createElement(
               "tr"
             );
-
 
 
           visibleColumns.forEach(
@@ -3440,12 +3290,6 @@
           );
 
 
-
-          /*
-             CURRENT ROW BECOMES THE LATEST
-             VALID ROW.
-          */
-
           lastRowElement =
             tr;
 
@@ -3477,7 +3321,6 @@
               ];
 
 
-
             if (
               pressureCell
             ) {
@@ -3496,13 +3339,11 @@
                 : pressureCell.f;
 
 
-
               const parsedPressure =
 
                 extractNumber(
                   pressureSource
                 );
-
 
 
               if (
@@ -3530,7 +3371,7 @@
 
 
       /* =======================================================
-         NO DATA ROWS
+         NO DATA
       ======================================================= */
 
       if (
@@ -3555,7 +3396,7 @@
 
 
       /* =======================================================
-         CREATE SIGNATURE FOR LATEST DATA
+         CHECK IF NEW LATEST DATA EXISTS
       ======================================================= */
 
       const currentLatestSignature =
@@ -3569,20 +3410,14 @@
         );
 
 
-
-      /* =======================================================
-         DETECT NEW DATA
-      ======================================================= */
-
       if (
         previousLatestSignature === null
       ) {
 
 
         /*
-           INITIAL PAGE LOAD.
-
-           SAVE CURRENT DATA BUT DO NOT BEEP.
+           INITIAL LOAD
+           DO NOT BEEP
         */
 
         previousLatestSignature =
@@ -3605,9 +3440,7 @@
 
 
         /*
-           LATEST DATA CHANGED.
-
-           THIS IS A NEW READING.
+           NEW READING DETECTED
         */
 
         playNewDataBeep();
@@ -3626,7 +3459,7 @@
 
 
       /* =======================================================
-         UPDATE PRESSURE STATUS
+         UPDATE STATUS
       ======================================================= */
 
       const depressurizationComplete =
@@ -3638,7 +3471,7 @@
 
 
       /* =======================================================
-         STYLE LATEST ROW
+         LATEST ROW STYLE
       ======================================================= */
 
       if (
@@ -3650,11 +3483,6 @@
           "latest-row"
         );
 
-
-
-        /* =====================================================
-           COMPLETE <= 5 BARG
-        ===================================================== */
 
         if (
           depressurizationComplete
@@ -3668,11 +3496,6 @@
 
         }
 
-
-
-        /* =====================================================
-           ONGOING > 5 BARG
-        ===================================================== */
 
         else {
 
@@ -3715,7 +3538,6 @@
             );
 
 
-
           if (
             visiblePressurePosition >= 0
           ) {
@@ -3726,7 +3548,6 @@
               lastRowElement.children[
                 visiblePressurePosition
               ];
-
 
 
             if (
@@ -3772,7 +3593,7 @@
 
 
       /* =======================================================
-         SHOW LATEST DATA IMMEDIATELY
+         SHOW LATEST DATA
       ======================================================= */
 
       scrollToLatest(
@@ -3811,7 +3632,7 @@
 
 
     /* =========================================================
-       AUTO REFRESH EVERY 60 SECONDS
+       AUTO REFRESH EVERY 15 SECONDS
     ========================================================= */
 
     setInterval(

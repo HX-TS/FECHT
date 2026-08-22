@@ -90,9 +90,11 @@
         Helvetica,
         sans-serif;
 
-      background: var(--black);
+      background:
+        var(--black);
 
-      color: var(--black);
+      color:
+        var(--black);
 
       overflow: hidden;
 
@@ -114,7 +116,8 @@
 
       flex-direction: column;
 
-      background: var(--black);
+      background:
+        var(--black);
 
       padding: 7px;
 
@@ -146,9 +149,11 @@
       grid-template-columns:
         minmax(0, 1fr)
         minmax(330px, 390px)
-        minmax(210px, 260px);
+        minmax(190px, 235px)
+        minmax(190px, 235px);
 
-      background: var(--cream);
+      background:
+        var(--cream);
 
       border:
         1px solid
@@ -187,9 +192,9 @@
 
       font-size:
         clamp(
-          36px,
-          4.5vw,
-          76px
+          34px,
+          4vw,
+          72px
         );
 
       font-weight: 900;
@@ -202,7 +207,8 @@
 
       text-align: left;
 
-      color: var(--black);
+      color:
+        var(--black);
 
     }
 
@@ -255,7 +261,8 @@
         1px solid
         var(--black);
 
-      background: var(--cream);
+      background:
+        var(--cream);
 
     }
 
@@ -288,7 +295,8 @@
 
       border-radius: 50%;
 
-      background: var(--red);
+      background:
+        var(--red);
 
       box-shadow:
         0 0 0 0
@@ -302,12 +310,12 @@
     }
 
 
-
     @keyframes livePulse {
 
       0% {
 
-        background: var(--red);
+        background:
+          var(--red);
 
         box-shadow:
           0 0 0 0
@@ -318,7 +326,8 @@
 
       50% {
 
-        background: var(--orange);
+        background:
+          var(--orange);
 
         box-shadow:
           0 0 0 8px
@@ -329,7 +338,8 @@
 
       100% {
 
-        background: var(--red);
+        background:
+          var(--red);
 
         box-shadow:
           0 0 0 0
@@ -338,7 +348,6 @@
       }
 
     }
-
 
 
     .hold-panel-title {
@@ -358,7 +367,7 @@
 
 
     /* =========================================================
-       TIMER GRID
+       TIMER
     ========================================================= */
 
     .timer-grid {
@@ -390,7 +399,8 @@
 
       text-transform: uppercase;
 
-      color: #4e4b45;
+      color:
+        #4e4b45;
 
     }
 
@@ -412,15 +422,11 @@
 
       letter-spacing: 0.04em;
 
-      color: var(--black);
+      color:
+        var(--black);
 
     }
 
-
-
-    /* =========================================================
-       BLINKING TIMER
-    ========================================================= */
 
     .timer-value.live {
 
@@ -437,26 +443,28 @@
 
       0% {
 
-        color: var(--black);
+        color:
+          var(--black);
 
       }
 
 
       50% {
 
-        color: var(--red);
+        color:
+          var(--red);
 
       }
 
 
       100% {
 
-        color: var(--black);
+        color:
+          var(--black);
 
       }
 
     }
-
 
 
     .timer-divider {
@@ -470,7 +478,8 @@
         2px
         0;
 
-      background: var(--line);
+      background:
+        var(--line);
 
     }
 
@@ -509,7 +518,8 @@
 
       font-weight: 700;
 
-      color: #5b5751;
+      color:
+        #5b5751;
 
       text-transform: uppercase;
 
@@ -526,7 +536,8 @@
 
       line-height: 1.3;
 
-      color: var(--black);
+      color:
+        var(--black);
 
     }
 
@@ -540,13 +551,14 @@
 
 
     /* =========================================================
-       COMPLETED STATUS
+       HOLD COMPLETED
     ========================================================= */
 
     .hold-panel.completed
     .live-dot {
 
-      background: var(--green);
+      background:
+        var(--green);
 
       animation: none;
 
@@ -558,7 +570,8 @@
     .hold-panel.completed
     .timer-value.live {
 
-      color: var(--green);
+      color:
+        var(--green);
 
       animation: none;
 
@@ -586,7 +599,8 @@
         1px solid
         var(--black);
 
-      background: var(--cream);
+      background:
+        var(--cream);
 
       overflow: hidden;
 
@@ -594,11 +608,6 @@
 
     }
 
-
-
-    /* =========================================================
-       PRESSURE TRENDING PANEL
-    ========================================================= */
 
     .trend-panel {
 
@@ -618,13 +627,14 @@
 
       padding:
         18px
-        16px;
+        14px;
 
       text-align: center;
 
       cursor: pointer;
 
-      background: var(--cream);
+      background:
+        var(--cream);
 
       transition:
         background
@@ -644,7 +654,7 @@
 
 
     /* =========================================================
-       LIVE STATUS
+       PRESSURE TREND LIVE
     ========================================================= */
 
     .trend-status {
@@ -672,7 +682,8 @@
 
       border-radius: 50%;
 
-      background: var(--red);
+      background:
+        var(--red);
 
       animation:
         trendDotPulse
@@ -686,7 +697,8 @@
 
       0% {
 
-        background: var(--red);
+        background:
+          var(--red);
 
         box-shadow:
           0 0 0 0
@@ -697,7 +709,8 @@
 
       50% {
 
-        background: var(--orange);
+        background:
+          var(--orange);
 
         box-shadow:
           0 0 0 8px
@@ -708,7 +721,8 @@
 
       100% {
 
-        background: var(--red);
+        background:
+          var(--red);
 
         box-shadow:
           0 0 0 0
@@ -732,18 +746,13 @@
     }
 
 
-
-    /* =========================================================
-       PRESSURE TRENDING TEXT
-    ========================================================= */
-
     .trend-title {
 
       font-size:
         clamp(
-          18px,
-          1.5vw,
-          24px
+          17px,
+          1.35vw,
+          22px
         );
 
       line-height: 1;
@@ -767,31 +776,29 @@
 
       0% {
 
-        color: var(--black);
+        color:
+          var(--black);
 
       }
 
 
       50% {
 
-        color: var(--red);
+        color:
+          var(--red);
 
       }
 
 
       100% {
 
-        color: var(--black);
+        color:
+          var(--black);
 
       }
 
     }
 
-
-
-    /* =========================================================
-       ARROW
-    ========================================================= */
 
     .trend-arrow {
 
@@ -808,21 +815,18 @@
 
 
     /* =========================================================
-       PRESSURE TRENDING HOVER MESSAGE
-
-       BLACK BOX
-       WHITE FONT
+       PRESSURE TREND HOVER MESSAGE
     ========================================================= */
 
     .trend-hover {
 
       position: absolute;
 
-      left: 14px;
+      left: 10px;
 
-      right: 14px;
+      right: 10px;
 
-      bottom: 14px;
+      bottom: 10px;
 
       min-height: 44px;
 
@@ -834,25 +838,23 @@
 
       padding:
         9px
-        12px;
+        10px;
 
-      background: var(--black);
-
-      color: #ffffff;
-
-      border:
-        1px solid
+      background:
         var(--black);
+
+      color:
+        #ffffff;
 
       text-align: center;
 
-      font-size: 10px;
+      font-size: 9px;
 
       line-height: 1.3;
 
       font-weight: 900;
 
-      letter-spacing: 0.055em;
+      letter-spacing: 0.045em;
 
       text-transform: uppercase;
 
@@ -874,38 +876,14 @@
     }
 
 
-
-    /* SHOW ON HOVER */
-
     .trend-link:hover
-    .trend-hover {
-
-      opacity: 1;
-
-      transform:
-        translateY(0);
-
-    }
-
-
-
-    /* SHOW ON KEYBOARD FOCUS */
+    .trend-hover,
 
     .trend-link:focus
     .trend-hover,
+
     .trend-link:focus-visible
-    .trend-hover {
-
-      opacity: 1;
-
-      transform:
-        translateY(0);
-
-    }
-
-
-
-    /* SHOW WHILE PRESSED ON TOUCH DEVICE */
+    .trend-hover,
 
     .trend-link:active
     .trend-hover {
@@ -914,6 +892,169 @@
 
       transform:
         translateY(0);
+
+    }
+
+
+
+    /* =========================================================
+       DEPRESSURIZATION DATA LINK
+    ========================================================= */
+
+    .depress-link {
+
+      position: relative;
+
+      min-width: 0;
+
+      display: flex;
+
+      text-decoration: none;
+
+      color: inherit;
+
+      border-left:
+        1px solid
+        var(--black);
+
+      background:
+        var(--cream);
+
+      overflow: hidden;
+
+      outline: none;
+
+    }
+
+
+
+    /* =========================================================
+       DEPRESSURIZATION PANEL
+    ========================================================= */
+
+    .depress-panel {
+
+      position: relative;
+
+      width: 100%;
+
+      min-height: 100%;
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+
+      padding:
+        18px
+        14px;
+
+      text-align: center;
+
+      cursor: pointer;
+
+      background:
+        var(--cream);
+
+      transition:
+        background
+        0.18s ease,
+        color
+        0.18s ease;
+
+    }
+
+
+
+    /* =========================================================
+       DEPRESSURIZATION ICON
+    ========================================================= */
+
+    .depress-icon {
+
+      width: 11px;
+
+      height: 11px;
+
+      margin-bottom: 13px;
+
+      border-radius: 50%;
+
+      background:
+        var(--red);
+
+    }
+
+
+
+    /* =========================================================
+       DEPRESSURIZATION TITLE
+    ========================================================= */
+
+    .depress-title {
+
+      font-size:
+        clamp(
+          16px,
+          1.25vw,
+          21px
+        );
+
+      line-height: 1;
+
+      font-weight: 900;
+
+      letter-spacing: -0.02em;
+
+      text-transform: uppercase;
+
+    }
+
+
+    .depress-arrow {
+
+      margin-top: 14px;
+
+      font-size: 22px;
+
+      line-height: 1;
+
+      font-weight: 900;
+
+    }
+
+
+
+    /* =========================================================
+       DEPRESSURIZATION HOVER
+    ========================================================= */
+
+    .depress-link:hover
+    .depress-panel,
+
+    .depress-link:focus-visible
+    .depress-panel {
+
+      background:
+        var(--black);
+
+      color:
+        #ffffff;
+
+    }
+
+
+    .depress-link:hover
+    .depress-icon,
+
+    .depress-link:focus-visible
+    .depress-icon {
+
+      background:
+        #ffffff;
 
     }
 
@@ -953,7 +1094,8 @@
 
       flex-direction: column;
 
-      background: var(--cream);
+      background:
+        var(--cream);
 
       border:
         1px solid
@@ -985,7 +1127,8 @@
         0
         16px;
 
-      background: var(--cream);
+      background:
+        var(--cream);
 
       border-bottom:
         1px solid
@@ -1019,7 +1162,8 @@
 
       overflow-y: auto;
 
-      background: var(--cream);
+      background:
+        var(--cream);
 
       scrollbar-width: thin;
 
@@ -1043,14 +1187,16 @@
 
     .table-wrapper::-webkit-scrollbar-track {
 
-      background: var(--cream-2);
+      background:
+        var(--cream-2);
 
     }
 
 
     .table-wrapper::-webkit-scrollbar-thumb {
 
-      background: #888;
+      background:
+        #888;
 
     }
 
@@ -1068,9 +1214,11 @@
 
       table-layout: auto;
 
-      background: var(--cream);
+      background:
+        var(--cream);
 
-      color: var(--black);
+      color:
+        var(--black);
 
       font-size: 13px;
 
@@ -1103,9 +1251,11 @@
         8px
         12px;
 
-      background: var(--cream);
+      background:
+        var(--cream);
 
-      color: var(--black);
+      color:
+        var(--black);
 
       border-right:
         1px solid
@@ -1152,9 +1302,11 @@
         7px
         12px;
 
-      background: var(--cream);
+      background:
+        var(--cream);
 
-      color: var(--black);
+      color:
+        var(--black);
 
       border-right:
         1px solid
@@ -1186,7 +1338,8 @@
 
     tbody tr:hover td {
 
-      background: #e9e5de;
+      background:
+        #e9e5de;
 
     }
 
@@ -1204,14 +1357,15 @@
         2px solid
         var(--black);
 
-      background: #e7e3dc;
+      background:
+        #e7e3dc;
 
     }
 
 
 
     /* =========================================================
-       DATETIME WIDTH
+       TIMESTAMP / DATE / TIME WIDTH
     ========================================================= */
 
     th:nth-child(1),
@@ -1256,7 +1410,8 @@
 
       padding: 20px;
 
-      background: var(--cream);
+      background:
+        var(--cream);
 
       text-align: center;
 
@@ -1296,7 +1451,8 @@
           env(safe-area-inset-bottom)
         );
 
-      background: var(--cream);
+      background:
+        var(--cream);
 
       border:
         1px solid
@@ -1317,11 +1473,10 @@
 
 
     /* =========================================================
-       TABLET
+       TABLET / SMALL LAPTOP
     ========================================================= */
 
-    @media (max-width: 1100px) {
-
+    @media (max-width: 1200px) {
 
       :root {
 
@@ -1334,8 +1489,9 @@
 
         grid-template-columns:
           minmax(0, 1fr)
-          315px
-          190px;
+          300px
+          175px
+          175px;
 
       }
 
@@ -1353,9 +1509,9 @@
 
         font-size:
           clamp(
-            29px,
-            4.8vw,
-            55px
+            28px,
+            4.3vw,
+            52px
           );
 
       }
@@ -1386,6 +1542,8 @@
 
       .timer-value {
 
+        min-width: 95px;
+
         font-size: 17px;
 
       }
@@ -1393,29 +1551,24 @@
 
       .trend-title {
 
-        font-size: 17px;
+        font-size: 16px;
 
       }
 
 
-      .trend-panel {
+      .depress-title {
+
+        font-size: 15px;
+
+      }
+
+
+      .trend-panel,
+      .depress-panel {
 
         padding:
-          15px
-          10px;
-
-      }
-
-
-      .trend-hover {
-
-        left: 8px;
-
-        right: 8px;
-
-        bottom: 8px;
-
-        font-size: 8px;
+          14px
+          9px;
 
       }
 
@@ -1428,7 +1581,6 @@
     ========================================================= */
 
     @media (max-width: 700px) {
-
 
       :root {
 
@@ -1458,13 +1610,17 @@
 
       /* =======================================================
          MOBILE HEADER
+
+         ROW 1 = TITLE
+         ROW 2 = HOLD + PRESSURE TRENDING
+         ROW 3 = DEPRESSURIZATION DATA
       ======================================================= */
 
       .hero {
 
-        height: 174px;
+        height: 245px;
 
-        min-height: 174px;
+        min-height: 245px;
 
         display: grid;
 
@@ -1474,7 +1630,8 @@
 
         grid-template-rows:
           68px
-          106px;
+          106px
+          71px;
 
       }
 
@@ -1508,9 +1665,9 @@
 
         font-size:
           clamp(
-            23px,
-            7vw,
-            32px
+            22px,
+            6.7vw,
+            31px
           );
 
         line-height: 0.88;
@@ -1544,7 +1701,7 @@
 
 
       /* =======================================================
-         MOBILE HOLDING PERIOD
+         MOBILE HOLD PERIOD
       ======================================================= */
 
       .hold-panel {
@@ -1729,14 +1886,80 @@
 
         font-size: 6px;
 
-        line-height: 1.25;
+      }
+
+
+
+      /* =======================================================
+         MOBILE DEPRESSURIZATION
+      ======================================================= */
+
+      .depress-link {
+
+        grid-column:
+          1 / -1;
+
+        grid-row: 3;
+
+        border-left: none;
+
+        border-top:
+          1px solid
+          var(--black);
+
+      }
+
+
+      .depress-panel {
+
+        flex-direction: row;
+
+        gap: 11px;
+
+        padding:
+          8px
+          12px;
+
+      }
+
+
+      .depress-icon {
+
+        width: 8px;
+
+        height: 8px;
+
+        margin-bottom: 0;
+
+      }
+
+
+      .depress-title {
+
+        font-size: 13px;
+
+      }
+
+
+      .depress-title br {
+
+        display: none;
+
+      }
+
+
+      .depress-arrow {
+
+        margin-top: 0;
+
+        font-size: 16px;
 
       }
 
 
 
       /* =======================================================
-         MOBILE TABLES
+         MOBILE DATA TABLE
       ======================================================= */
 
       .dashboard {
@@ -1802,7 +2025,7 @@
 
 
     /* =========================================================
-       LANDSCAPE / SHORT SCREEN
+       SHORT SCREEN / LANDSCAPE LAPTOP
     ========================================================= */
 
     @media
@@ -1810,12 +2033,11 @@
     and
     (min-width: 701px) {
 
-
       .hero {
 
-        min-height: 95px;
+        min-height: 100px;
 
-        height: 95px;
+        height: 100px;
 
       }
 
@@ -1823,8 +2045,8 @@
       .hero-left {
 
         padding:
-          8px
-          15px;
+          7px
+          13px;
 
       }
 
@@ -1833,9 +2055,9 @@
 
         font-size:
           clamp(
-            22px,
-            3.6vw,
-            42px
+            21px,
+            3.2vw,
+            38px
           );
 
       }
@@ -1867,7 +2089,7 @@
 
         padding:
           6px
-          12px;
+          10px;
 
       }
 
@@ -1916,9 +2138,39 @@
       }
 
 
+      .timer-note-item {
+
+        font-size: 6px;
+
+      }
+
+
+      .timer-note-item strong {
+
+        font-size: 7px;
+
+      }
+
+
+      .trend-status {
+
+        margin-bottom: 6px;
+
+      }
+
+
       .trend-title {
 
-        font-size: 16px;
+        font-size: 14px;
+
+      }
+
+
+      .trend-arrow {
+
+        margin-top: 6px;
+
+        font-size: 15px;
 
       }
 
@@ -1933,7 +2185,30 @@
           4px
           6px;
 
-        font-size: 7px;
+        font-size: 6px;
+
+      }
+
+
+      .depress-icon {
+
+        margin-bottom: 6px;
+
+      }
+
+
+      .depress-title {
+
+        font-size: 13px;
+
+      }
+
+
+      .depress-arrow {
+
+        margin-top: 6px;
+
+        font-size: 15px;
 
       }
 
@@ -2001,7 +2276,7 @@
 
 
       <!-- ===================================================
-           TITLE
+           MAIN TITLE
       ==================================================== -->
 
       <div class="hero-left">
@@ -2169,13 +2444,16 @@
 
           <div class="trend-status">
 
+
             <div class="trend-dot"></div>
+
 
             <div class="trend-live">
 
               Live
 
             </div>
+
 
           </div>
 
@@ -2198,6 +2476,7 @@
           </div>
 
 
+
           <!-- ===============================================
                HOVER MESSAGE
           ================================================ -->
@@ -2215,15 +2494,60 @@
       </a>
 
 
+
+      <!-- ===================================================
+           DEPRESSURIZATION DATA
+      ==================================================== -->
+
+      <a
+        class="depress-link"
+        href="https://hx-ts.github.io/FECHT/DEPRESSURIZE/index.html"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Open Depressurization Data"
+      >
+
+
+        <div class="depress-panel">
+
+
+          <div class="depress-icon"></div>
+
+
+          <div class="depress-title">
+
+            Depressurization
+
+            <br>
+
+            Data
+
+          </div>
+
+
+          <div class="depress-arrow">
+
+            ↗
+
+          </div>
+
+
+        </div>
+
+
+      </a>
+
+
     </header>
 
 
 
     <!-- =====================================================
-         DASHBOARD
+         MAIN DASHBOARD
     ====================================================== -->
 
     <main class="dashboard">
+
 
 
       <!-- ===================================================
@@ -2318,12 +2642,6 @@
     /* =========================================================
        HYDROTEST HOLDING PERIOD
        MALAYSIA TIME UTC +08:00
-
-       START:
-       21/8/2026 21:30
-
-       COMPLETION:
-       22/8/2026 21:30
     ========================================================= */
 
 
@@ -2352,7 +2670,7 @@
 
 
     /* =========================================================
-       FORMAT TIME HH:MM:SS
+       FORMAT TIMER HH:MM:SS
     ========================================================= */
 
     function formatDuration(ms) {
@@ -2603,7 +2921,6 @@
     }
 
 
-
     updateHoldingTimer();
 
 
@@ -2624,7 +2941,7 @@
 
 
     /* =========================================================
-       GPS
+       GPS SHEET
     ========================================================= */
 
     const GPS = {
@@ -2667,7 +2984,7 @@
 
 
     /* =========================================================
-       GPP4
+       GPP4 SHEET
     ========================================================= */
 
     const GPP4 = {
@@ -2785,7 +3102,6 @@
         Date.now();
 
 
-
       const script =
 
         document.createElement(
@@ -2815,13 +3131,9 @@
 
           container.innerHTML =
 
-            '<div class="message">'
+            '<div class="message">' +
 
-            +
-
-            'Unable to load Google Sheet data'
-
-            +
+            'Unable to Load Google Sheet Data' +
 
             '</div>';
 
@@ -2843,7 +3155,9 @@
                 script.parentNode
               ) {
 
+
                 script.remove();
+
 
               }
 
@@ -2901,7 +3215,7 @@
 
 
     /* =========================================================
-       GET DISPLAY VALUE
+       DISPLAY VALUE
     ========================================================= */
 
     function getCellDisplayValue(cell) {
@@ -2924,7 +3238,9 @@
 
       ) {
 
+
         return cell.f;
+
 
       }
 
@@ -2939,19 +3255,22 @@
 
       ) {
 
+
         return cell.v;
+
 
       }
 
 
       return "";
 
+
     }
 
 
 
     /* =========================================================
-       AUTO SCROLL TO LATEST ROW
+       AUTO SCROLL TO LATEST DATA
     ========================================================= */
 
     function scrollTableToBottom(
@@ -3022,13 +3341,9 @@
 
         container.innerHTML =
 
-          '<div class="message">'
+          '<div class="message">' +
 
-          +
-
-          'No data available'
-
-          +
+          'No Data Available' +
 
           '</div>';
 
@@ -3114,7 +3429,9 @@
 
           ) {
 
+
             return;
+
 
           }
 
@@ -3190,13 +3507,9 @@
 
         container.innerHTML =
 
-          '<div class="message">'
+          '<div class="message">' +
 
-          +
-
-          'No data available'
-
-          +
+          'No Data Available' +
 
           '</div>';
 
@@ -3220,7 +3533,7 @@
 
 
       /* =======================================================
-         HEADER
+         TABLE HEADER
       ======================================================= */
 
       const thead =
@@ -3315,7 +3628,11 @@
 
 
                 return cellHasValue(
-                  row.c[item.index]
+
+                  row.c[
+                    item.index
+                  ]
+
                 );
 
 
@@ -3407,13 +3724,9 @@
 
         container.innerHTML =
 
-          '<div class="message">'
+          '<div class="message">' +
 
-          +
-
-          'No readings available yet'
-
-          +
+          'No Readings Available Yet' +
 
           '</div>';
 
@@ -3425,7 +3738,7 @@
 
 
       /* =======================================================
-         LATEST ROW
+         HIGHLIGHT LATEST ROW
       ======================================================= */
 
       if (
@@ -3458,7 +3771,7 @@
 
 
       /* =======================================================
-         AUTO SCROLL TO LATEST READING
+         SHOW LATEST DATA
       ======================================================= */
 
       scrollTableToBottom(
@@ -3509,7 +3822,7 @@
 
 
     /* =========================================================
-       REFRESH BOTH SHEETS
+       REFRESH ALL DATA
     ========================================================= */
 
     function refreshAll() {
